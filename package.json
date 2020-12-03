@@ -1,0 +1,33 @@
+{
+  "name": "pomodoro",
+  "version": "1.0.0",
+  "description": "Pomodoro ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node backend/server",
+    "server": "nodemon backend/server",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaciejFigat/pomodoro.git"
+  },
+  "author": "Maciej Figat",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MaciejFigat/pomodoro/issues"
+  },
+  "homepage": "https://github.com/MaciejFigat/pomodoro#readme",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.8"
+  }
+}
