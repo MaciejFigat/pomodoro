@@ -14,6 +14,10 @@ in package.json (in the root) I added 3 scripts
 9. ES modules setup - in package.json "type": "module",
 10. server runs, colors added
 11. data with users.js - seeder script, seeder scripts in package.json
-. controllers/userController.js - not yet
-
+12. utilities/generateToken.js -added JWT_SECRET in .env
+13. controllers/userController.js - controller for authentication of the user  
+_authUser_ -
+14. middleware folder - >authMiddleware.js and errorMiddleware.js
+15. userRoutes.js
+16. database connected, Postman userRoutes testing - authUser works
 

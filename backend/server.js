@@ -3,12 +3,16 @@ import dotenv from 'dotenv'
 import connectDB from './config/db.js'
 import morgan from 'morgan'
 import colors from 'colors'
+import userRoutes from './routes/userRoutes.js'
 
 dotenv.config()
+connectDB()
 
 const app = express()
 
 app.use(express.json())
+
+app.use('/api/users', userRoutes)
 
 app.get('/', (req, res) => {
   res.send('API is running')
