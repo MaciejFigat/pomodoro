@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 
 const PomodoroDisplayScreen = () => {
   const [pomodoroDuration, setPomodoroDuration] = useState(25)
-  const [seconds, setSeconds] = useState(25 * 60)
+  const [pomodoroDone, setPomodoroDone] = useState(0)
   const [restDuration, setRestDuration] = useState(5)
+  const [seconds, setSeconds] = useState(25 * 60)
+  const [restSeconds, setRestSeconds] = useState(5 * 60)
   const [isActive, setIsActive] = useState(false)
 
   const toggle = () => {
@@ -12,22 +14,49 @@ const PomodoroDisplayScreen = () => {
 
   const reset = () => {
     setSeconds(pomodoroDuration * 60)
-    setIsActive(false)
+    setRestSeconds(restDuration * 60)
   }
 
-  useEffect(() => {
-    let timer = null
+  const pomodoroDurationPlus = () => {
+    if (pomodoroDuration < 60) {
+      setPomodoroDuration((pomodoroDuration) => pomodoroDuration + 1)
+    }
+  }
 
-    if (isActive && seconds > 0) {
-      timer = setInterval(() => {
-        setSeconds((seconds) => seconds - 1)
-      }, 1000)
-    } else if (!isActive && seconds === 0) {
-      clearInterval(timer)
+  const pomodoroDurationMinus = () => {
+    if (pomodoroDuration > 0) {
+      setPomodoroDuration((pomodoroDuration) => pomodoroDuration - 1)
+    }
+  }
+
+  const restDurationPlus = () => {
+    if (restDuration < 60) {
+      setRestDuration((restDuration) => restDuration + 1)
+    }
+  }
+
+  const restDurationMinus = () => {
+    if (restDuration > 0) {
+      setRestDuration((restDuration) => restDuration - 1)
+    }
+  }
+  useEffect(() => {
+    if (isActive && restSeconds === 0 && seconds === 0) {
+      setSeconds(pomodoroDuration * 60)
+      setRestSeconds(restDuration * 60)
+      setPomodoroDone((pomodoroDone) => pomodoroDone + 1)
     }
 
+    const timer = setInterval(() => {
+      if (isActive && seconds > 0) {
+        setSeconds((seconds) => seconds - 1)
+      } else if (isActive && restSeconds > 0 && seconds === 0) {
+        setRestSeconds((restSeconds) => restSeconds - 1)
+      }
+    }, 1000)
+
     return () => clearInterval(timer)
-  }, [isActive, seconds, pomodoroDuration])
+  }, [isActive, seconds, restSeconds, pomodoroDuration, restDuration])
 
   const style = {
     display: 'grid',
@@ -36,51 +65,36 @@ const PomodoroDisplayScreen = () => {
   return (
     <>
       <div style={style}>
-        <h1>Display timer</h1>
-        <p>Number of Pomodoros: 1</p>
-        <p>
-          {!(seconds > 0) ? (
-            <h2>00 : 00</h2>
-          ) : (
-            `${Math.trunc(seconds / 60)} : ${seconds % 60}`
-          )}
-        </p>
+        {isActive && seconds > 0 ? <h1>Work</h1> : <h1>Rest</h1>}
+        <p>Number of Pomodoros done: {pomodoroDone}</p>
+
+        {seconds === 0 ? (
+          <h2>
+            {Math.trunc(restSeconds / 60)} : {restSeconds % 60}
+          </h2>
+        ) : (
+          <h2>
+            {Math.trunc(seconds / 60)} : {seconds % 60}
+          </h2>
+        )}
+
         <button onClick={toggle}>{isActive ? 'Pause' : 'Start'}</button>
+        <button onClick={() => setSeconds(seconds - 1)}>---</button>
+        <button onClick={() => setRestSeconds(restSeconds - 1)}>---</button>
+
+        {isActive && seconds === 0 && (
+          <button onClick={() => setRestSeconds(0)}>Skip rest</button>
+        )}
+
         <p>
           Rest: {restDuration},{' '}
-          <button
-            onClick={() => {
-              setRestDuration(restDuration - 1)
-            }}
-          >
-            Decrease rest period
-          </button>
-          <button
-            onClick={() => {
-              setRestDuration(restDuration + 1)
-            }}
-          >
-            Increase rest period
-          </button>
+          <button onClick={restDurationMinus}>Decrease rest period</button>
+          <button onClick={restDurationPlus}>Increase rest period</button>
         </p>
         <p>
           Duration of a pomodoro: {pomodoroDuration}{' '}
-          <button
-            onClick={() => {
-              setPomodoroDuration(pomodoroDuration - 1)
-              // setSeconds(pomodoroDuration * 60)
-            }}
-          >
-            Decrease pomodoro
-          </button>
-          <button
-            onClick={() => {
-              setPomodoroDuration(pomodoroDuration + 1)
-              // setSeconds(pomodoroDuration * 60)
-            }}
-          >
-            Increase pomodoro
-          </button>
+          <button onClick={pomodoroDurationMinus}>Decrease pomodoro</button>
+          <button onClick={pomodoroDurationPlus}>Increase pomodoro</button>
         </p>
         <button onClick={reset}>Reset timer</button>
       </div>
