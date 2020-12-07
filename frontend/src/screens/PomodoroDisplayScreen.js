@@ -79,8 +79,10 @@ const PomodoroDisplayScreen = () => {
         )}
 
         <button onClick={toggle}>{isActive ? 'Pause' : 'Start'}</button>
-        <button onClick={() => setSeconds(seconds - 1)}>---</button>
-        <button onClick={() => setRestSeconds(restSeconds - 1)}>---</button>
+        <button onClick={() => setSeconds(seconds - 1)}>---testing work</button>
+        <button onClick={() => setRestSeconds(restSeconds - 1)}>
+          --- testing rest
+        </button>
 
         {isActive && seconds === 0 && (
           <button onClick={() => setRestSeconds(0)}>Skip rest</button>
