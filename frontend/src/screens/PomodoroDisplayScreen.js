@@ -62,6 +62,7 @@ const PomodoroDisplayScreen = () => {
     display: 'grid',
     placeItems: 'center',
   }
+
   return (
     <>
       <div style={style}>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { login, logout } from '../actions/userActions'
@@ -17,7 +17,9 @@ const LoginScreen = () => {
     e.preventDefault()
     dispatch(login(email, password))
   }
-
+  const loginHandler = (e) => {
+    dispatch(login(email, password))
+  }
   const submitHandlerLogout = (e) => {
     dispatch(logout)
   }
@@ -29,19 +31,21 @@ const LoginScreen = () => {
         <p>Enter your email:</p>
         <input
           type='email'
-          placeholder='Wpisz adres email'
+          placeholder='Enter your email'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <p>Enter your password:</p>
         <input
           type='password'
-          placeholder='Wpisz hasło'
+          placeholder='Enter your password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type='submit'>Login</button>
+        <button type='submit'>Submit login</button>
       </form>
+      <button onClick={loginHandler}>Login2</button>
+      <button onClick={submitHandler}>Login</button>
       <button onClick={submitHandlerLogout}>Logout</button>
     </>
   )
