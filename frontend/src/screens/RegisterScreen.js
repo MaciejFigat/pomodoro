@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-
-import FormContainer from '../components/FormContainer'
+import { Form, Button, Row, Col } from 'react-bootstrap'
+import Message from '../components/Message'
 import { register } from '../actions/userActions'
+import FormContainer from '../components/FormContainer'
 
-const RegisterScreen = ({ location, history }) => {
+const RegisterScreen = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -19,13 +19,10 @@ const RegisterScreen = ({ location, history }) => {
 
   const { loading, error, userInfo } = userRegister
 
-  //   in order to prevent showing login (so I need to redirect) when I'm already logged in,
-  //   so if I check whether userInfo exists, or changes I can ascertain if I need to redirect from loggin in
-
   const submitHandler = (e) => {
     e.preventDefault()
     if (password !== confirmPassword) {
-      setMessage('Hasło niepoprawne')
+      setMessage("Password and confirm password don't match")
     } else {
       dispatch(register(name, email, password))
     }
@@ -33,56 +30,47 @@ const RegisterScreen = ({ location, history }) => {
 
   return (
     <FormContainer>
-      <h1>Zarejestruj się</h1>
-
       <Form onSubmit={submitHandler}>
+        <h1>Register new user</h1>
+        {message && <Message variant='warning'>{message}</Message>}
         <Form.Group controlId='name'>
-          <Form.Label>Imię</Form.Label>
+          <Form.Label>Name:</Form.Label>
           <Form.Control
             type='name'
-            placeholder='Wpisz imię'
+            placeholder='Enter your name'
             value={name}
             onChange={(e) => setName(e.target.value)}
-          ></Form.Control>
+          />
         </Form.Group>
-
         <Form.Group controlId='email'>
-          <Form.Label>Adres email</Form.Label>
+          <Form.Label>Email:</Form.Label>
           <Form.Control
             type='email'
-            placeholder='Wpisz adres email'
+            placeholder='Enter your email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-          ></Form.Control>
+          />
         </Form.Group>
-
         <Form.Group controlId='password'>
-          <Form.Label>Hasło</Form.Label>
+          <Form.Label>Password:</Form.Label>
           <Form.Control
             type='password'
-            placeholder='Wpisz hasło'
+            placeholder='Enter password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-          ></Form.Control>
+          />
         </Form.Group>
-
         <Form.Group controlId='confirmPassword'>
-          <Form.Label>Potwierdź hasło</Form.Label>
+          <Form.Label>Confirm password:</Form.Label>
           <Form.Control
             type='password'
-            placeholder='Potwierdź hasło'
+            placeholder='Confirm your password'
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-          ></Form.Control>
+          />
         </Form.Group>
-
-        <Button type='submit' variant='primary'>
-          Zarejestruj się
-        </Button>
+        <Button type='submit'>Register</Button>
       </Form>
-      <Row className='py-3'>
-        <Col>Jeśli już posiadasz konto </Col>
-      </Row>
     </FormContainer>
   )
 }

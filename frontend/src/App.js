@@ -1,4 +1,5 @@
 import React from 'react'
+import { Container } from 'react-bootstrap'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Header from './components/Header'
 import PomodoroDisplayScreen from './screens/PomodoroDisplayScreen'
@@ -8,22 +9,16 @@ import RegisterScreen from './screens/RegisterScreen'
 
 function App() {
   return (
-    <>
-      <LoginTest />
-      <RegisterScreen />
-    </>
+    <Router>
+      <Header />
+      <Container>
+        <Route path='/logintest' component={LoginTest} />
+        <Route path='/login' component={LoginScreen} />
+        <Route path='/register' component={RegisterScreen} />
+        <Route path='/' component={PomodoroDisplayScreen} exact />
+      </Container>
+    </Router>
   )
 }
 
 export default App
-
-// <Router>
-//       <Header />
-//       <LoginScreen />
-//       <LoginTest />
-//       <Route path='/login' component={LoginScreen} />
-//       <Route path='/register' component={RegisterScreen} />
-//       <Route path='/pomodoro' component={PomodoroDisplayScreen} />
-//       <PomodoroDisplayScreen />
-//       <RegisterScreen />
-//     </Router>

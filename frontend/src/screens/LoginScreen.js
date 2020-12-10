@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { login, logout } from '../actions/userActions'
+import { login } from '../actions/userActions'
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('')
@@ -19,9 +19,6 @@ const LoginScreen = () => {
   }
   const loginHandler = (e) => {
     dispatch(login(email, password))
-  }
-  const submitHandlerLogout = (e) => {
-    dispatch(logout)
   }
 
   return (
@@ -42,11 +39,10 @@ const LoginScreen = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type='submit'>Submit login</button>
+        <button type='submit'>Login</button>
       </form>
       <button onClick={loginHandler}>Login2</button>
       <button onClick={submitHandler}>Login</button>
-      <button onClick={submitHandlerLogout}>Logout</button>
     </>
   )
 }

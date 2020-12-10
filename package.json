@@ -1,7 +1,7 @@
 {
-  "name": "shop_mern",
+  "name": "pomodoroApp",
   "version": "1.0.0",
-  "description": "MERN cart for shopping application",
+  "description": "MERN pomodoro app",
   "main": "server.js",
   "type": "module",
   "dependencies": {
@@ -35,7 +35,7 @@
     "type": "git",
     "url": "git+https://github.com/MaciejFigat/pomodoro.git"
   },
-  "author": "MTF",
+  "author": "Maciej Figat",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/MaciejFigat/pomodoro/issues"
