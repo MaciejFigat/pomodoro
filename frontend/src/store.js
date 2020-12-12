@@ -3,13 +3,13 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { userLoginReducer, userRegisterReducer } from './reducers/userReducers'
 import {
-  getPomodorosReducer,
+  getPomodoroInfoReducer,
   pomodoroCreateReducer,
 } from './reducers/pomodoroReducers'
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
-  getPomodoros: getPomodorosReducer,
+  getPomodoroInfo: getPomodoroInfoReducer,
   pomodoroCreate: pomodoroCreateReducer,
 })
 
@@ -17,8 +17,17 @@ const userInfoFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
   : null
 
+const pomodoroInfoFromStorage = localStorage.getItem('pomodoroInfo')
+  ? JSON.parse(localStorage.getItem('pomodoroInfo'))
+  : null
+
 const initialState = {
   userLogin: { userInfo: userInfoFromStorage },
+  getPomodoroInfo: {
+    pomodoroInfo: pomodoroInfoFromStorage,
+    pomodoroSeconds: 1500,
+    restSeconds: 300,
+  },
 }
 const middleware = [thunk]
 

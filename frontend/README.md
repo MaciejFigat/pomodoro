@@ -21,3 +21,7 @@ npm i redux-devtools-extension
 
  1. redux setup for registering the user
  2. backend for registerUser 
+
+## ## setup for global state for the following:
+- secondsPomodoro - default (25*60)
+- secondsRest - default (5*60) 

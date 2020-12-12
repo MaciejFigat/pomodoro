@@ -7,6 +7,8 @@ import {
   POMODORO_CREATE_SUCCESS,
   POMODORO_CREATE_FAIL,
   POMODORO_CREATE_RESET,
+  POMODORO_SECONDS_UPDATE,
+  REST_SECONDS_UPDATE,
 } from '../constants/pomodoroConstants'
 
 export const getPomodoros = () => async (dispatch) => {
@@ -51,4 +53,13 @@ export const createPomodoro = () => async (dispatch, getState) => {
           : error.message,
     })
   }
+}
+
+export const setPomodoroSeconds = (data) => (dispatch) => {
+  dispatch({
+    type: POMODORO_SECONDS_UPDATE,
+    payload: data,
+  })
+
+  localStorage.setItem('pomodoroSeconds', JSON.stringify(data))
 }

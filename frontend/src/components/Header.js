@@ -16,39 +16,29 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
+      <Navbar bg='light' variant='light' expand='lg' collapseOnSelect>
         <Container>
-          PomTimer
+          pomodoroTimer
           <LinkContainer to='/'>
             <Navbar.Brand>HOME</Navbar.Brand>
           </LinkContainer>
           {userInfo ? (
             <NavDropdown title={userInfo.name} id='username'>
               <LinkContainer to={'/profile'}>
-                <NavDropdown.Item>Profil</NavDropdown.Item>
+                <NavDropdown.Item>Profile</NavDropdown.Item>
               </LinkContainer>
               <NavDropdown.Item onClick={logoutHandler}>
-                Wyloguj się
+                Logout
               </NavDropdown.Item>
             </NavDropdown>
           ) : (
             <LinkContainer to='/login'>
               <Nav.Link>
-                <i className='fas fa-user-tie'></i> Zaloguj się
+                <i className='fas fa-user-tie'></i> Log in
               </Nav.Link>
             </LinkContainer>
           )}
-          <LinkContainer to='/login'>
-            <Navbar.Brand>LOGIN</Navbar.Brand>
-          </LinkContainer>
-          <LinkContainer to='/logintest'>
-            <Navbar.Brand>LOGIN 2</Navbar.Brand>
-          </LinkContainer>
-          <LinkContainer to='/register'>
-            <Navbar.Brand>REGISTER</Navbar.Brand>
-          </LinkContainer>
         </Container>
-        <button onClick={logoutHandler}>LOGOUT</button>
       </Navbar>
     </header>
   )

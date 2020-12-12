@@ -8,14 +8,17 @@ import {
   POMODORO_CREATE_RESET,
 } from '../constants/pomodoroConstants'
 
-export const getPomodorosReducer = (state = { pomodoros: [] }, action) => {
+export const getPomodoroInfoReducer = (
+  state = { pomodoroInfo: {} },
+  action
+) => {
   switch (action.type) {
     case POMODORO_GET_REQUEST:
-      return { loading: true, pomodoros: [] }
+      return { loading: true, pomodoroInfo: {} }
     case POMODORO_GET_SUCCESS:
       return {
         loading: false,
-        pomodoros: action.payload.pomodoros,
+        pomodoroInfo: action.payload.pomodoroInfo,
       }
     case POMODORO_GET_FAIL:
       return { loading: false, error: action.payload }

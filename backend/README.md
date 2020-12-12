@@ -25,7 +25,7 @@ _authUser_ -
 user Authentication (logging in, registering new user)
 <!-- admin users - will get more options, ie. cleanup, maybe trends idk -->
 POST PUT GET req for data from Pomodoro tied to a user ie. 
-preferences {
+preferedPomodoro {
     pomodoroDuration
     restDuration
 }
