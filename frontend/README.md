@@ -25,3 +25,7 @@ npm i redux-devtools-extension
 ## ## setup for global state for the following:
 - secondsPomodoro - default (25*60)
 - secondsRest - default (5*60) 
+1. constants
+POMODORO_DURATION_CHANGE_REQUEST
+
+

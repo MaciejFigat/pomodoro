@@ -22,6 +22,11 @@ const Header = () => {
           <LinkContainer to='/'>
             <Navbar.Brand>HOME</Navbar.Brand>
           </LinkContainer>
+          <LinkContainer to='/custom'>
+            <Nav.Link>
+              <i className='fas fa-user-clock'></i> Your Pomodoro
+            </Nav.Link>
+          </LinkContainer>
           {userInfo ? (
             <NavDropdown title={userInfo.name} id='username'>
               <LinkContainer to={'/profile'}>

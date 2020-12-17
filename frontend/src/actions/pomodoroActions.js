@@ -11,11 +11,11 @@ import {
   REST_SECONDS_UPDATE,
 } from '../constants/pomodoroConstants'
 
-export const getPomodoros = () => async (dispatch) => {
+export const getPomodoro = () => async (dispatch) => {
   try {
     dispatch({ type: POMODORO_GET_REQUEST })
 
-    const { data } = await axios.get(`/api/pomodoros`)
+    // const { data } = await axios.get(`/api/pomodoros`)
 
     dispatch({
       type: POMODORO_GET_SUCCESS,
