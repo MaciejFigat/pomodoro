@@ -5,12 +5,16 @@ import { userLoginReducer, userRegisterReducer } from './reducers/userReducers'
 import {
   getPomodoroInfoReducer,
   pomodoroCreateReducer,
+  counterPomodoroReducer,
+  counterRestReducer,
 } from './reducers/pomodoroReducers'
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   getPomodoroInfo: getPomodoroInfoReducer,
   pomodoroCreate: pomodoroCreateReducer,
+  counterPomodoro: counterPomodoroReducer,
+  counterRest: counterRestReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
@@ -21,13 +25,22 @@ const pomodoroInfoFromStorage = localStorage.getItem('pomodoroInfo')
   ? JSON.parse(localStorage.getItem('pomodoroInfo'))
   : null
 
+export const pomodoroSecondsFromStorage = localStorage.getItem(
+  'pomodoroSeconds'
+)
+  ? JSON.parse(localStorage.getItem('pomodoroSeconds'))
+  : 3
+export const restSecondsFromStorage = localStorage.getItem('restSeconds')
+  ? JSON.parse(localStorage.getItem('restSeconds'))
+  : 3
+
 const initialState = {
   userLogin: { userInfo: userInfoFromStorage },
   getPomodoroInfo: {
     pomodoroInfo: pomodoroInfoFromStorage,
-    pomodoroSeconds: 1500,
-    restSeconds: 300,
   },
+  counterPomodoro: { pomodoroSeconds: pomodoroSecondsFromStorage },
+  counterRest: { restSeconds: restSecondsFromStorage },
 }
 const middleware = [thunk]
 

@@ -2,8 +2,16 @@ import React, { useState, useEffect } from 'react'
 import { Container, Button, Row, Col, Badge, Card } from 'react-bootstrap'
 import FormContainer from '../components/FormContainer'
 import { useDispatch, useSelector } from 'react-redux'
+import {
+  decreasePomodoro,
+  resetPomodoro,
+  decreaseRest,
+  resetRest,
+} from '../actions/pomodoroActions'
 
 const CustomPomodoroScreen = () => {
+  const dispatch = useDispatch()
+
   const [pomodoroDuration, setPomodoroDuration] = useState(25)
   const [pomodoroDone, setPomodoroDone] = useState(0)
   const [restDuration, setRestDuration] = useState(5)
@@ -53,6 +61,7 @@ const CustomPomodoroScreen = () => {
     const timer = setInterval(() => {
       if (isActive && seconds > 0) {
         setSeconds((seconds) => seconds - 1)
+        dispatch(decreasePomodoro())
       } else if (isActive && restSeconds > 0 && seconds === 0) {
         setRestSeconds((restSeconds) => restSeconds - 1)
       }
@@ -153,6 +162,18 @@ const CustomPomodoroScreen = () => {
       <button onClick={() => setSeconds(seconds - 10)}>---testing work</button>
       <button onClick={() => setRestSeconds(restSeconds - 10)}>
         --- testing rest
+      </button>
+      <button onClick={() => dispatch(decreasePomodoro())}>
+        --- testing action decrease pomodoro seconds in store
+      </button>
+      <button onClick={() => dispatch(decreaseRest())}>
+        --- testing action decrease rest seconds in store
+      </button>
+      <button onClick={() => dispatch(resetRest())}>
+        --- testing action reset rest
+      </button>
+      <button onClick={() => dispatch(resetPomodoro())}>
+        --- testing action reset pomodoro
       </button>
     </FormContainer>
   )

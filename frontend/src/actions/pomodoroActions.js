@@ -9,57 +9,74 @@ import {
   POMODORO_CREATE_RESET,
   POMODORO_SECONDS_UPDATE,
   REST_SECONDS_UPDATE,
+  POMODORO_SECONDS_DECREMENT,
+  POMODORO_SECONDS_RESET,
+  REST_SECONDS_DECREMENT,
+  REST_SECONDS_RESET,
 } from '../constants/pomodoroConstants'
 
-export const getPomodoro = () => async (dispatch) => {
-  try {
-    dispatch({ type: POMODORO_GET_REQUEST })
+// export const getPomodoro = () => async (dispatch) => {
+//   try {
+//     dispatch({ type: POMODORO_GET_REQUEST })
 
-    // const { data } = await axios.get(`/api/pomodoros`)
+//     // const { data } = await axios.get(`/api/pomodoros`)
 
-    dispatch({
-      type: POMODORO_GET_SUCCESS,
-      payload: data,
-    })
-  } catch (error) {
-    dispatch({
-      type: POMODORO_GET_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
+//     dispatch({
+//       type: POMODORO_GET_SUCCESS,
+//       payload: data,
+//     })
+//   } catch (error) {
+//     dispatch({
+//       type: POMODORO_GET_FAIL,
+//       payload:
+//         error.response && error.response.data.message
+//           ? error.response.data.message
+//           : error.message,
+//     })
+//   }
+// }
+
+// export const createPomodoro = () => async (dispatch, getState) => {
+//   try {
+//     dispatch({
+//       type: POMODORO_CREATE_REQUEST,
+//     })
+
+//     const { data } = await axios.post(`/api/pomodoros`)
+
+//     dispatch({
+//       type: POMODORO_CREATE_SUCCESS,
+//       payload: data,
+//     })
+//   } catch (error) {
+//     dispatch({
+//       type: POMODORO_CREATE_FAIL,
+//       payload:
+//         error.response && error.response.data.message
+//           ? error.response.data.message
+//           : error.message,
+//     })
+//   }
+// }
+
+export const decreasePomodoro = () => {
+  return {
+    type: POMODORO_SECONDS_DECREMENT,
+  }
+}
+export const resetPomodoro = () => {
+  return {
+    type: POMODORO_SECONDS_RESET,
   }
 }
 
-export const createPomodoro = () => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: POMODORO_CREATE_REQUEST,
-    })
-
-    const { data } = await axios.post(`/api/pomodoros`)
-
-    dispatch({
-      type: POMODORO_CREATE_SUCCESS,
-      payload: data,
-    })
-  } catch (error) {
-    dispatch({
-      type: POMODORO_CREATE_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
+export const decreaseRest = () => {
+  return {
+    type: REST_SECONDS_DECREMENT,
   }
 }
-
-export const setPomodoroSeconds = (data) => (dispatch) => {
-  dispatch({
-    type: POMODORO_SECONDS_UPDATE,
-    payload: data,
-  })
-
-  localStorage.setItem('pomodoroSeconds', JSON.stringify(data))
+export const resetRest = () => {
+  return {
+    type: REST_SECONDS_RESET,
+  }
 }

@@ -23,9 +23,13 @@ npm i redux-devtools-extension
  2. backend for registerUser 
 
 ## ## setup for global state for the following:
-- secondsPomodoro - default (25*60)
-- secondsRest - default (5*60) 
-1. constants
-POMODORO_DURATION_CHANGE_REQUEST
+Decreasing 
+- secondsPomodoro 
+- secondsRest 
+counterPomodoroReducer - reducer
+decreasePomodoro - action with type: POMODORO_SECONDS_DECREMENT
+- I put logic in reducers, it does the decreasing of the pomodoroSeconds value
+- in case of resetPomodoro I imported the initial value from store ie. imported restSecondsFromStorage
+
 
 
