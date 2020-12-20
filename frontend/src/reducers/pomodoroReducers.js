@@ -10,6 +10,7 @@ import {
   POMODORO_SECONDS_RESET,
   REST_SECONDS_DECREMENT,
   REST_SECONDS_RESET,
+  SET_REST_ZERO,
   POMODORO_MINUTES_INCREMENT,
   POMODORO_MINUTES_DECREMENT,
   REST_MINUTES_INCREMENT,
@@ -67,6 +68,8 @@ export const counterRestReducer = (state = { restSeconds: {} }, action) => {
   } else if (action.type === REST_MINUTES_DECREMENT && state.restSeconds > 60) {
     return { ...state, restSeconds: state.restSeconds - 60 }
   } else if (action.type === REST_MINUTES_DECREMENT && state.restSeconds < 60) {
+    return { ...state, restSeconds: 0 }
+  } else if (action.type === SET_REST_ZERO) {
     return { ...state, restSeconds: 0 }
   }
   return state

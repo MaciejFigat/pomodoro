@@ -11,6 +11,7 @@ import {
   decreasePomodoroMinutes,
   increaseRestMinutes,
   decreaseRestMinutes,
+  setZeroRest,
 } from '../actions/pomodoroActions'
 
 const CustomPomodoroScreen = () => {
@@ -35,60 +36,47 @@ const CustomPomodoroScreen = () => {
   }
 
   const reset = () => {
-    // setSeconds(pomodoroDuration * 60)
-    // setRestSeconds(restDuration * 60)
+    dispatch(resetPomodoro())
+    dispatch(resetRest())
   }
 
   const pomodoroDurationPlus = () => {
-    if (pomodoroDuration < 60) {
-      // setPomodoroDuration((pomodoroDuration) => pomodoroDuration + 1)
-    }
+    dispatch(increasePomodoroMinutes())
   }
 
   const pomodoroDurationMinus = () => {
-    if (pomodoroDuration > 0) {
-      // setPomodoroDuration((pomodoroDuration) => pomodoroDuration - 1)
-    }
+    dispatch(decreasePomodoroMinutes())
   }
 
   const restDurationPlus = () => {
-    if (restDuration < 60) {
-      // setRestDuration((restDuration) => restDuration + 1)
-    }
+    dispatch(increaseRestMinutes())
   }
 
   const restDurationMinus = () => {
-    if (restDuration > 0) {
-      // setRestDuration((restDuration) => restDuration - 1)
-    }
+    dispatch(decreaseRestMinutes())
   }
+
+  const restZero = () => {
+    dispatch(setZeroRest())
+  }
+
   useEffect(() => {
     if (isActive && restSeconds === 0 && pomodoroSeconds === 0) {
-      // setSeconds(pomodoroDuration * 60)
-      // setRestSeconds(restDuration * 60)
       setPomodoroDone((pomodoroDone) => pomodoroDone + 1)
+      dispatch(resetRest())
+      dispatch(resetPomodoro())
     }
 
     const timer = setInterval(() => {
       if (isActive && pomodoroSeconds > 0) {
-        // setSeconds((seconds) => seconds - 1)
         dispatch(decreasePomodoro())
       } else if (isActive && restSeconds > 0 && pomodoroSeconds === 0) {
-        // setRestSeconds((restSeconds) => restSeconds - 1)
         dispatch(decreaseRest())
       }
     }, 1000)
 
     return () => clearInterval(timer)
-  }, [
-    isActive,
-    pomodoroSeconds,
-    restSeconds,
-    // pomodoroDuration,
-    // restDuration,
-    dispatch,
-    pomodoroSeconds,
-  ])
+  }, [isActive, restSeconds, dispatch, pomodoroSeconds])
 
   return (
     <FormContainer>
@@ -126,8 +114,7 @@ const CustomPomodoroScreen = () => {
                 </Button>
               )}
               {isActive && pomodoroSeconds === 0 && (
-                <Button onClick={() => setRestSeconds(0)}>Skip rest</Button>
-                // here will be an action that resets restSeconds to 0 so we skip rest
+                <Button onClick={restZero}>Skip rest</Button>
               )}
             </Row>
           </Card>
