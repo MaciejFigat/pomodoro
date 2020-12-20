@@ -12,63 +12,79 @@ import {
 const CustomPomodoroScreen = () => {
   const dispatch = useDispatch()
 
+  const counterPomodoro = useSelector((state) => state.counterPomodoro)
+  const { pomodoroSeconds } = counterPomodoro
+
+  const counterRest = useSelector((state) => state.counterRest)
+  const { restSeconds } = counterRest
+
   const [pomodoroDuration, setPomodoroDuration] = useState(25)
   const [pomodoroDone, setPomodoroDone] = useState(0)
-  const [restDuration, setRestDuration] = useState(5)
+  const [restDuration, setRestDuration] = useState(0)
   const [seconds, setSeconds] = useState(25 * 60)
-  const [restSeconds, setRestSeconds] = useState(5 * 60)
+  const [restSeconds2, setRestSeconds] = useState(0)
   const [isActive, setIsActive] = useState(false)
+  // I changed name for local state restSeconds2 - to avoid conflict with global state - temporary change
 
   const toggle = () => {
     setIsActive(!isActive)
   }
 
   const reset = () => {
-    setSeconds(pomodoroDuration * 60)
-    setRestSeconds(restDuration * 60)
+    // setSeconds(pomodoroDuration * 60)
+    // setRestSeconds(restDuration * 60)
   }
 
   const pomodoroDurationPlus = () => {
     if (pomodoroDuration < 60) {
-      setPomodoroDuration((pomodoroDuration) => pomodoroDuration + 1)
+      // setPomodoroDuration((pomodoroDuration) => pomodoroDuration + 1)
     }
   }
 
   const pomodoroDurationMinus = () => {
     if (pomodoroDuration > 0) {
-      setPomodoroDuration((pomodoroDuration) => pomodoroDuration - 1)
+      // setPomodoroDuration((pomodoroDuration) => pomodoroDuration - 1)
     }
   }
 
   const restDurationPlus = () => {
     if (restDuration < 60) {
-      setRestDuration((restDuration) => restDuration + 1)
+      // setRestDuration((restDuration) => restDuration + 1)
     }
   }
 
   const restDurationMinus = () => {
     if (restDuration > 0) {
-      setRestDuration((restDuration) => restDuration - 1)
+      // setRestDuration((restDuration) => restDuration - 1)
     }
   }
   useEffect(() => {
-    if (isActive && restSeconds === 0 && seconds === 0) {
-      setSeconds(pomodoroDuration * 60)
-      setRestSeconds(restDuration * 60)
+    if (isActive && restSeconds === 0 && pomodoroSeconds === 0) {
+      // setSeconds(pomodoroDuration * 60)
+      // setRestSeconds(restDuration * 60)
       setPomodoroDone((pomodoroDone) => pomodoroDone + 1)
     }
 
     const timer = setInterval(() => {
-      if (isActive && seconds > 0) {
-        setSeconds((seconds) => seconds - 1)
+      if (isActive && pomodoroSeconds > 0) {
+        // setSeconds((seconds) => seconds - 1)
         dispatch(decreasePomodoro())
-      } else if (isActive && restSeconds > 0 && seconds === 0) {
-        setRestSeconds((restSeconds) => restSeconds - 1)
+      } else if (isActive && restSeconds > 0 && pomodoroSeconds === 0) {
+        // setRestSeconds((restSeconds) => restSeconds - 1)
+        dispatch(decreaseRest())
       }
     }, 1000)
 
     return () => clearInterval(timer)
-  }, [isActive, seconds, restSeconds, pomodoroDuration, restDuration])
+  }, [
+    isActive,
+    pomodoroSeconds,
+    restSeconds,
+    // pomodoroDuration,
+    // restDuration,
+    dispatch,
+    pomodoroSeconds,
+  ])
 
   return (
     <FormContainer>
@@ -77,10 +93,10 @@ const CustomPomodoroScreen = () => {
           <Card className='p-3'>
             <Row className='justify-content-lg-center'>
               {' '}
-              {isActive && seconds > 0 ? <h1>Work</h1> : <h1>Rest</h1>}
+              {isActive && pomodoroSeconds > 0 ? <h1>Work</h1> : <h1>Rest</h1>}
             </Row>
             <Row className='justify-content-lg-center'>
-              {seconds === 0 ? (
+              {pomodoroSeconds === 0 ? (
                 <Badge variant='success'>
                   <h2 font-weight-bolder>
                     {' '}
@@ -90,7 +106,7 @@ const CustomPomodoroScreen = () => {
               ) : (
                 <Badge variant='danger' className='justify-content-md-center'>
                   <h2 font-weight-bolder>
-                    {Math.trunc(seconds / 60)} : {seconds % 60}
+                    {Math.trunc(pomodoroSeconds / 60)} : {pomodoroSeconds % 60}
                   </h2>
                 </Badge>
               )}
@@ -105,8 +121,9 @@ const CustomPomodoroScreen = () => {
                   Start
                 </Button>
               )}
-              {isActive && seconds === 0 && (
+              {isActive && pomodoroSeconds === 0 && (
                 <Button onClick={() => setRestSeconds(0)}>Skip rest</Button>
+                // here will be an action that resets restSeconds to 0 so we skip rest
               )}
             </Row>
           </Card>
@@ -122,7 +139,7 @@ const CustomPomodoroScreen = () => {
               <Row>
                 <Col sm={8}>
                   <h3>
-                    Rest period: <b>{restDuration}</b> minutes
+                    Rest period: <b>{Math.trunc(restSeconds / 60)}</b> minutes
                   </h3>
                 </Col>
                 <Col sm={4}>
@@ -138,7 +155,8 @@ const CustomPomodoroScreen = () => {
               <Row>
                 <Col sm={8}>
                   <h3>
-                    Duration of a pomodoro: <b>{pomodoroDuration}</b> minutes
+                    Duration of a pomodoro:{' '}
+                    <b>{Math.trunc(pomodoroSeconds / 60)}</b> minutes
                   </h3>
                 </Col>
                 <Col sm={4}>
