@@ -13,6 +13,10 @@ import {
   POMODORO_SECONDS_RESET,
   REST_SECONDS_DECREMENT,
   REST_SECONDS_RESET,
+  POMODORO_MINUTES_INCREMENT,
+  POMODORO_MINUTES_DECREMENT,
+  REST_MINUTES_INCREMENT,
+  REST_MINUTES_DECREMENT,
 } from '../constants/pomodoroConstants'
 
 // export const getPomodoro = () => async (dispatch) => {
@@ -78,5 +82,29 @@ export const decreaseRest = () => {
 export const resetRest = () => {
   return {
     type: REST_SECONDS_RESET,
+  }
+}
+
+export const increasePomodoroMinutes = () => {
+  return {
+    type: POMODORO_MINUTES_INCREMENT,
+  }
+}
+
+export const decreasePomodoroMinutes = () => {
+  return {
+    type: POMODORO_MINUTES_DECREMENT,
+  }
+}
+
+export const increaseRestMinutes = () => {
+  return {
+    type: REST_MINUTES_INCREMENT,
+  }
+}
+
+export const decreaseRestMinutes = () => {
+  return {
+    type: REST_MINUTES_DECREMENT,
   }
 }

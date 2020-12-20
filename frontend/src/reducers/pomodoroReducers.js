@@ -10,8 +10,13 @@ import {
   POMODORO_SECONDS_RESET,
   REST_SECONDS_DECREMENT,
   REST_SECONDS_RESET,
+  POMODORO_MINUTES_INCREMENT,
+  POMODORO_MINUTES_DECREMENT,
+  REST_MINUTES_INCREMENT,
+  REST_MINUTES_DECREMENT,
 } from '../constants/pomodoroConstants'
 import { pomodoroSecondsFromStorage, restSecondsFromStorage } from '../store'
+
 export const getPomodoroInfoReducer = (
   state = { pomodoroInfo: {} },
   action
@@ -54,6 +59,15 @@ export const counterRestReducer = (state = { restSeconds: {} }, action) => {
     }
   } else if (action.type === REST_SECONDS_RESET) {
     return (state = { restSeconds: restSecondsFromStorage })
+  } else if (
+    action.type === REST_MINUTES_INCREMENT &&
+    state.restSeconds <= 3600
+  ) {
+    return { ...state, restSeconds: state.restSeconds + 60 }
+  } else if (action.type === REST_MINUTES_DECREMENT && state.restSeconds > 60) {
+    return { ...state, restSeconds: state.restSeconds - 60 }
+  } else if (action.type === REST_MINUTES_DECREMENT && state.restSeconds < 60) {
+    return { ...state, restSeconds: 0 }
   }
   return state
 }
@@ -69,7 +83,23 @@ export const counterPomodoroReducer = (
     }
   } else if (action.type === POMODORO_SECONDS_RESET) {
     return (state = { pomodoroSeconds: pomodoroSecondsFromStorage })
+  } else if (
+    action.type === POMODORO_MINUTES_INCREMENT &&
+    state.pomodoroSeconds <= 3600
+  ) {
+    return { ...state, pomodoroSeconds: state.pomodoroSeconds + 60 }
+  } else if (
+    action.type === POMODORO_MINUTES_DECREMENT &&
+    state.pomodoroSeconds > 60
+  ) {
+    return { ...state, pomodoroSeconds: state.pomodoroSeconds - 60 }
+  } else if (
+    action.type === POMODORO_MINUTES_DECREMENT &&
+    state.pomodoroSeconds < 60
+  ) {
+    return { ...state, pomodoroSeconds: 0 }
   }
+
   return state
 }
 
