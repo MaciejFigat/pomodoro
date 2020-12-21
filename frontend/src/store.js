@@ -21,18 +21,19 @@ const userInfoFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
   : null
 
-const pomodoroInfoFromStorage = localStorage.getItem('pomodoroInfo')
+export const pomodoroInfoFromStorage = localStorage.getItem('pomodoroInfo')
   ? JSON.parse(localStorage.getItem('pomodoroInfo'))
-  : null
+  : { savedPomodoroSeconds: 15, savedRestSeconds: 3 }
 
 export const pomodoroSecondsFromStorage = localStorage.getItem(
   'pomodoroSeconds'
 )
   ? JSON.parse(localStorage.getItem('pomodoroSeconds'))
-  : 3
+  : pomodoroInfoFromStorage.savedPomodoroSeconds
+
 export const restSecondsFromStorage = localStorage.getItem('restSeconds')
   ? JSON.parse(localStorage.getItem('restSeconds'))
-  : 3
+  : pomodoroInfoFromStorage.savedRestSeconds
 
 const initialState = {
   userLogin: { userInfo: userInfoFromStorage },

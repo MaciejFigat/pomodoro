@@ -16,7 +16,11 @@ import {
   REST_MINUTES_INCREMENT,
   REST_MINUTES_DECREMENT,
 } from '../constants/pomodoroConstants'
-import { pomodoroSecondsFromStorage, restSecondsFromStorage } from '../store'
+import {
+  pomodoroSecondsFromStorage,
+  restSecondsFromStorage,
+  pomodoroInfoFromStorage,
+} from '../store'
 
 export const getPomodoroInfoReducer = (
   state = { pomodoroInfo: {} },
@@ -85,7 +89,10 @@ export const counterPomodoroReducer = (
       pomodoroSeconds: state.pomodoroSeconds - 1,
     }
   } else if (action.type === POMODORO_SECONDS_RESET) {
-    return (state = { pomodoroSeconds: pomodoroSecondsFromStorage })
+    return (state = {
+      pomodoroSeconds: pomodoroSecondsFromStorage,
+    })
+    // pomodoroSeconds: pomodoroInfoFromStorage.savedPomodoroSeconds
   } else if (
     action.type === POMODORO_MINUTES_INCREMENT &&
     state.pomodoroSeconds <= 3600
