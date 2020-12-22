@@ -7,6 +7,7 @@ import {
   pomodoroCreateReducer,
   counterPomodoroReducer,
   counterRestReducer,
+  savedPomodoroReducer,
 } from './reducers/pomodoroReducers'
 const reducer = combineReducers({
   userLogin: userLoginReducer,
@@ -15,6 +16,7 @@ const reducer = combineReducers({
   pomodoroCreate: pomodoroCreateReducer,
   counterPomodoro: counterPomodoroReducer,
   counterRest: counterRestReducer,
+  savedPomodoro: savedPomodoroReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
@@ -37,9 +39,8 @@ export const restSecondsFromStorage = localStorage.getItem('restSeconds')
 
 const initialState = {
   userLogin: { userInfo: userInfoFromStorage },
-  getPomodoroInfo: {
-    pomodoroInfo: pomodoroInfoFromStorage,
-  },
+  getPomodoroInfo: pomodoroInfoFromStorage,
+  // savedPomodoro: pomodoroInfoFromStorage,
   counterPomodoro: { pomodoroSeconds: pomodoroSecondsFromStorage },
   counterRest: { restSeconds: restSecondsFromStorage },
 }

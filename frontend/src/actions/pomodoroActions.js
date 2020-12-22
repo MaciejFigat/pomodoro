@@ -18,6 +18,10 @@ import {
   REST_MINUTES_INCREMENT,
   REST_MINUTES_DECREMENT,
   SET_REST_ZERO,
+  SAVED_POMODORO_MINUTES_INCREMENT,
+  SAVED_POMODORO_MINUTES_DECREMENT,
+  SAVED_REST_MINUTES_INCREMENT,
+  SAVED_REST_MINUTES_DECREMENT,
 } from '../constants/pomodoroConstants'
 
 // export const getPomodoro = () => async (dispatch) => {
@@ -91,11 +95,14 @@ export const setZeroRest = () => {
   }
 }
 
+// pomodoro duration that is displayed in the timer + 1 min
+
 export const increasePomodoroMinutes = () => {
   return {
     type: POMODORO_MINUTES_INCREMENT,
   }
 }
+// pomodoro duration that is displayed in the timer - 1 min
 
 export const decreasePomodoroMinutes = () => {
   return {
@@ -103,14 +110,49 @@ export const decreasePomodoroMinutes = () => {
   }
 }
 
+// rest duration that is displayed in the timer + 1 min
+
 export const increaseRestMinutes = () => {
   return {
     type: REST_MINUTES_INCREMENT,
   }
 }
 
+// rest duration that is displayed in the timer - 1 min
+
 export const decreaseRestMinutes = () => {
   return {
     type: REST_MINUTES_DECREMENT,
+  }
+}
+
+// savedRestSeconds + 1 min
+
+export const increaseSavedRestMinutes = () => {
+  return {
+    type: SAVED_REST_MINUTES_INCREMENT,
+  }
+}
+
+// savedRestSeconds - 1 min
+
+export const decreaseSavedRestMinutes = () => {
+  return {
+    type: SAVED_REST_MINUTES_DECREMENT,
+  }
+}
+
+// savedPomodoroSeconds + 1 min
+
+export const increaseSavedPomodoroMinutes = () => {
+  return {
+    type: SAVED_POMODORO_MINUTES_INCREMENT,
+  }
+}
+// savedPomodoroSeconds - 1 min
+
+export const decreaseSavedPomodoroMinutes = () => {
+  return {
+    type: SAVED_POMODORO_MINUTES_DECREMENT,
   }
 }

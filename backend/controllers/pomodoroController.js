@@ -1,26 +1,29 @@
 import asyncHandler from 'express-async-handler'
 import Pomodoro from '../models/pomodoroModel.js'
-// @description get all pomodoros
-// @route GET /api/pomodoro
-// @access public
-
-const getPomodoros = asyncHandler(async (req, res) => {
-  const pomodoros = await Pomodoro.find({})
-  res.json(pomodoros)
-})
 
 // @description create a pomodoro
 // @route POST /api/pomodoros/
-// @access public
+// @access private
 
 const createPomodoro = asyncHandler(async (req, res) => {
+  const { pomodoroSeconds, restSeconds } = req.body
+
   const pomodoro = new Pomodoro({
-    pomodoro: 0,
-    pomodoroDuration: 25,
-    restDuration: 5,
+    user: req.user._id,
+    pomodoroSeconds,
+    restSeconds,
   })
   const createdPomodoro = await pomodoro.save()
   res.status(201).json(createdPomodoro)
 })
 
-export { getPomodoros, createPomodoro }
+// @description get all pomodoros
+// @route GET /api/pomodoros
+// @access private
+
+const getMyPomodoros = asyncHandler(async (req, res) => {
+  const pomodoros = await Pomodoro.find({ user: req.user._id })
+  res.json(pomodoros)
+})
+
+export { getMyPomodoros, createPomodoro }

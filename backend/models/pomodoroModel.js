@@ -2,19 +2,16 @@ import mongoose from 'mongoose'
 
 const pomodoroSchema = mongoose.Schema(
   {
-    pomodoro: {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: false,
+      ref: 'User',
+    },
+    pomodoroSeconds: {
       type: Number,
       required: true,
     },
-  },
-  {
-    pomodoroDuration: {
-      type: Number,
-      required: true,
-    },
-  },
-  {
-    restDuration: {
+    restSeconds: {
       type: Number,
       required: true,
     },

@@ -12,6 +12,10 @@ import {
   increaseRestMinutes,
   decreaseRestMinutes,
   setZeroRest,
+  increaseSavedRestMinutes,
+  decreaseSavedRestMinutes,
+  increaseSavedPomodoroMinutes,
+  decreaseSavedPomodoroMinutes,
 } from '../actions/pomodoroActions'
 
 const CustomPomodoroScreen = () => {
@@ -58,6 +62,11 @@ const CustomPomodoroScreen = () => {
 
   const restZero = () => {
     dispatch(setZeroRest())
+  }
+
+  const savePreferencesHandler = () => {
+    console.log('saved preferences')
+    console.log(pomodoroSeconds, restSeconds)
   }
 
   useEffect(() => {
@@ -160,7 +169,9 @@ const CustomPomodoroScreen = () => {
                   </Button>
                 </Col>
               </Row>
-
+              <Button variant='info' flush onClick={savePreferencesHandler}>
+                Save preferences
+              </Button>
               <Button variant='warning' flush onClick={reset}>
                 Reset timer
               </Button>
@@ -195,6 +206,19 @@ const CustomPomodoroScreen = () => {
       </button>
       <button onClick={() => dispatch(decreaseRestMinutes())}>
         --- testing atesting - 1 min restSeconds
+      </button>
+
+      <button onClick={() => dispatch(increaseSavedPomodoroMinutes())}>
+        --- testing + 1 saved pom
+      </button>
+      <button onClick={() => dispatch(decreaseSavedPomodoroMinutes())}>
+        --- testing - 1 min pom saved
+      </button>
+      <button onClick={() => dispatch(increaseSavedRestMinutes())}>
+        --- testing + 1 min rest saved
+      </button>
+      <button onClick={() => dispatch(decreaseSavedRestMinutes())}>
+        --- testing - 1 min rest saved
       </button>
     </FormContainer>
   )

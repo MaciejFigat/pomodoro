@@ -15,6 +15,10 @@ import {
   POMODORO_MINUTES_DECREMENT,
   REST_MINUTES_INCREMENT,
   REST_MINUTES_DECREMENT,
+  SAVED_POMODORO_MINUTES_INCREMENT,
+  SAVED_POMODORO_MINUTES_DECREMENT,
+  SAVED_REST_MINUTES_INCREMENT,
+  SAVED_REST_MINUTES_DECREMENT,
 } from '../constants/pomodoroConstants'
 import {
   pomodoroSecondsFromStorage,
@@ -54,6 +58,31 @@ export const pomodoroCreateReducer = (state = {}, action) => {
     default:
       return state
   }
+}
+
+export const savedPomodoroReducer = (state = { pomodoroInfo: {} }, action) => {
+  if (
+    action.type === SAVED_REST_MINUTES_INCREMENT &&
+    state.savedRestSeconds <= 3600
+  ) {
+    return { ...state, savedRestSeconds: state.savedRestSeconds + 60 }
+  } else if (
+    action.type === SAVED_REST_MINUTES_DECREMENT &&
+    state.savedRestSeconds >= 60
+  ) {
+    return { ...state, savedRestSeconds: state.savedRestSeconds - 60 }
+  } else if (
+    action.type === SAVED_POMODORO_MINUTES_INCREMENT &&
+    state.savedPomodoroSeconds <= 3600
+  ) {
+    return { ...state, savedPomodoroSeconds: state.savedPomodoroSeconds + 60 }
+  } else if (
+    action.type === SAVED_POMODORO_MINUTES_DECREMENT &&
+    state.savedPomodoroSeconds >= 60
+  ) {
+    return { ...state, savedPomodoroSeconds: state.savedPomodoroSeconds - 60 }
+  }
+  return state
 }
 
 export const counterRestReducer = (state = { restSeconds: {} }, action) => {
