@@ -16,6 +16,8 @@ import {
   decreaseSavedRestMinutes,
   increaseSavedPomodoroMinutes,
   decreaseSavedPomodoroMinutes,
+  getMyPomodoros,
+  createMyPomodoro,
 } from '../actions/pomodoroActions'
 
 const CustomPomodoroScreen = () => {
@@ -219,6 +221,21 @@ const CustomPomodoroScreen = () => {
       </button>
       <button onClick={() => dispatch(decreaseSavedRestMinutes())}>
         --- testing - 1 min rest saved
+      </button>
+      <button onClick={() => dispatch(getMyPomodoros())}>
+        --- testing getMyPomodoros Action
+      </button>
+      <button
+        onClick={() =>
+          dispatch(
+            createMyPomodoro({
+              pomodoroSeconds: 323,
+              restSeconds: 132,
+            })
+          )
+        }
+      >
+        --- testing createMyPomodoro Action
       </button>
     </FormContainer>
   )

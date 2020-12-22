@@ -24,49 +24,72 @@ import {
   SAVED_REST_MINUTES_DECREMENT,
 } from '../constants/pomodoroConstants'
 
-// export const getPomodoro = () => async (dispatch) => {
-//   try {
-//     dispatch({ type: POMODORO_GET_REQUEST })
+export const getMyPomodoros = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: POMODORO_GET_REQUEST,
+    })
 
-//     // const { data } = await axios.get(`/api/pomodoros`)
+    const {
+      userLogin: { userInfo },
+    } = getState()
 
-//     dispatch({
-//       type: POMODORO_GET_SUCCESS,
-//       payload: data,
-//     })
-//   } catch (error) {
-//     dispatch({
-//       type: POMODORO_GET_FAIL,
-//       payload:
-//         error.response && error.response.data.message
-//           ? error.response.data.message
-//           : error.message,
-//     })
-//   }
-// }
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
 
-// export const createPomodoro = () => async (dispatch, getState) => {
-//   try {
-//     dispatch({
-//       type: POMODORO_CREATE_REQUEST,
-//     })
+    const { data } = await axios.get(`/api/pomodoros/mypomodoros`, config)
 
-//     const { data } = await axios.post(`/api/pomodoros`)
+    dispatch({
+      type: POMODORO_GET_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: POMODORO_GET_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
 
-//     dispatch({
-//       type: POMODORO_CREATE_SUCCESS,
-//       payload: data,
-//     })
-//   } catch (error) {
-//     dispatch({
-//       type: POMODORO_CREATE_FAIL,
-//       payload:
-//         error.response && error.response.data.message
-//           ? error.response.data.message
-//           : error.message,
-//     })
-//   }
-// }
+export const createMyPomodoro = (pomodoro) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: POMODORO_CREATE_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.post(`/api/pomodoros`, pomodoro, config)
+
+    dispatch({
+      type: POMODORO_CREATE_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: POMODORO_CREATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
 
 export const decreasePomodoro = () => {
   return {

@@ -8,6 +8,7 @@ import {
   counterPomodoroReducer,
   counterRestReducer,
   savedPomodoroReducer,
+  // getMyPomodorosReducer,
 } from './reducers/pomodoroReducers'
 const reducer = combineReducers({
   userLogin: userLoginReducer,
@@ -17,14 +18,15 @@ const reducer = combineReducers({
   counterPomodoro: counterPomodoroReducer,
   counterRest: counterRestReducer,
   savedPomodoro: savedPomodoroReducer,
+  // getMyPomodoros: getMyPomodorosReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
   : null
 
-export const pomodoroInfoFromStorage = localStorage.getItem('pomodoroInfo')
-  ? JSON.parse(localStorage.getItem('pomodoroInfo'))
+export const pomodoroInfoFromStorage = localStorage.getItem('pomodoros')
+  ? JSON.parse(localStorage.getItem('pomodoros'))
   : { savedPomodoroSeconds: 15, savedRestSeconds: 3 }
 
 export const pomodoroSecondsFromStorage = localStorage.getItem(

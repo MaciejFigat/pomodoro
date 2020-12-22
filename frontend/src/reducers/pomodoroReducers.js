@@ -26,17 +26,36 @@ import {
   pomodoroInfoFromStorage,
 } from '../store'
 
-export const getPomodoroInfoReducer = (
-  state = { pomodoroInfo: {} },
-  action
-) => {
+// export const getMyPomodorosReducer = (state = { pomodoros: {} }, action) => {
+//   switch (action.type) {
+//     case POMODORO_GET_REQUEST:
+//       return {
+//         loading: true,
+//       }
+//     case POMODORO_GET_SUCCESS:
+//       return {
+//         loading: false,
+//         orders: action.payload,
+//       }
+//     case POMODORO_GET_FAIL:
+//       return {
+//         loading: false,
+//         error: action.payload,
+//       }
+
+//     default:
+//       return state
+//   }
+// }
+
+export const getPomodoroInfoReducer = (state = { pomodoros: [] }, action) => {
   switch (action.type) {
     case POMODORO_GET_REQUEST:
-      return { loading: true, pomodoroInfo: {} }
+      return { loading: true }
     case POMODORO_GET_SUCCESS:
       return {
         loading: false,
-        pomodoroInfo: action.payload.pomodoroInfo,
+        pomodoros: action.payload,
       }
     case POMODORO_GET_FAIL:
       return { loading: false, error: action.payload }
