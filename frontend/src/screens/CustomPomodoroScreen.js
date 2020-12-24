@@ -29,11 +29,14 @@ const CustomPomodoroScreen = () => {
   const counterRest = useSelector((state) => state.counterRest)
   const { restSeconds } = counterRest
 
-  const [pomodoroDuration, setPomodoroDuration] = useState(25)
+  const savedPomodoros = useSelector((state) => state.getPomodoroInfo)
+  const { pomodoros } = savedPomodoros
+
+  // const [pomodoroDuration, setPomodoroDuration] = useState(25)
   const [pomodoroDone, setPomodoroDone] = useState(0)
-  const [restDuration, setRestDuration] = useState(0)
-  const [seconds, setSeconds] = useState(25 * 60)
-  const [restSeconds2, setRestSeconds] = useState(0)
+  // const [restDuration, setRestDuration] = useState(0)
+  // const [seconds, setSeconds] = useState(25 * 60)
+  // const [restSeconds2, setRestSeconds] = useState(0)
   const [isActive, setIsActive] = useState(false)
   // I changed name for local state restSeconds2 - to avoid conflict with global state - temporary change
 
@@ -181,10 +184,7 @@ const CustomPomodoroScreen = () => {
           </Col>
         </Col>
       </Row>
-      <button onClick={() => setSeconds(seconds - 10)}>---testing work</button>
-      <button onClick={() => setRestSeconds(restSeconds - 10)}>
-        --- testing rest
-      </button>
+
       <button onClick={() => dispatch(decreasePomodoro())}>
         --- testing action decrease pomodoro seconds in store
       </button>
@@ -236,6 +236,15 @@ const CustomPomodoroScreen = () => {
         }
       >
         --- testing createMyPomodoro Action
+      </button>
+
+      <button onClick={() => console.log(pomodoros[0])}>
+        --- testing POM from the DB
+      </button>
+      <button
+        onClick={() => console.log(savedPomodoros.pomodoros[0].pomodoroSeconds)}
+      >
+        --- testing POM from the DB 2
       </button>
     </FormContainer>
   )

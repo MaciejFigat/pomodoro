@@ -10,11 +10,11 @@ const pomodoroSettingsSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
-    // user: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   required: false,
-    //   ref: 'User',
-    // },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: false,
+      ref: 'User',
+    },
   },
 
   {

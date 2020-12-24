@@ -6,8 +6,7 @@ import PomodoroSettings from '../models/pomodoroSettingsModel.js'
 // @access private
 
 const getPomodoroSettings = asyncHandler(async (req, res) => {
-  // const pomodoroSettings = await PomodoroSettings.find({ user: req.user._id })
-  const pomodoroSettings = await PomodoroSettings.find({})
+  const pomodoroSettings = await PomodoroSettings.find({ user: req.user._id })
 
   res.json(pomodoroSettings)
 })
@@ -18,10 +17,11 @@ const getPomodoroSettings = asyncHandler(async (req, res) => {
 
 const createPomodoroSettings = asyncHandler(async (req, res) => {
   const { pomodoroSeconds, restSeconds } = req.body
+
   const pomodoroSettings = new PomodoroSettings({
+    user: req.user._id,
     pomodoroSeconds,
     restSeconds,
-    // user: req.user._id,
   })
   const createdPomodoroSettings = await pomodoroSettings.save()
   res.status(201).json(createdPomodoroSettings)

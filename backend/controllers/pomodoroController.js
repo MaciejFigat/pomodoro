@@ -9,15 +9,15 @@ const createPomodoro = asyncHandler(async (req, res) => {
   const { pomodoroSeconds, restSeconds } = req.body
 
   const pomodoro = new Pomodoro({
-    user: req.user._id,
     pomodoroSeconds,
     restSeconds,
+    user: req.user._id,
   })
   const createdPomodoro = await pomodoro.save()
   res.status(201).json(createdPomodoro)
 })
 
-// @description get all pomodoros
+// @description get all my saved pomodoros
 // @route GET /api/pomodoros
 // @access private
 
@@ -26,4 +26,22 @@ const getMyPomodoros = asyncHandler(async (req, res) => {
   res.json(pomodoros)
 })
 
-export { getMyPomodoros, createPomodoro }
+// @description update a pomodoro by id
+// @route PUT /api/pomodoros/mypomodoros
+// @access private
+
+const updatePomodoro = asyncHandler(async (req, res) => {
+  const { pomodoroSeconds, restSeconds } = req.body
+  const pomodoro = await Pomodoro.findById(req.params.id)
+  if (pomodoro) {
+    pomodoro.pomodoroSeconds = pomodoroSeconds
+    pomodoro.restSeconds = restSeconds
+    const updatedPomodoro = await pomodoro.save()
+    res.json(updatedPomodoro)
+  } else {
+    res.status(404)
+    throw new Error('Pomodoro not found')
+  }
+})
+
+export { getMyPomodoros, createPomodoro, updatePomodoro }

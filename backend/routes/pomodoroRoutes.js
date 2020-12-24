@@ -4,8 +4,10 @@ const router = express.Router()
 import {
   getMyPomodoros,
   createPomodoro,
+  updatePomodoro,
 } from '../controllers/pomodoroController.js'
 
 router.route('/').post(protect, createPomodoro)
 router.route('/mypomodoros').get(protect, getMyPomodoros)
+router.route('/:id').put(protect, updatePomodoro)
 export default router

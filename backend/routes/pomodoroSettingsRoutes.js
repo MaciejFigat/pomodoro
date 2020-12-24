@@ -1,13 +1,15 @@
 import express from 'express'
+import { protect, admin } from '../middleware/authMiddleware.js'
 const router = express.Router()
 import {
   getPomodoroSettings,
   createPomodoroSettings,
 } from '../controllers/pomodoroSettingsController.js'
 
-import { protect } from '../middleware/authMiddleware.js'
-
 // router.route('/pomodoroSettings').get(protect, getPomodoroSettings)
-router.route('/settings').get(getPomodoroSettings).post(createPomodoroSettings)
+router
+  .route('/')
+  .get(protect, getPomodoroSettings)
+  .post(protect, createPomodoroSettings)
 
 export default router
