@@ -8,6 +8,7 @@ import {
   counterPomodoroReducer,
   counterRestReducer,
   savedPomodoroReducer,
+  pomodoroUpdateReducer,
   // getMyPomodorosReducer,
 } from './reducers/pomodoroReducers'
 const reducer = combineReducers({
@@ -18,6 +19,7 @@ const reducer = combineReducers({
   counterPomodoro: counterPomodoroReducer,
   counterRest: counterRestReducer,
   savedPomodoro: savedPomodoroReducer,
+  pomodoroUpdate: pomodoroUpdateReducer,
   // getMyPomodoros: getMyPomodorosReducer,
 })
 

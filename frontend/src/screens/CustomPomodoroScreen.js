@@ -17,6 +17,7 @@ import {
   increaseSavedPomodoroMinutes,
   decreaseSavedPomodoroMinutes,
   getMyPomodoros,
+  updateMyPomodoro,
   createMyPomodoro,
 } from '../actions/pomodoroActions'
 
@@ -237,7 +238,6 @@ const CustomPomodoroScreen = () => {
       >
         --- testing createMyPomodoro Action
       </button>
-
       <button onClick={() => console.log(pomodoros[0])}>
         --- testing POM from the DB
       </button>
@@ -245,6 +245,19 @@ const CustomPomodoroScreen = () => {
         onClick={() => console.log(savedPomodoros.pomodoros[0].pomodoroSeconds)}
       >
         --- testing POM from the DB 2
+      </button>
+      <button
+        onClick={() =>
+          dispatch(
+            updateMyPomodoro({
+              _id: '5fe48e149efc9227ac81337a',
+              pomodoroSeconds: 1,
+              restSeconds: 11,
+            })
+          )
+        }
+      >
+        --- testing updateMyPomodoro Action
       </button>
     </FormContainer>
   )

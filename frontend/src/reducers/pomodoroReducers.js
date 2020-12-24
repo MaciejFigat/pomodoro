@@ -6,6 +6,9 @@ import {
   POMODORO_CREATE_SUCCESS,
   POMODORO_CREATE_FAIL,
   POMODORO_CREATE_RESET,
+  POMODORO_UPDATE_REQUEST,
+  POMODORO_UPDATE_SUCCESS,
+  POMODORO_UPDATE_FAIL,
   POMODORO_SECONDS_DECREMENT,
   POMODORO_SECONDS_RESET,
   REST_SECONDS_DECREMENT,
@@ -159,6 +162,20 @@ export const counterPomodoroReducer = (
   }
 
   return state
+}
+
+export const pomodoroUpdateReducer = (state = { pomodoros: [] }, action) => {
+  switch (action.type) {
+    case POMODORO_UPDATE_REQUEST:
+      return { loading: true }
+    case POMODORO_UPDATE_SUCCESS:
+      return { loading: false, success: true, pomodoros: action.payload }
+    case POMODORO_UPDATE_FAIL:
+      return { loading: false, error: action.payload }
+
+    default:
+      return state
+  }
 }
 
 // export const counterPomodoroReducer = (

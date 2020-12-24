@@ -6,6 +6,9 @@ import {
   POMODORO_CREATE_REQUEST,
   POMODORO_CREATE_SUCCESS,
   POMODORO_CREATE_FAIL,
+  POMODORO_UPDATE_REQUEST,
+  POMODORO_UPDATE_SUCCESS,
+  POMODORO_UPDATE_FAIL,
   POMODORO_CREATE_RESET,
   POMODORO_SECONDS_UPDATE,
   REST_SECONDS_UPDATE,
@@ -83,6 +86,44 @@ export const createMyPomodoro = (pomodoro) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: POMODORO_CREATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+// action to update the pomodoro the user created by id
+export const updateMyPomodoro = (pomodoro) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: POMODORO_UPDATE_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.put(
+      `/api/pomodoros/${pomodoro._id}`,
+      pomodoro,
+      config
+    )
+
+    dispatch({
+      type: POMODORO_UPDATE_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: POMODORO_UPDATE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
