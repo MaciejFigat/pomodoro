@@ -22,6 +22,7 @@ import {
   pomodoroSecondsSet,
   restSecondsSet,
 } from '../actions/pomodoroActions'
+// import useMountEffect from '@restart/hooks/useMountEffect'
 
 const CustomPomodoroScreen = () => {
   const dispatch = useDispatch()
@@ -80,12 +81,32 @@ const CustomPomodoroScreen = () => {
     console.log('saved preferences')
     console.log(pomodoroSeconds, restSeconds)
   }
-
+  // useMountEffect(() => {
+  //   dispatch(getMyPomodoros())
+  //   if (savedPomodoros.pomodoros) {
+  //     dispatch(restSecondsSet(savedPomodoros.pomodoros[0].restSeconds))
+  //     dispatch(pomodoroSecondsSet(savedPomodoros.pomodoros[0].pomodoroSeconds))
+  //   }
+  // })
   useEffect(() => {
+    if (!savedPomodoros.pomodoros) {
+      dispatch(getMyPomodoros())
+    }
+    if (savedPomodoros.pomodoros && !isActive) {
+      dispatch(restSecondsSet(savedPomodoros.pomodoros[0].restSeconds))
+      dispatch(pomodoroSecondsSet(savedPomodoros.pomodoros[0].pomodoroSeconds))
+    }
     if (isActive && restSeconds === 0 && pomodoroSeconds === 0) {
       setPomodoroDone((pomodoroDone) => pomodoroDone + 1)
-      dispatch(resetRest())
-      dispatch(resetPomodoro())
+      if (savedPomodoros.pomodoros) {
+        dispatch(restSecondsSet(savedPomodoros.pomodoros[0].restSeconds))
+        dispatch(
+          pomodoroSecondsSet(savedPomodoros.pomodoros[0].pomodoroSeconds)
+        )
+      } else {
+        dispatch(resetPomodoro())
+        dispatch(resetRest())
+      }
     }
 
     const timer = setInterval(() => {
@@ -97,7 +118,13 @@ const CustomPomodoroScreen = () => {
     }, 1000)
 
     return () => clearInterval(timer)
-  }, [isActive, restSeconds, dispatch, pomodoroSeconds])
+  }, [
+    isActive,
+    restSeconds,
+    dispatch,
+    pomodoroSeconds,
+    savedPomodoros.pomodoros,
+  ])
 
   return (
     <FormContainer>
