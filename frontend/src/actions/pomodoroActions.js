@@ -25,6 +25,8 @@ import {
   SAVED_POMODORO_MINUTES_DECREMENT,
   SAVED_REST_MINUTES_INCREMENT,
   SAVED_REST_MINUTES_DECREMENT,
+  REST_SECONDS_SET,
+  POMODORO_SECONDS_SET,
 } from '../constants/pomodoroConstants'
 
 export const getMyPomodoros = () => async (dispatch, getState) => {
@@ -142,6 +144,41 @@ export const resetPomodoro = () => {
     type: POMODORO_SECONDS_RESET,
   }
 }
+// 2 actions to set the timer to my object I've gotten from the server
+export const pomodoroSecondsSet = (data) => {
+  return {
+    type: POMODORO_SECONDS_SET,
+    payload: data,
+  }
+}
+
+export const restSecondsSet = (data) => {
+  return {
+    type: REST_SECONDS_SET,
+    payload: data,
+  }
+}
+
+// export const restSecondsSet = (data) => async (dispatch, getState) => {
+//   const {
+//     getPomodoroInfo: { pomodoros },
+//   } = getState()
+//   const { data } = pomodoros[0].restSeconds
+//   dispatch({
+//     type: REST_SECONDS_SET,
+//     payload: data,
+//   })
+// }
+// export const pomodoroSecondsSet = () => {
+//   return {
+//     type: POMODORO_SECONDS_SET,
+//   }
+// }
+// export const restSecondsSet = () => {
+//   return {
+//     type: REST_SECONDS_SET,
+//   }
+// }
 
 export const decreaseRest = () => {
   return {

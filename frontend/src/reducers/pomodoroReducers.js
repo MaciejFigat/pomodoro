@@ -22,6 +22,8 @@ import {
   SAVED_POMODORO_MINUTES_DECREMENT,
   SAVED_REST_MINUTES_INCREMENT,
   SAVED_REST_MINUTES_DECREMENT,
+  REST_SECONDS_SET,
+  POMODORO_SECONDS_SET,
 } from '../constants/pomodoroConstants'
 import {
   pomodoroSecondsFromStorage,
@@ -108,7 +110,9 @@ export const savedPomodoroReducer = (state = { pomodoroInfo: {} }, action) => {
 }
 
 export const counterRestReducer = (state = { restSeconds: {} }, action) => {
-  if (action.type === REST_SECONDS_DECREMENT && state.restSeconds > 0) {
+  if (action.type === REST_SECONDS_SET) {
+    return { ...state, restSeconds: action.payload }
+  } else if (action.type === REST_SECONDS_DECREMENT && state.restSeconds > 0) {
     return {
       ...state,
       restSeconds: state.restSeconds - 1,
@@ -130,19 +134,40 @@ export const counterRestReducer = (state = { restSeconds: {} }, action) => {
   return state
 }
 
+// export const setMyPomodoroReducer = (
+//   state = { pomodoroSeconds: {} },
+//   action
+// ) => {
+//   switch (action.type) {
+//     case POMODORO_SECONDS_SET:
+//       return { ...state, pomodoroSeconds: action.payload }
+//     default:
+//       return state
+//   }
+// }
+
 export const counterPomodoroReducer = (
   state = { pomodoroSeconds: {} },
   action
 ) => {
-  if (action.type === POMODORO_SECONDS_DECREMENT && state.pomodoroSeconds > 0) {
+  if (action.type === POMODORO_SECONDS_SET) {
+    return { ...state, pomodoroSeconds: action.payload }
+  } else if (
+    action.type === POMODORO_SECONDS_DECREMENT &&
+    state.pomodoroSeconds > 0
+  ) {
     return {
       ...state,
       pomodoroSeconds: state.pomodoroSeconds - 1,
     }
   } else if (action.type === POMODORO_SECONDS_RESET) {
-    return (state = {
-      pomodoroSeconds: pomodoroSecondsFromStorage,
-    })
+    // if (savedPomodoros) {
+    //   return (state = {
+    //     pomodoroSeconds: savedPomodoros.pomodoros[0].pomodoroSeconds,
+    //   })
+    // } else {}
+    return (state = { pomodoroSeconds: pomodoroSecondsFromStorage })
+
     // pomodoroSeconds: pomodoroInfoFromStorage.savedPomodoroSeconds
   } else if (
     action.type === POMODORO_MINUTES_INCREMENT &&
@@ -178,20 +203,26 @@ export const pomodoroUpdateReducer = (state = { pomodoros: [] }, action) => {
   }
 }
 
-// export const counterPomodoroReducer = (
+// export const setMyPomodoroReducer = (
 //   state = { pomodoroSeconds: {} },
 //   action
 // ) => {
+// switch (action.type) {
+//   case POMODORO_SECONDS_SET:
+//     return { pomodoroSeconds: action.payload }
+//   default:
+//     return state
+// }
+
+// }
+// export const setMyRestReducer = (state = { restSeconds: {} }, action) => {
 //   switch (action.type) {
-//     case POMODORO_SECONDS_DECREMENT:
-//       return { ...state, pomodoroSeconds: state.pomodoroSeconds - 1 }
-//     case POMODORO_SECONDS_RESET:
-//       return {}
+//     case REST_SECONDS_SET:
+//       return { restSeconds: action.payload }
 //     default:
 //       return state
 //   }
 // }
-
 // export const counterRestReducer = (state = { restSeconds: {} }, action) => {
 //   switch (action.type) {
 

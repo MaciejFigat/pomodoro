@@ -19,6 +19,8 @@ import {
   getMyPomodoros,
   updateMyPomodoro,
   createMyPomodoro,
+  pomodoroSecondsSet,
+  restSecondsSet,
 } from '../actions/pomodoroActions'
 
 const CustomPomodoroScreen = () => {
@@ -39,15 +41,19 @@ const CustomPomodoroScreen = () => {
   // const [seconds, setSeconds] = useState(25 * 60)
   // const [restSeconds2, setRestSeconds] = useState(0)
   const [isActive, setIsActive] = useState(false)
-  // I changed name for local state restSeconds2 - to avoid conflict with global state - temporary change
 
   const toggle = () => {
     setIsActive(!isActive)
   }
 
   const reset = () => {
-    dispatch(resetPomodoro())
-    dispatch(resetRest())
+    if (savedPomodoros.pomodoros) {
+      dispatch(restSecondsSet(savedPomodoros.pomodoros[0].restSeconds))
+      dispatch(pomodoroSecondsSet(savedPomodoros.pomodoros[0].pomodoroSeconds))
+    } else {
+      dispatch(resetPomodoro())
+      dispatch(resetRest())
+    }
   }
 
   const pomodoroDurationPlus = () => {
@@ -185,7 +191,6 @@ const CustomPomodoroScreen = () => {
           </Col>
         </Col>
       </Row>
-
       <button onClick={() => dispatch(decreasePomodoro())}>
         --- testing action decrease pomodoro seconds in store
       </button>
@@ -210,7 +215,6 @@ const CustomPomodoroScreen = () => {
       <button onClick={() => dispatch(decreaseRestMinutes())}>
         --- testing atesting - 1 min restSeconds
       </button>
-
       <button onClick={() => dispatch(increaseSavedPomodoroMinutes())}>
         --- testing + 1 saved pom
       </button>
@@ -251,13 +255,32 @@ const CustomPomodoroScreen = () => {
           dispatch(
             updateMyPomodoro({
               _id: '5fe48e149efc9227ac81337a',
-              pomodoroSeconds: 1,
-              restSeconds: 11,
+              pomodoroSeconds: pomodoroSeconds,
+              restSeconds: restSeconds,
             })
           )
         }
       >
         --- testing updateMyPomodoro Action
+      </button>
+      <button onClick={() => console.log(savedPomodoros.pomodoros[0]._id)}>
+        --- testing pomodoros
+      </button>
+      <button
+        onClick={() =>
+          dispatch(
+            pomodoroSecondsSet(savedPomodoros.pomodoros[0].pomodoroSeconds)
+          )
+        }
+      >
+        --- testing pomodoroSecondsSet
+      </button>
+      <button
+        onClick={() =>
+          dispatch(restSecondsSet(savedPomodoros.pomodoros[0].restSeconds))
+        }
+      >
+        --- testing restSecondsSet
       </button>
     </FormContainer>
   )
