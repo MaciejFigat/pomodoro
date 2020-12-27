@@ -82,7 +82,7 @@ const CustomPomodoroScreen = () => {
     console.log(pomodoroSeconds, restSeconds)
   }
   // useMountEffect(() => {
-  //   dispatch(getMyPomodoros())
+  // dispatch(getMyPomodoros())
   //   if (savedPomodoros.pomodoros) {
   //     dispatch(restSecondsSet(savedPomodoros.pomodoros[0].restSeconds))
   //     dispatch(pomodoroSecondsSet(savedPomodoros.pomodoros[0].pomodoroSeconds))
@@ -92,10 +92,10 @@ const CustomPomodoroScreen = () => {
     if (!savedPomodoros.pomodoros) {
       dispatch(getMyPomodoros())
     }
-    if (savedPomodoros.pomodoros && !isActive) {
-      dispatch(restSecondsSet(savedPomodoros.pomodoros[0].restSeconds))
-      dispatch(pomodoroSecondsSet(savedPomodoros.pomodoros[0].pomodoroSeconds))
-    }
+    // if (savedPomodoros.pomodoros && !isActive) {
+    //   dispatch(restSecondsSet(savedPomodoros.pomodoros[0].restSeconds))
+    //   dispatch(pomodoroSecondsSet(savedPomodoros.pomodoros[0].pomodoroSeconds))
+    // }
     if (isActive && restSeconds === 0 && pomodoroSeconds === 0) {
       setPomodoroDone((pomodoroDone) => pomodoroDone + 1)
       if (savedPomodoros.pomodoros) {
@@ -281,7 +281,7 @@ const CustomPomodoroScreen = () => {
         onClick={() =>
           dispatch(
             updateMyPomodoro({
-              _id: '5fe48e149efc9227ac81337a',
+              _id: savedPomodoros.pomodoros[0]._id,
               pomodoroSeconds: pomodoroSeconds,
               restSeconds: restSeconds,
             })
