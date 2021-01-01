@@ -137,6 +137,7 @@ export const updateMyPomodoro = (pomodoro) => async (dispatch, getState) => {
 export const decreasePomodoro = () => {
   return {
     type: POMODORO_SECONDS_DECREMENT,
+    payload: 1,
   }
 }
 export const resetPomodoro = () => {

@@ -35,7 +35,7 @@ const LoginScreen = ({ location, history }) => {
       dispatch(getMyPomodoros())
     }
 
-    if (savedPomodoros.pomodoros) {
+    if (userInfo && savedPomodoros.pomodoros) {
       dispatch(restSecondsSet(savedPomodoros.pomodoros[0].restSeconds))
       dispatch(pomodoroSecondsSet(savedPomodoros.pomodoros[0].pomodoroSeconds))
     }

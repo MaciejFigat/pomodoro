@@ -8,7 +8,10 @@ import {
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
 } from '../constants/userConstants'
-
+import {
+  POMODORO_GET_RESET,
+  POMODORO_UPDATE_RESET,
+} from '../constants/pomodoroConstants'
 export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({
@@ -46,6 +49,8 @@ export const login = (email, password) => async (dispatch) => {
 export const logout = () => (dispatch) => {
   localStorage.removeItem('userInfo')
   dispatch({ type: USER_LOGOUT })
+  dispatch({ type: POMODORO_GET_RESET })
+  dispatch({ type: POMODORO_UPDATE_RESET })
 }
 
 export const register = (name, email, password) => async (dispatch) => {

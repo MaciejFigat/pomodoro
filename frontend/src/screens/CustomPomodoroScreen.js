@@ -36,6 +36,9 @@ const CustomPomodoroScreen = () => {
   const savedPomodoros = useSelector((state) => state.getPomodoroInfo)
   const { pomodoros } = savedPomodoros
 
+  const updatedPomodoro = useSelector((state) => state.pomodoroUpdate)
+  // const { pomodoroUpdated } = updatedPomodoro
+
   // const [pomodoroDuration, setPomodoroDuration] = useState(25)
   const [pomodoroDone, setPomodoroDone] = useState(0)
   // const [restDuration, setRestDuration] = useState(0)
@@ -51,6 +54,8 @@ const CustomPomodoroScreen = () => {
     if (savedPomodoros.pomodoros) {
       dispatch(restSecondsSet(savedPomodoros.pomodoros[0].restSeconds))
       dispatch(pomodoroSecondsSet(savedPomodoros.pomodoros[0].pomodoroSeconds))
+      // } else if (updatedPomodoro.pomodoros.success === true) {
+      //   dispatch(getMyPomodoros())
     } else {
       dispatch(resetPomodoro())
       dispatch(resetRest())
@@ -78,23 +83,33 @@ const CustomPomodoroScreen = () => {
   }
 
   const savePreferencesHandler = () => {
-    console.log('saved preferences')
-    console.log(pomodoroSeconds, restSeconds)
+    dispatch(
+      updateMyPomodoro({
+        _id: savedPomodoros.pomodoros[0]._id,
+        pomodoroSeconds: pomodoroSeconds,
+        restSeconds: restSeconds,
+      })
+    )
   }
-  // useMountEffect(() => {
-  // dispatch(getMyPomodoros())
-  //   if (savedPomodoros.pomodoros) {
-  //     dispatch(restSecondsSet(savedPomodoros.pomodoros[0].restSeconds))
-  //     dispatch(pomodoroSecondsSet(savedPomodoros.pomodoros[0].pomodoroSeconds))
-  //   }
-  // })
+
   useEffect(() => {
-    if (!savedPomodoros.pomodoros) {
+    if (!savedPomodoros.pomodoros && isActive === false) {
       dispatch(getMyPomodoros())
     }
-    // if (savedPomodoros.pomodoros && !isActive) {
-    //   dispatch(restSecondsSet(savedPomodoros.pomodoros[0].restSeconds))
-    //   dispatch(pomodoroSecondsSet(savedPomodoros.pomodoros[0].pomodoroSeconds))
+    // if (
+    //   updatedPomodoro.pomodoros.loading &&
+    //   (savedPomodoros.pomodoros[0].pomodoroSeconds !==
+    //     updatedPomodoro.pomodoros.pomodoroSeconds ||
+    //     savedPomodoros.pomodoros[0].restSeconds !==
+    //       updatedPomodoro.pomodoros.restSeconds)
+    // ) {
+    //   dispatch(getMyPomodoros())
+    // }
+    // if (
+    //   updatedPomodoro.pomodoros.success &&
+    //   updatedPomodoro.pomodoros.success === true
+    // ) {
+    //   dispatch(getMyPomodoros())
     // }
     if (isActive && restSeconds === 0 && pomodoroSeconds === 0) {
       setPomodoroDone((pomodoroDone) => pomodoroDone + 1)
@@ -124,6 +139,7 @@ const CustomPomodoroScreen = () => {
     dispatch,
     pomodoroSeconds,
     savedPomodoros.pomodoros,
+    updatedPomodoro,
   ])
 
   return (
@@ -208,9 +224,23 @@ const CustomPomodoroScreen = () => {
                   </Button>
                 </Col>
               </Row>
+
               <Button variant='info' flush onClick={savePreferencesHandler}>
                 Save preferences
               </Button>
+
+              {updatedPomodoro.pomodoros ? (
+                <Button
+                  variant='success'
+                  flush
+                  onClick={() => dispatch(getMyPomodoros())}
+                >
+                  Set updated as current
+                </Button>
+              ) : (
+                <></>
+              )}
+
               <Button variant='warning' flush onClick={reset}>
                 Reset timer
               </Button>
@@ -314,3 +344,14 @@ const CustomPomodoroScreen = () => {
 }
 
 export default CustomPomodoroScreen
+
+// {savedPomodoros.pomodoros[0].pomodoroSeconds !==
+//   updatedPomodoro.pomodoros.pomodoroSeconds ||
+// savedPomodoros.pomodoros[0].restSeconds !==
+//   updatedPomodoro.pomodoros.restSeconds ? (
+//   <Button variant='info' flush onClick={savePreferencesHandler}>
+//     Set updated as current
+//   </Button>
+// ) : (
+//   <></>
+// )}

@@ -2,6 +2,7 @@ import {
   POMODORO_GET_REQUEST,
   POMODORO_GET_SUCCESS,
   POMODORO_GET_FAIL,
+  POMODORO_GET_RESET,
   POMODORO_CREATE_REQUEST,
   POMODORO_CREATE_SUCCESS,
   POMODORO_CREATE_FAIL,
@@ -9,6 +10,7 @@ import {
   POMODORO_UPDATE_REQUEST,
   POMODORO_UPDATE_SUCCESS,
   POMODORO_UPDATE_FAIL,
+  POMODORO_UPDATE_RESET,
   POMODORO_SECONDS_DECREMENT,
   POMODORO_SECONDS_RESET,
   REST_SECONDS_DECREMENT,
@@ -31,28 +33,6 @@ import {
   pomodoroInfoFromStorage,
 } from '../store'
 
-// export const getMyPomodorosReducer = (state = { pomodoros: {} }, action) => {
-//   switch (action.type) {
-//     case POMODORO_GET_REQUEST:
-//       return {
-//         loading: true,
-//       }
-//     case POMODORO_GET_SUCCESS:
-//       return {
-//         loading: false,
-//         orders: action.payload,
-//       }
-//     case POMODORO_GET_FAIL:
-//       return {
-//         loading: false,
-//         error: action.payload,
-//       }
-
-//     default:
-//       return state
-//   }
-// }
-
 export const getPomodoroInfoReducer = (state = { pomodoros: [] }, action) => {
   switch (action.type) {
     case POMODORO_GET_REQUEST:
@@ -64,6 +44,8 @@ export const getPomodoroInfoReducer = (state = { pomodoros: [] }, action) => {
       }
     case POMODORO_GET_FAIL:
       return { loading: false, error: action.payload }
+    case POMODORO_GET_RESET:
+      return { pomodoros: [] }
     default:
       return state
   }
@@ -134,18 +116,6 @@ export const counterRestReducer = (state = { restSeconds: {} }, action) => {
   return state
 }
 
-// export const setMyPomodoroReducer = (
-//   state = { pomodoroSeconds: {} },
-//   action
-// ) => {
-//   switch (action.type) {
-//     case POMODORO_SECONDS_SET:
-//       return { ...state, pomodoroSeconds: action.payload }
-//     default:
-//       return state
-//   }
-// }
-
 export const counterPomodoroReducer = (
   state = { pomodoroSeconds: {} },
   action
@@ -159,16 +129,10 @@ export const counterPomodoroReducer = (
     return {
       ...state,
       pomodoroSeconds: state.pomodoroSeconds - 1,
+      // pomodoroSeconds: state.pomodoroSeconds - action.payload,
     }
   } else if (action.type === POMODORO_SECONDS_RESET) {
-    // if (savedPomodoros) {
-    //   return (state = {
-    //     pomodoroSeconds: savedPomodoros.pomodoros[0].pomodoroSeconds,
-    //   })
-    // } else {}
     return (state = { pomodoroSeconds: pomodoroSecondsFromStorage })
-
-    // pomodoroSeconds: pomodoroInfoFromStorage.savedPomodoroSeconds
   } else if (
     action.type === POMODORO_MINUTES_INCREMENT &&
     state.pomodoroSeconds <= 3600
@@ -189,7 +153,7 @@ export const counterPomodoroReducer = (
   return state
 }
 
-export const pomodoroUpdateReducer = (state = { pomodoros: [] }, action) => {
+export const pomodoroUpdateReducer = (state = {}, action) => {
   switch (action.type) {
     case POMODORO_UPDATE_REQUEST:
       return { loading: true }
@@ -197,41 +161,10 @@ export const pomodoroUpdateReducer = (state = { pomodoros: [] }, action) => {
       return { loading: false, success: true, pomodoros: action.payload }
     case POMODORO_UPDATE_FAIL:
       return { loading: false, error: action.payload }
+    case POMODORO_UPDATE_RESET:
+      return {}
 
     default:
       return state
   }
 }
-
-// export const setMyPomodoroReducer = (
-//   state = { pomodoroSeconds: {} },
-//   action
-// ) => {
-// switch (action.type) {
-//   case POMODORO_SECONDS_SET:
-//     return { pomodoroSeconds: action.payload }
-//   default:
-//     return state
-// }
-
-// }
-// export const setMyRestReducer = (state = { restSeconds: {} }, action) => {
-//   switch (action.type) {
-//     case REST_SECONDS_SET:
-//       return { restSeconds: action.payload }
-//     default:
-//       return state
-//   }
-// }
-// export const counterRestReducer = (state = { restSeconds: {} }, action) => {
-//   switch (action.type) {
-
-//     case REST_SECONDS_DECREMENT:
-//       return { ...state, restSeconds: state.restSeconds - 1 }
-
-//     case REST_SECONDS_RESET:
-//       return { restSeconds: state }
-//     default:
-//       return state
-//   }
-// }
