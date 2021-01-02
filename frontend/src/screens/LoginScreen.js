@@ -18,11 +18,9 @@ const LoginScreen = ({ location, history }) => {
   const dispatch = useDispatch()
 
   const userLogin = useSelector((state) => state.userLogin)
-
+  const { userInfo } = userLogin
   const savedPomodoros = useSelector((state) => state.getPomodoroInfo)
   const { pomodoros } = savedPomodoros
-
-  const { loading, error, userInfo } = userLogin
 
   const redirect = location.search ? location.search.split('=')[1] : '/'
 
@@ -31,11 +29,19 @@ const LoginScreen = ({ location, history }) => {
     dispatch(login(email, password))
   }
   useEffect(() => {
-    if (userInfo && !savedPomodoros.pomodoros) {
+    if (
+      userInfo &&
+      savedPomodoros.pomodoros &&
+      savedPomodoros.pomodoros.length === 0
+    ) {
       dispatch(getMyPomodoros())
     }
 
-    if (userInfo && savedPomodoros.pomodoros) {
+    if (
+      userInfo &&
+      savedPomodoros.pomodoros &&
+      savedPomodoros.pomodoros.length !== 0
+    ) {
       dispatch(restSecondsSet(savedPomodoros.pomodoros[0].restSeconds))
       dispatch(pomodoroSecondsSet(savedPomodoros.pomodoros[0].pomodoroSeconds))
     }

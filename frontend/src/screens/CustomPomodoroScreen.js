@@ -27,6 +27,9 @@ import {
 const CustomPomodoroScreen = () => {
   const dispatch = useDispatch()
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   const counterPomodoro = useSelector((state) => state.counterPomodoro)
   const { pomodoroSeconds } = counterPomodoro
 
@@ -37,13 +40,11 @@ const CustomPomodoroScreen = () => {
   const { pomodoros } = savedPomodoros
 
   const updatedPomodoro = useSelector((state) => state.pomodoroUpdate)
-  // const { pomodoroUpdated } = updatedPomodoro
+  const createdPomodoro = useSelector((state) => state.pomodoroCreate)
 
-  // const [pomodoroDuration, setPomodoroDuration] = useState(25)
   const [pomodoroDone, setPomodoroDone] = useState(0)
-  // const [restDuration, setRestDuration] = useState(0)
-  // const [seconds, setSeconds] = useState(25 * 60)
-  // const [restSeconds2, setRestSeconds] = useState(0)
+
+  const [updatedVisible, setUpdatedVisible] = useState(false)
   const [isActive, setIsActive] = useState(false)
 
   const toggle = () => {
@@ -51,7 +52,7 @@ const CustomPomodoroScreen = () => {
   }
 
   const reset = () => {
-    if (savedPomodoros.pomodoros) {
+    if (savedPomodoros.pomodoros && userInfo) {
       dispatch(restSecondsSet(savedPomodoros.pomodoros[0].restSeconds))
       dispatch(pomodoroSecondsSet(savedPomodoros.pomodoros[0].pomodoroSeconds))
       // } else if (updatedPomodoro.pomodoros.success === true) {
@@ -60,6 +61,7 @@ const CustomPomodoroScreen = () => {
       dispatch(resetPomodoro())
       dispatch(resetRest())
     }
+    console.log(updatedVisible)
   }
 
   const pomodoroDurationPlus = () => {
@@ -82,6 +84,15 @@ const CustomPomodoroScreen = () => {
     dispatch(setZeroRest())
   }
 
+  const createPomodoroHandler = () => {
+    dispatch(
+      createMyPomodoro({
+        pomodoroSeconds: pomodoroSeconds,
+        restSeconds: restSeconds,
+      })
+    )
+  }
+
   const savePreferencesHandler = () => {
     dispatch(
       updateMyPomodoro({
@@ -90,9 +101,20 @@ const CustomPomodoroScreen = () => {
         restSeconds: restSeconds,
       })
     )
+    if (updatedVisible === true) {
+      setUpdatedVisible(false)
+    }
   }
-
+  // setUpdatedVisible(!updatedVisible)
   useEffect(() => {
+    if (
+      userInfo &&
+      createdPomodoro.pomodoro &&
+      savedPomodoros.pomodoros &&
+      savedPomodoros.pomodoros.length === 0
+    ) {
+      dispatch(getMyPomodoros())
+    }
     if (!savedPomodoros.pomodoros && isActive === false) {
       dispatch(getMyPomodoros())
     }
@@ -140,6 +162,7 @@ const CustomPomodoroScreen = () => {
     pomodoroSeconds,
     savedPomodoros.pomodoros,
     updatedPomodoro,
+    createdPomodoro,
   ])
 
   return (
@@ -224,16 +247,33 @@ const CustomPomodoroScreen = () => {
                   </Button>
                 </Col>
               </Row>
+              {userInfo &&
+                savedPomodoros.pomodoros &&
+                savedPomodoros.pomodoros.length === 0 &&
+                !createdPomodoro.pomodoro && (
+                  <Button variant='info' flush onClick={createPomodoroHandler}>
+                    Create your own pomodoro
+                  </Button>
+                )}
 
-              <Button variant='info' flush onClick={savePreferencesHandler}>
-                Save preferences
-              </Button>
+              {userInfo &&
+                savedPomodoros.pomodoros &&
+                savedPomodoros.pomodoros.length !== 0 && (
+                  <Button variant='info' flush onClick={savePreferencesHandler}>
+                    Save preferences
+                  </Button>
+                )}
 
-              {updatedPomodoro.pomodoros ? (
+              {updatedPomodoro.pomodoros && updatedVisible === false ? (
                 <Button
                   variant='success'
                   flush
-                  onClick={() => dispatch(getMyPomodoros())}
+                  onClick={() =>
+                    dispatch(
+                      getMyPomodoros(),
+                      setUpdatedVisible(!updatedVisible)
+                    )
+                  }
                 >
                   Set updated as current
                 </Button>
@@ -291,8 +331,8 @@ const CustomPomodoroScreen = () => {
         onClick={() =>
           dispatch(
             createMyPomodoro({
-              pomodoroSeconds: 323,
-              restSeconds: 132,
+              pomodoroSeconds: pomodoroSeconds,
+              restSeconds: restSeconds,
             })
           )
         }
@@ -344,14 +384,3 @@ const CustomPomodoroScreen = () => {
 }
 
 export default CustomPomodoroScreen
-
-// {savedPomodoros.pomodoros[0].pomodoroSeconds !==
-//   updatedPomodoro.pomodoros.pomodoroSeconds ||
-// savedPomodoros.pomodoros[0].restSeconds !==
-//   updatedPomodoro.pomodoros.restSeconds ? (
-//   <Button variant='info' flush onClick={savePreferencesHandler}>
-//     Set updated as current
-//   </Button>
-// ) : (
-//   <></>
-// )}
