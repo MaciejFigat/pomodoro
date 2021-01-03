@@ -52,11 +52,13 @@ const CustomPomodoroScreen = () => {
   }
 
   const reset = () => {
-    if (savedPomodoros.pomodoros && userInfo) {
+    if (
+      savedPomodoros.pomodoros &&
+      userInfo &&
+      savedPomodoros.pomodoros.length !== 0
+    ) {
       dispatch(restSecondsSet(savedPomodoros.pomodoros[0].restSeconds))
       dispatch(pomodoroSecondsSet(savedPomodoros.pomodoros[0].pomodoroSeconds))
-      // } else if (updatedPomodoro.pomodoros.success === true) {
-      //   dispatch(getMyPomodoros())
     } else {
       dispatch(resetPomodoro())
       dispatch(resetRest())
@@ -105,7 +107,7 @@ const CustomPomodoroScreen = () => {
       setUpdatedVisible(false)
     }
   }
-  // setUpdatedVisible(!updatedVisible)
+
   useEffect(() => {
     if (
       userInfo &&
@@ -118,21 +120,20 @@ const CustomPomodoroScreen = () => {
     if (!savedPomodoros.pomodoros && isActive === false) {
       dispatch(getMyPomodoros())
     }
-    // if (
-    //   updatedPomodoro.pomodoros.loading &&
-    //   (savedPomodoros.pomodoros[0].pomodoroSeconds !==
-    //     updatedPomodoro.pomodoros.pomodoroSeconds ||
-    //     savedPomodoros.pomodoros[0].restSeconds !==
-    //       updatedPomodoro.pomodoros.restSeconds)
-    // ) {
-    //   dispatch(getMyPomodoros())
-    // }
-    // if (
-    //   updatedPomodoro.pomodoros.success &&
-    //   updatedPomodoro.pomodoros.success === true
-    // ) {
-    //   dispatch(getMyPomodoros())
-    // }
+    if (
+      savedPomodoros.pomodoros &&
+      savedPomodoros.pomodoros.length === 0 &&
+      updatedPomodoro.pomodoros &&
+      userInfo
+      // &&
+      // (savedPomodoros.pomodoros[0].pomodoroSeconds !==
+      //   updatedPomodoro.pomodoros.pomodoroSeconds ||
+      //   savedPomodoros.pomodoros[0].restSeconds !==
+      //     updatedPomodoro.pomodoros.restSeconds)
+    ) {
+      dispatch(getMyPomodoros())
+    }
+
     if (isActive && restSeconds === 0 && pomodoroSeconds === 0) {
       setPomodoroDone((pomodoroDone) => pomodoroDone + 1)
       if (savedPomodoros.pomodoros) {
@@ -163,6 +164,7 @@ const CustomPomodoroScreen = () => {
     savedPomodoros.pomodoros,
     updatedPomodoro,
     createdPomodoro,
+    userInfo,
   ])
 
   return (
@@ -288,97 +290,6 @@ const CustomPomodoroScreen = () => {
           </Col>
         </Col>
       </Row>
-      <button onClick={() => dispatch(decreasePomodoro())}>
-        --- testing action decrease pomodoro seconds in store
-      </button>
-      <button onClick={() => dispatch(decreaseRest())}>
-        --- testing action decrease rest seconds in store
-      </button>
-      <button onClick={() => dispatch(resetRest())}>
-        --- testing action reset rest
-      </button>
-      <button onClick={() => dispatch(resetPomodoro())}>
-        --- testing action reset pomodoro
-      </button>
-      <button onClick={() => dispatch(increasePomodoroMinutes())}>
-        --- testing action + 1 min pomodoroSeconds
-      </button>
-      <button onClick={() => dispatch(decreasePomodoroMinutes())}>
-        --- testing atesting - 1 min pomodoroSeconds
-      </button>
-      <button onClick={() => dispatch(increaseRestMinutes())}>
-        --- testing atesting + 1 min restSeconds
-      </button>
-      <button onClick={() => dispatch(decreaseRestMinutes())}>
-        --- testing atesting - 1 min restSeconds
-      </button>
-      <button onClick={() => dispatch(increaseSavedPomodoroMinutes())}>
-        --- testing + 1 saved pom
-      </button>
-      <button onClick={() => dispatch(decreaseSavedPomodoroMinutes())}>
-        --- testing - 1 min pom saved
-      </button>
-      <button onClick={() => dispatch(increaseSavedRestMinutes())}>
-        --- testing + 1 min rest saved
-      </button>
-      <button onClick={() => dispatch(decreaseSavedRestMinutes())}>
-        --- testing - 1 min rest saved
-      </button>
-      <button onClick={() => dispatch(getMyPomodoros())}>
-        --- testing getMyPomodoros Action
-      </button>
-      <button
-        onClick={() =>
-          dispatch(
-            createMyPomodoro({
-              pomodoroSeconds: pomodoroSeconds,
-              restSeconds: restSeconds,
-            })
-          )
-        }
-      >
-        --- testing createMyPomodoro Action
-      </button>
-      <button onClick={() => console.log(pomodoros[0])}>
-        --- testing POM from the DB
-      </button>
-      <button
-        onClick={() => console.log(savedPomodoros.pomodoros[0].pomodoroSeconds)}
-      >
-        --- testing POM from the DB 2
-      </button>
-      <button
-        onClick={() =>
-          dispatch(
-            updateMyPomodoro({
-              _id: savedPomodoros.pomodoros[0]._id,
-              pomodoroSeconds: pomodoroSeconds,
-              restSeconds: restSeconds,
-            })
-          )
-        }
-      >
-        --- testing updateMyPomodoro Action
-      </button>
-      <button onClick={() => console.log(savedPomodoros.pomodoros[0]._id)}>
-        --- testing pomodoros
-      </button>
-      <button
-        onClick={() =>
-          dispatch(
-            pomodoroSecondsSet(savedPomodoros.pomodoros[0].pomodoroSeconds)
-          )
-        }
-      >
-        --- testing pomodoroSecondsSet
-      </button>
-      <button
-        onClick={() =>
-          dispatch(restSecondsSet(savedPomodoros.pomodoros[0].restSeconds))
-        }
-      >
-        --- testing restSecondsSet
-      </button>
     </FormContainer>
   )
 }

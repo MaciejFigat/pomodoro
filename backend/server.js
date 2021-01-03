@@ -7,6 +7,7 @@ import connectDB from './config/db.js'
 import userRoutes from './routes/userRoutes.js'
 import pomodoroRoutes from './routes/pomodoroRoutes.js'
 import pomodoroSettingsRoutes from './routes/pomodoroSettingsRoutes.js'
+import pomodoroDoneRoutes from './routes/pomodoroDoneRoutes.js'
 
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
 }
+app.use('/api/donePomodoro', pomodoroDoneRoutes)
 app.use('/api/pomodoros', pomodoroRoutes)
 app.use('/api/settings', pomodoroSettingsRoutes)
 app.use('/api/users', userRoutes)
