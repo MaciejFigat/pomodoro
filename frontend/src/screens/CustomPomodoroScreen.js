@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Button, Row, Col, Badge, Card } from 'react-bootstrap'
+import {
+  Container,
+  Button,
+  Row,
+  Col,
+  Badge,
+  Card,
+  Table,
+} from 'react-bootstrap'
 import FormContainer from '../components/FormContainer'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -33,6 +41,9 @@ const CustomPomodoroScreen = () => {
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
+
+  const getPomodoroDone = useSelector((state) => state.getPomodoroDone)
+  const { pomodorosDone } = getPomodoroDone
 
   const counterPomodoro = useSelector((state) => state.counterPomodoro)
   const { pomodoroSeconds } = counterPomodoro
@@ -135,6 +146,11 @@ const CustomPomodoroScreen = () => {
 
     if (isActive && restSeconds === 0 && pomodoroSeconds === 0) {
       setPomodoroDone((pomodoroDone) => pomodoroDone + 1)
+      dispatch(
+        saveMyDonePomodoro({
+          pomodoroNumber: 1,
+        })
+      )
       if (savedPomodoros.pomodoros) {
         dispatch(restSecondsSet(savedPomodoros.pomodoros[0].restSeconds))
         dispatch(
@@ -302,8 +318,27 @@ const CustomPomodoroScreen = () => {
               >
                 getMyDonePomodoros
               </Button>
-              saveMyDonePomodoro, getMyDonePomodoros,
             </Card>
+            {pomodorosDone && pomodorosDone.length !== 0 && (
+              <Table stripped bordered hover responsive className='table-sm'>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>User </th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {pomodorosDone.map((pomodoroDone) => (
+                    <tr key={pomodorosDone._id}>
+                      <td>{pomodorosDone._id}</td>
+                      <td>{pomodorosDone.user}</td>
+                      <td>{pomodoroDone.createdAt.substring(0, 10)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            )}
           </Col>
         </Col>
       </Row>
