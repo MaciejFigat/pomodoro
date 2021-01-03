@@ -7,6 +7,6 @@ import {
 } from '../controllers/pomodoroDoneController.js'
 
 router.route('/').post(protect, createPomodoroDone)
-router.route('/donepomodoros').get(protect, getMyDonePomodoros)
+router.route('/mydonepomodoros').get(protect, getMyDonePomodoros)
 // router.route('/:id').put(protect, updatePomodoro)
 export default router

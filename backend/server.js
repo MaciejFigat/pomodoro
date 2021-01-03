@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
 }
-app.use('/api/donePomodoro', pomodoroDoneRoutes)
+app.use('/api/donepomodoros', pomodoroDoneRoutes)
 app.use('/api/pomodoros', pomodoroRoutes)
 app.use('/api/settings', pomodoroSettingsRoutes)
 app.use('/api/users', userRoutes)

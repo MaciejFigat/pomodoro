@@ -22,6 +22,10 @@ import {
   pomodoroSecondsSet,
   restSecondsSet,
 } from '../actions/pomodoroActions'
+import {
+  saveMyDonePomodoro,
+  getMyDonePomodoros,
+} from '../actions/pomodoroDoneActions'
 // import useMountEffect from '@restart/hooks/useMountEffect'
 
 const CustomPomodoroScreen = () => {
@@ -125,11 +129,6 @@ const CustomPomodoroScreen = () => {
       savedPomodoros.pomodoros.length === 0 &&
       updatedPomodoro.pomodoros &&
       userInfo
-      // &&
-      // (savedPomodoros.pomodoros[0].pomodoroSeconds !==
-      //   updatedPomodoro.pomodoros.pomodoroSeconds ||
-      //   savedPomodoros.pomodoros[0].restSeconds !==
-      //     updatedPomodoro.pomodoros.restSeconds)
     ) {
       dispatch(getMyPomodoros())
     }
@@ -257,7 +256,6 @@ const CustomPomodoroScreen = () => {
                     Create your own pomodoro
                   </Button>
                 )}
-
               {userInfo &&
                 savedPomodoros.pomodoros &&
                 savedPomodoros.pomodoros.length !== 0 && (
@@ -265,7 +263,6 @@ const CustomPomodoroScreen = () => {
                     Save preferences
                   </Button>
                 )}
-
               {updatedPomodoro.pomodoros && updatedVisible === false ? (
                 <Button
                   variant='success'
@@ -282,10 +279,30 @@ const CustomPomodoroScreen = () => {
               ) : (
                 <></>
               )}
-
               <Button variant='warning' flush onClick={reset}>
                 Reset timer
               </Button>
+              <Button
+                variant='warning'
+                flush
+                onClick={() =>
+                  dispatch(
+                    saveMyDonePomodoro({
+                      pomodoroNumber: 1,
+                    })
+                  )
+                }
+              >
+                saveMyDonePomodoro test
+              </Button>
+              <Button
+                variant='warning'
+                flush
+                onClick={() => dispatch(getMyDonePomodoros())}
+              >
+                getMyDonePomodoros
+              </Button>
+              saveMyDonePomodoro, getMyDonePomodoros,
             </Card>
           </Col>
         </Col>

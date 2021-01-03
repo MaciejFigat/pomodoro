@@ -32,6 +32,17 @@ decreasePomodoro - action with type: POMODORO_SECONDS_DECREMENT
 - in case of resetPomodoro I imported the initial value from store ie. imported restSecondsFromStorage
 
 
+## FR for pomodoroDone
+// to create a new pomodoroDone
+
+pomodoroDoneCreateReducer
+
+// to get all a user did
+getPomodoroDoneReducer
+
+// actions 
+saveMyDonePomodoro - POST new pomodoro
+getMyDonePomodoros - GET all with my user._id
 
 
 
