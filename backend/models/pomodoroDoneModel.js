@@ -11,6 +11,10 @@ const pomodoroDoneSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
+    secondsDone: {
+      type: Number,
+      required: true,
+    },
   },
 
   {

@@ -5,7 +5,7 @@ import Header from './components/Header'
 import PomodoroDisplayScreen from './screens/PomodoroDisplayScreen'
 import CustomPomodoroScreen from './screens/CustomPomodoroScreen'
 import LoginScreen from './screens/LoginScreen'
-
+import UserStatsScreen from './screens/UserStatsScreen'
 import RegisterScreen from './screens/RegisterScreen'
 
 function App() {
@@ -16,6 +16,7 @@ function App() {
         <Route path='/login' component={LoginScreen} />
         <Route path='/register' component={RegisterScreen} />
         <Route path='/custom' component={CustomPomodoroScreen} />
+        <Route path='/stats' component={UserStatsScreen} />
         <Route path='/' component={PomodoroDisplayScreen} exact />
       </Container>
     </Router>

@@ -36,7 +36,7 @@ import {
 } from '../actions/pomodoroDoneActions'
 // import useMountEffect from '@restart/hooks/useMountEffect'
 
-const CustomPomodoroScreen = () => {
+const CustomPomodoroScreen = ({ history }) => {
   const dispatch = useDispatch()
 
   const userLogin = useSelector((state) => state.userLogin)
@@ -122,8 +122,22 @@ const CustomPomodoroScreen = () => {
       setUpdatedVisible(false)
     }
   }
+  const saveDonePomodoroHandler = () => {
+    if (savedPomodoros.pomodoros && savedPomodoros.pomodoros.length !== 0) {
+      dispatch(
+        saveMyDonePomodoro({
+          pomodoroNumber: 1,
+          secondsDone: savedPomodoros.pomodoros[0].pomodoroSeconds,
+        })
+      )
+    }
+  }
 
   useEffect(() => {
+    if (!userInfo) {
+      history.push('/login')
+    }
+
     if (
       userInfo &&
       createdPomodoro.pomodoro &&
@@ -149,6 +163,7 @@ const CustomPomodoroScreen = () => {
       dispatch(
         saveMyDonePomodoro({
           pomodoroNumber: 1,
+          secondsDone: savedPomodoros.pomodoros[0].pomodoroSeconds,
         })
       )
       if (savedPomodoros.pomodoros) {
@@ -298,17 +313,8 @@ const CustomPomodoroScreen = () => {
               <Button variant='warning' flush onClick={reset}>
                 Reset timer
               </Button>
-              <Button
-                variant='warning'
-                flush
-                onClick={() =>
-                  dispatch(
-                    saveMyDonePomodoro({
-                      pomodoroNumber: 1,
-                    })
-                  )
-                }
-              >
+
+              <Button variant='danger' flush onClick={saveDonePomodoroHandler}>
                 saveMyDonePomodoro test
               </Button>
               <Button
@@ -319,26 +325,6 @@ const CustomPomodoroScreen = () => {
                 getMyDonePomodoros
               </Button>
             </Card>
-            {pomodorosDone && pomodorosDone.length !== 0 && (
-              <Table stripped bordered hover responsive className='table-sm'>
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>User </th>
-                    <th>Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {pomodorosDone.map((pomodoroDone) => (
-                    <tr key={pomodorosDone._id}>
-                      <td>{pomodorosDone._id}</td>
-                      <td>{pomodorosDone.user}</td>
-                      <td>{pomodoroDone.createdAt.substring(0, 10)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            )}
           </Col>
         </Col>
       </Row>

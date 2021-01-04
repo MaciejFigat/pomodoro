@@ -18,19 +18,25 @@ const Header = () => {
     <header>
       <Navbar bg='light' variant='light' expand='lg' collapseOnSelect>
         <Container>
-          pomodoroTimer
           <LinkContainer to='/'>
-            <Navbar.Brand>HOME</Navbar.Brand>
+            <Navbar.Brand>Pomodoro Timer</Navbar.Brand>
           </LinkContainer>
-          <LinkContainer to='/custom'>
-            <Nav.Link>
-              <i className='fas fa-user-clock'></i> Your Pomodoro
-            </Nav.Link>
-          </LinkContainer>
+          {userInfo ? (
+            <LinkContainer to='/custom'>
+              <Nav.Link>
+                <i className='fas fa-user-clock'></i> {userInfo.name}'s pomodoro
+              </Nav.Link>
+            </LinkContainer>
+          ) : (
+            <>Welcome Stranger</>
+          )}
           {userInfo ? (
             <NavDropdown title={userInfo.name} id='username'>
               <LinkContainer to={'/profile'}>
                 <NavDropdown.Item>Profile</NavDropdown.Item>
+              </LinkContainer>
+              <LinkContainer to={'/stats'}>
+                <NavDropdown.Item>pomodoro stats</NavDropdown.Item>
               </LinkContainer>
               <NavDropdown.Item onClick={logoutHandler}>
                 Logout
