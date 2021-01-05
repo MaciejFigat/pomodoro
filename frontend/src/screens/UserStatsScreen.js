@@ -10,7 +10,10 @@ import {
 } from 'react-bootstrap'
 import FormContainer from '../components/FormContainer'
 import { useDispatch, useSelector } from 'react-redux'
-import { getMyDonePomodoros } from '../actions/pomodoroDoneActions'
+import {
+  getMyDonePomodoros,
+  deletePomodoroDone,
+} from '../actions/pomodoroDoneActions'
 
 const UserStatsScreen = ({ history }) => {
   const dispatch = useDispatch()
@@ -21,15 +24,30 @@ const UserStatsScreen = ({ history }) => {
   const getPomodoroDone = useSelector((state) => state.getPomodoroDone)
   const { pomodorosDone } = getPomodoroDone
 
+  const pomodoroDoneDelete = useSelector((state) => state.pomodoroDoneDelete)
+
+  const [deleteDone, setDeleteDone] = useState(false)
+
+  const deleteHandler = (id) => {
+    console.log('deletehandler')
+    if (window.confirm('Are you sure?')) {
+      dispatch(deletePomodoroDone(id))
+      setDeleteDone(true)
+    }
+  }
+
   useEffect(() => {
     if (!userInfo) {
       history.push('/login')
     }
-
+    if (deleteDone === true) {
+      dispatch(getMyDonePomodoros())
+      setDeleteDone(false)
+    }
     if (userInfo && pomodorosDone && pomodorosDone.length === 0) {
       dispatch(getMyDonePomodoros())
     }
-  }, [pomodorosDone, userInfo])
+  }, [pomodorosDone, userInfo, pomodoroDoneDelete])
 
   return (
     <FormContainer>
@@ -51,6 +69,16 @@ const UserStatsScreen = ({ history }) => {
                 <td>
                   {pomodoroDone.createdAt.substring(0, 10)} at{' '}
                   {pomodoroDone.createdAt.substring(11, 16)}{' '}
+                </td>
+                <td>
+                  {' '}
+                  <Button
+                    variant='danger'
+                    onClick={() => deleteHandler(pomodoroDone._id)}
+                    size='sm'
+                  >
+                    delete
+                  </Button>
                 </td>
               </tr>
             ))}

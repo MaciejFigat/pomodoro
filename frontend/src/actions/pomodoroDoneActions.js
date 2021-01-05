@@ -6,6 +6,9 @@ import {
   POMODORO_DONE_GET_REQUEST,
   POMODORO_DONE_GET_SUCCESS,
   POMODORO_DONE_GET_FAIL,
+  POMODORO_DONE_DELETE_REQUEST,
+  POMODORO_DONE_DELETE_SUCCESS,
+  POMODORO_DONE_DELETE_FAIL,
 } from '../constants/pomodoroDoneConstants'
 
 export const getMyDonePomodoros = () => async (dispatch, getState) => {
@@ -84,3 +87,38 @@ export const saveMyDonePomodoro = (pomodoroDone) => async (
     })
   }
 }
+
+export const deletePomodoroDone = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: POMODORO_DONE_DELETE_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    await axios.delete(`/api/donepomodoros/${id}`, config)
+
+    dispatch({
+      type: POMODORO_DONE_DELETE_SUCCESS,
+    })
+  } catch (error) {
+    dispatch({
+      type: POMODORO_DONE_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+// POMODORO_DONE_DELETE_REQUEST,
+// POMODORO_DONE_DELETE_SUCCESS,
+// POMODORO_DONE_DELETE_FAIL,

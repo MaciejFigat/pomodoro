@@ -16,6 +16,7 @@ import {
 import {
   pomodoroDoneCreateReducer,
   getPomodoroDoneReducer,
+  pomodoroDoneDeleteReducer,
 } from './reducers/pomodoroDoneReducers'
 const reducer = combineReducers({
   userLogin: userLoginReducer,
@@ -31,6 +32,7 @@ const reducer = combineReducers({
   // setMyRest: setMyRestReducer,
   pomodoroDoneCreate: pomodoroDoneCreateReducer,
   getPomodoroDone: getPomodoroDoneReducer,
+  pomodoroDoneDelete: pomodoroDoneDeleteReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')

@@ -2,7 +2,7 @@ import asyncHandler from 'express-async-handler'
 import PomodoroDone from '../models/pomodoroDoneModel.js'
 
 // @description create a pomodoro done
-// @route POST /api/pomodoroDone
+// @route POST /api/donepomodoros
 // @access private
 
 const createPomodoroDone = asyncHandler(async (req, res) => {
@@ -18,7 +18,7 @@ const createPomodoroDone = asyncHandler(async (req, res) => {
 })
 
 // @description get all my done pomodoros
-// @route GET /api/pomodorosDone
+// @route GET /api/donepomodoros
 // @access private
 
 const getMyDonePomodoros = asyncHandler(async (req, res) => {
@@ -26,4 +26,20 @@ const getMyDonePomodoros = asyncHandler(async (req, res) => {
   res.json(pomodoros)
 })
 
-export { createPomodoroDone, getMyDonePomodoros }
+// @description delete PomodoroDone
+// @route DELETE /api/donepomodoros/:id
+// @access private/Admin
+
+const deletePomodoroDone = asyncHandler(async (req, res) => {
+  const pomodoroDone = await PomodoroDone.findById(req.params.id)
+
+  if (pomodoroDone) {
+    await pomodoroDone.remove()
+    res.json({ message: 'pomodoroDone removed' })
+  } else {
+    res.status(404)
+    throw new Error('pomodoroDone not found')
+  }
+})
+
+export { createPomodoroDone, getMyDonePomodoros, deletePomodoroDone }
