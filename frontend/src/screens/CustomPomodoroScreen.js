@@ -195,6 +195,7 @@ const CustomPomodoroScreen = ({ history }) => {
     updatedPomodoro,
     createdPomodoro,
     userInfo,
+    history,
   ])
 
   return (

@@ -25,6 +25,7 @@ const UserStatsScreen = ({ history }) => {
   const { pomodorosDone } = getPomodoroDone
 
   const pomodoroDoneDelete = useSelector((state) => state.pomodoroDoneDelete)
+  const { success } = pomodoroDoneDelete
 
   const [deleteDone, setDeleteDone] = useState(false)
 
@@ -47,7 +48,7 @@ const UserStatsScreen = ({ history }) => {
     if (userInfo && pomodorosDone && pomodorosDone.length === 0) {
       dispatch(getMyDonePomodoros())
     }
-  }, [pomodorosDone, userInfo, pomodoroDoneDelete])
+  }, [dispatch, pomodorosDone, userInfo, success, history])
 
   return (
     <FormContainer>
