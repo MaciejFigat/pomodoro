@@ -44,6 +44,8 @@ export const getPomodoroDoneReducer = (
       return { loading: false, error: action.payload }
     case POMODORO_DONE_GET_RESET:
       return { pomodorosDone: [] }
+    case POMODORO_DONE_GET_RESET:
+      return {}
     default:
       return state
   }

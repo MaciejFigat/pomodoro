@@ -12,6 +12,7 @@ import {
   POMODORO_GET_RESET,
   POMODORO_UPDATE_RESET,
 } from '../constants/pomodoroConstants'
+import { POMODORO_DONE_GET_RESET } from '../constants/pomodoroDoneConstants'
 export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({
@@ -51,6 +52,7 @@ export const logout = () => (dispatch) => {
   dispatch({ type: USER_LOGOUT })
   dispatch({ type: POMODORO_GET_RESET })
   dispatch({ type: POMODORO_UPDATE_RESET })
+  dispatch({ type: POMODORO_DONE_GET_RESET })
 }
 
 export const register = (name, email, password) => async (dispatch) => {
