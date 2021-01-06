@@ -25,6 +25,7 @@ import {
   createMyPomodoro,
   pomodoroSecondsSet,
   restSecondsSet,
+  deletePomodoro,
 } from '../actions/pomodoroActions'
 import {
   saveMyDonePomodoro,
@@ -50,12 +51,15 @@ const CustomTrainingScreen = ({ history }) => {
   const { pomodoros } = savedPomodoros
 
   const updatedPomodoro = useSelector((state) => state.pomodoroUpdate)
+
   const createdPomodoro = useSelector((state) => state.pomodoroCreate)
 
   const [pomodoroDone, setPomodoroDone] = useState(0)
 
   const [updatedVisible, setUpdatedVisible] = useState(false)
   const [isActive, setIsActive] = useState(false)
+  const [deleteDone, setDeleteDone] = useState(false)
+  const [createDone, setCreateDone] = useState(false)
 
   const toggle = () => {
     setIsActive(!isActive)
@@ -103,6 +107,7 @@ const CustomTrainingScreen = ({ history }) => {
         restSeconds: restSeconds,
       })
     )
+    setDeleteDone(true)
   }
 
   const savePreferencesHandler = () => {
@@ -128,16 +133,23 @@ const CustomTrainingScreen = ({ history }) => {
     }
   }
   const deleteHandler = (id) => {
-    console.log('deletehandler')
-    // if (window.confirm('Are you sure?')) {
-    //   dispatch(deletePomodoroDone(id))
-    //   setDeleteDone(true)
-    // }
+    if (window.confirm('Are you sure?')) {
+      dispatch(deletePomodoro(id))
+      setDeleteDone(true)
+    }
   }
 
   useEffect(() => {
     if (!userInfo) {
       history.push('/login')
+    }
+    if (deleteDone === true) {
+      dispatch(getMyPomodoros())
+      setDeleteDone(false)
+    }
+    if (createDone === true) {
+      dispatch(getMyPomodoros())
+      setCreateDone(false)
     }
 
     if (
@@ -198,6 +210,7 @@ const CustomTrainingScreen = ({ history }) => {
     createdPomodoro,
     userInfo,
     history,
+    deleteDone,
   ])
 
   return (
@@ -358,7 +371,15 @@ const CustomTrainingScreen = ({ history }) => {
               <tr>
                 <th>Duration of an excercise </th>
                 <th>Rest duration </th>
-                <th>Date of creation</th>
+                <th>
+                  <Button
+                    variant='success'
+                    onClick={createPomodoroHandler}
+                    size='sm'
+                  >
+                    Add a new excercise <i className='fas fa-plus-square'></i>
+                  </Button>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -372,10 +393,7 @@ const CustomTrainingScreen = ({ history }) => {
                     {Math.trunc(savedPomodoro.restSeconds / 60)} minutes{' '}
                     {savedPomodoro.restSeconds % 60} seconds
                   </td>
-                  <td>
-                    {savedPomodoro.createdAt.substring(0, 10)} at{' '}
-                    {savedPomodoro.createdAt.substring(11, 16)}{' '}
-                  </td>
+                  <td>Name, perhaps description</td>
                   <td>
                     {' '}
                     <Button

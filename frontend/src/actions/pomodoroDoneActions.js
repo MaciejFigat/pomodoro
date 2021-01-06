@@ -119,6 +119,3 @@ export const deletePomodoroDone = (id) => async (dispatch, getState) => {
     })
   }
 }
-// POMODORO_DONE_DELETE_REQUEST,
-// POMODORO_DONE_DELETE_SUCCESS,
-// POMODORO_DONE_DELETE_FAIL,

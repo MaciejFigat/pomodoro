@@ -27,6 +27,9 @@ import {
   SAVED_REST_MINUTES_DECREMENT,
   REST_SECONDS_SET,
   POMODORO_SECONDS_SET,
+  POMODORO_DELETE_REQUEST,
+  POMODORO_DELETE_SUCCESS,
+  POMODORO_DELETE_FAIL,
 } from '../constants/pomodoroConstants'
 
 export const getMyPomodoros = () => async (dispatch, getState) => {
@@ -256,5 +259,37 @@ export const increaseSavedPomodoroMinutes = () => {
 export const decreaseSavedPomodoroMinutes = () => {
   return {
     type: SAVED_POMODORO_MINUTES_DECREMENT,
+  }
+}
+
+export const deletePomodoro = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: POMODORO_DELETE_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    await axios.delete(`/api/pomodoros/${id}`, config)
+
+    dispatch({
+      type: POMODORO_DELETE_SUCCESS,
+    })
+  } catch (error) {
+    dispatch({
+      type: POMODORO_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
   }
 }

@@ -26,6 +26,9 @@ import {
   SAVED_REST_MINUTES_DECREMENT,
   REST_SECONDS_SET,
   POMODORO_SECONDS_SET,
+  POMODORO_DELETE_REQUEST,
+  POMODORO_DELETE_SUCCESS,
+  POMODORO_DELETE_FAIL,
 } from '../constants/pomodoroConstants'
 import {
   pomodoroSecondsFromStorage,
@@ -163,6 +166,21 @@ export const pomodoroUpdateReducer = (state = {}, action) => {
       return { loading: false, error: action.payload }
     case POMODORO_UPDATE_RESET:
       return {}
+
+    default:
+      return state
+  }
+}
+
+// to attempt deleting the pomodoro
+export const pomodoroDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case POMODORO_DELETE_REQUEST:
+      return { loading: true }
+    case POMODORO_DELETE_SUCCESS:
+      return { loading: false, success: true }
+    case POMODORO_DELETE_FAIL:
+      return { loading: false, error: action.payload }
 
     default:
       return state
