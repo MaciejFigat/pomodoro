@@ -44,4 +44,20 @@ const updatePomodoro = asyncHandler(async (req, res) => {
   }
 })
 
-export { getMyPomodoros, createPomodoro, updatePomodoro }
+// @description delete PomodoroDone
+// @route DELETE /api/donepomodoros/:id
+// @access private/Admin
+
+const deletePomodoro = asyncHandler(async (req, res) => {
+  const pomodoro = await Pomodoro.findById(req.params.id)
+
+  if (pomodoro) {
+    await pomodoro.remove()
+    res.json({ message: 'pomodoro removed' })
+  } else {
+    res.status(404)
+    throw new Error('pomodoro not found')
+  }
+})
+
+export { getMyPomodoros, createPomodoro, updatePomodoro, deletePomodoro }

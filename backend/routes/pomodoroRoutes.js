@@ -5,9 +5,13 @@ import {
   getMyPomodoros,
   createPomodoro,
   updatePomodoro,
+  deletePomodoro,
 } from '../controllers/pomodoroController.js'
 
 router.route('/').post(protect, createPomodoro)
 router.route('/mypomodoros').get(protect, getMyPomodoros)
-router.route('/:id').put(protect, updatePomodoro)
+router
+  .route('/:id')
+  .put(protect, updatePomodoro)
+  .delete(protect, deletePomodoro)
 export default router

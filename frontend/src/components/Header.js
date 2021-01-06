@@ -22,6 +22,16 @@ const Header = () => {
             <Navbar.Brand>Pomodoro Timer</Navbar.Brand>
           </LinkContainer>
           {userInfo ? (
+            <LinkContainer to='/training'>
+              <Nav.Link>
+                <i className='fas fa-dumbbell'></i> {userInfo.name}'s training
+                plan
+              </Nav.Link>
+            </LinkContainer>
+          ) : (
+            <>Welcome Stranger</>
+          )}
+          {userInfo ? (
             <LinkContainer to='/custom'>
               <Nav.Link>
                 <i className='fas fa-user-clock'></i> {userInfo.name}'s pomodoro
