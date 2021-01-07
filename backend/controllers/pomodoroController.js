@@ -12,6 +12,8 @@ const createPomodoro = asyncHandler(async (req, res) => {
     pomodoroSeconds,
     restSeconds,
     user: req.user._id,
+    name: 'exercise',
+    description: 'custom exercise',
   })
   const createdPomodoro = await pomodoro.save()
   res.status(201).json(createdPomodoro)

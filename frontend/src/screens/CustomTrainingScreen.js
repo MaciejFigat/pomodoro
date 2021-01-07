@@ -371,6 +371,8 @@ const CustomTrainingScreen = ({ history }) => {
               <tr>
                 <th>Duration of an excercise </th>
                 <th>Rest duration </th>
+                <th>Name </th>
+                <th>Description </th>
                 <th>
                   <Button
                     variant='success'
@@ -385,15 +387,44 @@ const CustomTrainingScreen = ({ history }) => {
             <tbody>
               {pomodoros.map((savedPomodoro) => (
                 <tr key={savedPomodoro._id}>
-                  <td>
-                    {Math.trunc(savedPomodoro.pomodoroSeconds / 60)} minutes{' '}
-                    {savedPomodoro.pomodoroSeconds % 60} seconds
-                  </td>
-                  <td>
-                    {Math.trunc(savedPomodoro.restSeconds / 60)} minutes{' '}
-                    {savedPomodoro.restSeconds % 60} seconds
-                  </td>
-                  <td>Name, perhaps description</td>
+                  {savedPomodoro.pomodoroSeconds % 60 === 0 &&
+                    savedPomodoro.pomodoroSeconds > 60 && (
+                      <td>
+                        {Math.trunc(savedPomodoro.pomodoroSeconds / 60)} minutes{' '}
+                      </td>
+                    )}
+                  {savedPomodoro.pomodoroSeconds % 60 !== 0 &&
+                    savedPomodoro.pomodoroSeconds > 60 && (
+                      <td>
+                        {Math.trunc(savedPomodoro.pomodoroSeconds / 60)} minutes{' '}
+                        {savedPomodoro.pomodoroSeconds % 60} seconds
+                      </td>
+                    )}
+                  {savedPomodoro.pomodoroSeconds % 60 !== 0 &&
+                    savedPomodoro.pomodoroSeconds < 60 && (
+                      <td>{savedPomodoro.pomodoroSeconds % 60} seconds</td>
+                    )}
+
+                  {savedPomodoro.restSeconds % 60 === 0 &&
+                    savedPomodoro.restSeconds > 60 && (
+                      <td>
+                        {Math.trunc(savedPomodoro.restSeconds / 60)} minutes{' '}
+                      </td>
+                    )}
+                  {savedPomodoro.restSeconds % 60 !== 0 &&
+                    savedPomodoro.restSeconds > 60 && (
+                      <td>
+                        {Math.trunc(savedPomodoro.restSeconds / 60)} minutes{' '}
+                        {savedPomodoro.restSeconds % 60} seconds
+                      </td>
+                    )}
+                  {savedPomodoro.restSeconds % 60 !== 0 &&
+                    savedPomodoro.restSeconds < 60 && (
+                      <td>{savedPomodoro.restSeconds % 60} seconds</td>
+                    )}
+
+                  <td>{savedPomodoro.name}</td>
+                  <td>{savedPomodoro.description}</td>
                   <td>
                     {' '}
                     <Button

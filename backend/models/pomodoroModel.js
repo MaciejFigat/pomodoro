@@ -7,6 +7,14 @@ const pomodoroSchema = mongoose.Schema(
       required: false,
       ref: 'User',
     },
+    name: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
     pomodoroSeconds: {
       type: Number,
       required: true,
