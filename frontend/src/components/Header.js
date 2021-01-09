@@ -41,6 +41,15 @@ const Header = () => {
             <>Welcome Stranger</>
           )}
           {userInfo ? (
+            <LinkContainer to='/create'>
+              <Nav.Link>
+                <i className='fas fa-plus-square'></i> New Exercise
+              </Nav.Link>
+            </LinkContainer>
+          ) : (
+            <></>
+          )}
+          {userInfo ? (
             <NavDropdown title={userInfo.name} id='username'>
               <LinkContainer to={'/profile'}>
                 <NavDropdown.Item>Profile</NavDropdown.Item>

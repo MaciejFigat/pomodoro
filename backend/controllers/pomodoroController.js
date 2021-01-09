@@ -6,14 +6,14 @@ import Pomodoro from '../models/pomodoroModel.js'
 // @access private
 
 const createPomodoro = asyncHandler(async (req, res) => {
-  const { pomodoroSeconds, restSeconds } = req.body
+  const { pomodoroSeconds, restSeconds, name, description } = req.body
 
   const pomodoro = new Pomodoro({
     pomodoroSeconds,
     restSeconds,
     user: req.user._id,
-    name: 'exercise',
-    description: 'custom exercise',
+    name,
+    description,
   })
   const createdPomodoro = await pomodoro.save()
   res.status(201).json(createdPomodoro)
@@ -33,11 +33,13 @@ const getMyPomodoros = asyncHandler(async (req, res) => {
 // @access private
 
 const updatePomodoro = asyncHandler(async (req, res) => {
-  const { pomodoroSeconds, restSeconds } = req.body
+  const { pomodoroSeconds, restSeconds, name, description } = req.body
   const pomodoro = await Pomodoro.findById(req.params.id)
   if (pomodoro) {
     pomodoro.pomodoroSeconds = pomodoroSeconds
     pomodoro.restSeconds = restSeconds
+    pomodoro.name = name
+    pomodoro.description = description
     const updatedPomodoro = await pomodoro.save()
     res.json(updatedPomodoro)
   } else {
