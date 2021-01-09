@@ -12,26 +12,11 @@ import {
 import FormContainer from '../components/FormContainer'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  decreasePomodoro,
-  resetPomodoro,
-  decreaseRest,
-  resetRest,
-  increasePomodoroMinutes,
-  decreasePomodoroMinutes,
-  increaseRestMinutes,
-  decreaseRestMinutes,
-  setZeroRest,
   getMyPomodoros,
   updateMyPomodoro,
   createMyPomodoro,
-  pomodoroSecondsSet,
-  restSecondsSet,
   deletePomodoro,
 } from '../actions/pomodoroActions'
-import {
-  saveMyDonePomodoro,
-  getMyDonePomodoros,
-} from '../actions/pomodoroDoneActions'
 
 const CreateNewExerciseScreen = ({ history }) => {
   const dispatch = useDispatch()
@@ -60,33 +45,19 @@ const CreateNewExerciseScreen = ({ history }) => {
 
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
-
-  const pomodoroDurationPlus = () => {
-    dispatch(increasePomodoroMinutes())
-  }
-
-  const pomodoroDurationMinus = () => {
-    dispatch(decreasePomodoroMinutes())
-  }
-
-  const restDurationPlus = () => {
-    dispatch(increaseRestMinutes())
-  }
-
-  const restDurationMinus = () => {
-    dispatch(decreaseRestMinutes())
-  }
+  const [exerciseDuration, setExerciseDuration] = useState('')
+  const [restDuration, setRestDuration] = useState('')
 
   const createPomodoroHandler = () => {
     dispatch(
       createMyPomodoro({
-        pomodoroSeconds: pomodoroSeconds,
-        restSeconds: restSeconds,
+        pomodoroSeconds: exerciseDuration,
+        restSeconds: restDuration,
         name: name,
         description: description,
       })
     )
-    setDeleteDone(true)
+    setCreateDone(true)
   }
 
   const submitDescriptionHandler = (e) => {
@@ -97,13 +68,20 @@ const CreateNewExerciseScreen = ({ history }) => {
     e.preventDefault()
     setName(e.target.value)
   }
-
+  const submitExerciseDurationHandler = (e) => {
+    e.preventDefault()
+    setExerciseDuration(e.target.value)
+  }
+  const submitRestDurationHandler = (e) => {
+    e.preventDefault()
+    setRestDuration(e.target.value)
+  }
   const trainingUpdateHandler = (id) => {
     dispatch(
       updateMyPomodoro({
         _id: id,
-        pomodoroSeconds: pomodoroSeconds,
-        restSeconds: restSeconds,
+        pomodoroSeconds: exerciseDuration,
+        restSeconds: restDuration,
         name: name,
         description: description,
       })
@@ -173,6 +151,26 @@ const CreateNewExerciseScreen = ({ history }) => {
             onChange={submitDescriptionHandler}
           ></Form.Control>
         </Form.Group>
+        <Form.Group controlId='exercise duration'>
+          <Form.Label>Excercise duration</Form.Label>
+          <Form.Control
+            type='number'
+            placeholder='Enter excercise duration'
+            value={exerciseDuration}
+            onChange={submitExerciseDurationHandler}
+          ></Form.Control>
+        </Form.Group>
+
+        <Form.Group controlId='rest duration'>
+          <Form.Label>Rest duration</Form.Label>
+          <Form.Control
+            type='number'
+            placeholder='Enter rest duration'
+            value={restDuration}
+            onChange={submitRestDurationHandler}
+          ></Form.Control>
+        </Form.Group>
+
         <Button variant='success' onClick={createPomodoroHandler} size='sm'>
           Add a new excercise <i className='fas fa-plus-square'></i>
         </Button>

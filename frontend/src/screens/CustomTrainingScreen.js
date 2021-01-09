@@ -62,9 +62,6 @@ const CustomTrainingScreen = ({ history }) => {
   const [deleteDone, setDeleteDone] = useState(false)
   const [createDone, setCreateDone] = useState(false)
 
-  const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
-
   const toggle = () => {
     setIsActive(!isActive)
   }
@@ -102,25 +99,6 @@ const CustomTrainingScreen = ({ history }) => {
 
   const restZero = () => {
     dispatch(setZeroRest())
-  }
-
-  const createPomodoroHandler = () => {
-    dispatch(
-      createMyPomodoro({
-        pomodoroSeconds: pomodoroSeconds,
-        restSeconds: restSeconds,
-      })
-    )
-    setDeleteDone(true)
-  }
-
-  const submitDescriptionHandler = (e) => {
-    e.preventDefault()
-    setDescription(e.target.value)
-  }
-  const submitNameHandler = (e) => {
-    e.preventDefault()
-    setName(e.target.value)
   }
 
   const savePreferencesHandler = () => {
@@ -238,26 +216,6 @@ const CustomTrainingScreen = ({ history }) => {
 
   return (
     <>
-      <Form>
-        <Form.Group controlId='name'>
-          <Form.Label>Name of a new exercise</Form.Label>
-          <Form.Control
-            type='name'
-            placeholder='Name of an exercise'
-            value={name}
-            onChange={submitNameHandler}
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group controlId='description'>
-          <Form.Label>Description of a new exercise </Form.Label>
-          <Form.Control
-            type='text'
-            placeholder='Description of an exercise'
-            value={description}
-            onChange={submitDescriptionHandler}
-          ></Form.Control>
-        </Form.Group>
-      </Form>
       <FormContainer>
         <Row className='justify-content-lg-center'>
           <Col xs={12} md={8}>
@@ -344,18 +302,7 @@ const CustomTrainingScreen = ({ history }) => {
                     </Button>
                   </Col>
                 </Row>
-                {userInfo &&
-                  savedPomodoros.pomodoros &&
-                  savedPomodoros.pomodoros.length === 0 &&
-                  !createdPomodoro.pomodoro && (
-                    <Button
-                      variant='info'
-                      flush
-                      onClick={createPomodoroHandler}
-                    >
-                      Create your own pomodoro
-                    </Button>
-                  )}
+
                 {userInfo &&
                   savedPomodoros.pomodoros &&
                   savedPomodoros.pomodoros.length !== 0 && (
@@ -416,15 +363,7 @@ const CustomTrainingScreen = ({ history }) => {
                 <th>Rest duration </th>
                 <th>Name </th>
                 <th>Description </th>
-                <th>
-                  <Button
-                    variant='success'
-                    onClick={createPomodoroHandler}
-                    size='sm'
-                  >
-                    Add a new excercise <i className='fas fa-plus-square'></i>
-                  </Button>
-                </th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
