@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {
+  Form,
   Container,
   Button,
   Row,
@@ -61,6 +62,9 @@ const CustomTrainingScreen = ({ history }) => {
   const [deleteDone, setDeleteDone] = useState(false)
   const [createDone, setCreateDone] = useState(false)
 
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
+
   const toggle = () => {
     setIsActive(!isActive)
   }
@@ -110,6 +114,15 @@ const CustomTrainingScreen = ({ history }) => {
     setDeleteDone(true)
   }
 
+  const submitDescriptionHandler = (e) => {
+    e.preventDefault()
+    setDescription(e.target.value)
+  }
+  const submitNameHandler = (e) => {
+    e.preventDefault()
+    setName(e.target.value)
+  }
+
   const savePreferencesHandler = () => {
     dispatch(
       updateMyPomodoro({
@@ -121,6 +134,16 @@ const CustomTrainingScreen = ({ history }) => {
     if (updatedVisible === true) {
       setUpdatedVisible(false)
     }
+  }
+
+  const trainingUpdateHandler = (id) => {
+    dispatch(
+      updateMyPomodoro({
+        _id: id,
+        pomodoroSeconds: pomodoroSeconds,
+        restSeconds: restSeconds,
+      })
+    )
   }
   const saveDonePomodoroHandler = () => {
     if (savedPomodoros.pomodoros && savedPomodoros.pomodoros.length !== 0) {
@@ -215,6 +238,26 @@ const CustomTrainingScreen = ({ history }) => {
 
   return (
     <>
+      <Form>
+        <Form.Group controlId='name'>
+          <Form.Label>Name of a new exercise</Form.Label>
+          <Form.Control
+            type='name'
+            placeholder='Name of an exercise'
+            value={name}
+            onChange={submitNameHandler}
+          ></Form.Control>
+        </Form.Group>
+        <Form.Group controlId='description'>
+          <Form.Label>Description of a new exercise </Form.Label>
+          <Form.Control
+            type='text'
+            placeholder='Description of an exercise'
+            value={description}
+            onChange={submitDescriptionHandler}
+          ></Form.Control>
+        </Form.Group>
+      </Form>
       <FormContainer>
         <Row className='justify-content-lg-center'>
           <Col xs={12} md={8}>
@@ -433,6 +476,13 @@ const CustomTrainingScreen = ({ history }) => {
                       size='sm'
                     >
                       delete
+                    </Button>
+                    <Button
+                      variant='info'
+                      onClick={() => trainingUpdateHandler(savedPomodoro._id)}
+                      size='sm'
+                    >
+                      update
                     </Button>
                   </td>
                 </tr>
