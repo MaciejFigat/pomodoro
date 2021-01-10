@@ -133,44 +133,54 @@ const CreateNewExerciseScreen = ({ history }) => {
   return (
     <>
       <Form>
-        <Form.Group controlId='name'>
-          <Form.Label>Name of a new exercise</Form.Label>
-          <Form.Control
-            type='name'
-            placeholder='Name of an exercise'
-            value={name}
-            onChange={submitNameHandler}
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group controlId='description'>
-          <Form.Label>Description of a new exercise </Form.Label>
-          <Form.Control
-            type='text'
-            placeholder='Description of an exercise'
-            value={description}
-            onChange={submitDescriptionHandler}
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group controlId='exercise duration'>
-          <Form.Label>Excercise duration</Form.Label>
-          <Form.Control
-            type='number'
-            placeholder='Enter excercise duration'
-            value={exerciseDuration}
-            onChange={submitExerciseDurationHandler}
-          ></Form.Control>
-        </Form.Group>
-
-        <Form.Group controlId='rest duration'>
-          <Form.Label>Rest duration</Form.Label>
-          <Form.Control
-            type='number'
-            placeholder='Enter rest duration'
-            value={restDuration}
-            onChange={submitRestDurationHandler}
-          ></Form.Control>
-        </Form.Group>
-
+        <Row>
+          <Col>
+            <Form.Group controlId='name'>
+              <Form.Label>Name of a new exercise</Form.Label>
+              <Form.Control
+                type='name'
+                placeholder='Name of an exercise'
+                value={name}
+                onChange={submitNameHandler}
+              ></Form.Control>
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group controlId='description'>
+              <Form.Label>Description of a new exercise </Form.Label>
+              <Form.Control
+                type='text'
+                placeholder='Description of an exercise'
+                value={description}
+                onChange={submitDescriptionHandler}
+              ></Form.Control>
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Form.Group controlId='exercise duration'>
+              <Form.Label>Excercise duration</Form.Label>
+              <Form.Control
+                type='number'
+                placeholder='Enter excercise duration'
+                value={exerciseDuration}
+                onChange={submitExerciseDurationHandler}
+              ></Form.Control>
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group controlId='rest duration'>
+              <Form.Label>Rest duration</Form.Label>
+              <Form.Control
+                type='number'
+                placeholder='Enter rest duration'
+                value={restDuration}
+                onChange={submitRestDurationHandler}
+              ></Form.Control>
+            </Form.Group>
+          </Col>
+        </Row>
         <Button variant='success' onClick={createPomodoroHandler} size='sm'>
           Add a new excercise <i className='fas fa-plus-square'></i>
         </Button>
@@ -182,16 +192,18 @@ const CreateNewExerciseScreen = ({ history }) => {
           <Table stripped bordered hover responsive className='table-sm'>
             <thead>
               <tr>
-                <th>Duration of an excercise </th>
-                <th>Rest duration </th>
                 <th>Name </th>
                 <th>Description </th>
+                <th>Duration of an excercise </th>
+                <th>Rest duration </th>
                 <th>Delete or Update</th>
               </tr>
             </thead>
             <tbody>
               {pomodoros.map((savedPomodoro) => (
                 <tr key={savedPomodoro._id}>
+                  <td>{savedPomodoro.name}</td>
+                  <td>{savedPomodoro.description}</td>
                   {savedPomodoro.pomodoroSeconds % 60 === 0 &&
                     savedPomodoro.pomodoroSeconds > 60 && (
                       <td>
@@ -228,8 +240,6 @@ const CreateNewExerciseScreen = ({ history }) => {
                       <td>{savedPomodoro.restSeconds % 60} seconds</td>
                     )}
 
-                  <td>{savedPomodoro.name}</td>
-                  <td>{savedPomodoro.description}</td>
                   <td>
                     {' '}
                     <Button

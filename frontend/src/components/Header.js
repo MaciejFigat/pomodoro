@@ -18,9 +18,6 @@ const Header = () => {
     <header>
       <Navbar bg='light' variant='light' expand='lg' collapseOnSelect>
         <Container>
-          <LinkContainer to='/'>
-            <Navbar.Brand>Pomodoro Timer</Navbar.Brand>
-          </LinkContainer>
           {userInfo ? (
             <LinkContainer to='/training'>
               <Nav.Link>
@@ -29,7 +26,9 @@ const Header = () => {
               </Nav.Link>
             </LinkContainer>
           ) : (
-            <>Welcome Stranger</>
+            <LinkContainer to='/'>
+              <Navbar.Brand>Pomodoro Timer</Navbar.Brand>
+            </LinkContainer>
           )}
           {userInfo ? (
             <LinkContainer to='/custom'>
@@ -38,17 +37,9 @@ const Header = () => {
               </Nav.Link>
             </LinkContainer>
           ) : (
-            <>Welcome Stranger</>
-          )}
-          {userInfo ? (
-            <LinkContainer to='/create'>
-              <Nav.Link>
-                <i className='fas fa-plus-square'></i> New Exercise
-              </Nav.Link>
-            </LinkContainer>
-          ) : (
             <></>
           )}
+
           {userInfo ? (
             <NavDropdown title={userInfo.name} id='username'>
               <LinkContainer to={'/profile'}>
@@ -56,6 +47,11 @@ const Header = () => {
               </LinkContainer>
               <LinkContainer to={'/stats'}>
                 <NavDropdown.Item>pomodoro stats</NavDropdown.Item>
+              </LinkContainer>
+              <LinkContainer to='/create'>
+                <NavDropdown.Item>
+                  <i className='fas fa-plus-square'></i> New Exercise
+                </NavDropdown.Item>
               </LinkContainer>
               <NavDropdown.Item onClick={logoutHandler}>
                 Logout
