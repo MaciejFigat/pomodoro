@@ -45,8 +45,32 @@ const CreateNewExerciseScreen = ({ history }) => {
 
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
-  const [exerciseDuration, setExerciseDuration] = useState('')
-  const [restDuration, setRestDuration] = useState('')
+  const [exerciseDuration, setExerciseDuration] = useState(0)
+  const [excerciseNumber, setExcerciseNumber] = useState(1)
+  const [restDuration, setRestDuration] = useState(0)
+
+  const nextExerciseHandler = () => {
+    if (savedPomodoros.pomodoros.length > excerciseNumber + 1) {
+      setExcerciseNumber(excerciseNumber + 1)
+      setName(savedPomodoros.pomodoros[excerciseNumber].name)
+      setDescription(savedPomodoros.pomodoros[excerciseNumber].description)
+      setExerciseDuration(
+        savedPomodoros.pomodoros[excerciseNumber].pomodoroSeconds
+      )
+      setRestDuration(savedPomodoros.pomodoros[excerciseNumber].restSeconds)
+    }
+  }
+  const previousExerciseHandler = () => {
+    if (excerciseNumber >= 1) {
+      setExcerciseNumber(excerciseNumber - 1)
+      setName(savedPomodoros.pomodoros[excerciseNumber].name)
+      setDescription(savedPomodoros.pomodoros[excerciseNumber].description)
+      setExerciseDuration(
+        savedPomodoros.pomodoros[excerciseNumber].pomodoroSeconds
+      )
+      setRestDuration(savedPomodoros.pomodoros[excerciseNumber].restSeconds)
+    }
+  }
 
   const createPomodoroHandler = () => {
     dispatch(
@@ -76,6 +100,65 @@ const CreateNewExerciseScreen = ({ history }) => {
     e.preventDefault()
     setRestDuration(e.target.value)
   }
+  // functions for local state duration of exe and rest
+  const exerciseDurationPlusFive = () => {
+    setExerciseDuration((exerciseDuration) => exerciseDuration + 5)
+  }
+  const exerciseDurationPlusTen = () => {
+    setExerciseDuration((exerciseDuration) => exerciseDuration + 10)
+  }
+  const exerciseDurationPlusThirty = () => {
+    setExerciseDuration((exerciseDuration) => exerciseDuration + 30)
+  }
+  const exerciseDurationMinusFive = () => {
+    if (exerciseDuration > 4) {
+      setExerciseDuration((exerciseDuration) => exerciseDuration - 5)
+    }
+  }
+
+  const exerciseDurationMinusTen = () => {
+    if (exerciseDuration > 9) {
+      setExerciseDuration((exerciseDuration) => exerciseDuration - 10)
+    }
+  }
+  const exerciseDurationMinusThirty = () => {
+    if (exerciseDuration > 29) {
+      setExerciseDuration((exerciseDuration) => exerciseDuration - 30)
+    }
+  }
+
+  const restDurationPlusFive = () => {
+    setRestDuration((restDuration) => restDuration + 5)
+  }
+  const restDurationPlusTen = () => {
+    setRestDuration((restDuration) => restDuration + 10)
+  }
+  const restDurationPlusThirty = () => {
+    setRestDuration((restDuration) => restDuration + 30)
+  }
+  const restDurationMinusFive = () => {
+    if (restDuration > 4) {
+      setRestDuration((restDuration) => restDuration - 5)
+    }
+  }
+  const restDurationMinusTen = () => {
+    if (restDuration > 9) {
+      setRestDuration((restDuration) => restDuration - 10)
+    }
+  }
+  const restDurationMinusThirty = () => {
+    if (restDuration > 29) {
+      setRestDuration((restDuration) => restDuration - 30)
+    }
+  }
+  const restDurationReset = () => {
+    setRestDuration(0)
+  }
+  const exerciseDurationReset = () => {
+    setExerciseDuration(0)
+  }
+
+  //
   const trainingUpdateHandler = (id) => {
     dispatch(
       updateMyPomodoro({
@@ -128,6 +211,7 @@ const CreateNewExerciseScreen = ({ history }) => {
     history,
     savedPomodoros,
     updatedPomodoro,
+    updateDone,
   ])
 
   return (
@@ -170,6 +254,33 @@ const CreateNewExerciseScreen = ({ history }) => {
             </Form.Group>
           </Col>
           <Col>
+            <Row>
+              <Button size='sm' onClick={exerciseDurationPlusFive}>
+                <b>+ 5</b>
+              </Button>
+              <Button size='sm' onClick={exerciseDurationPlusTen}>
+                <b>+ 10</b>
+              </Button>
+              <Button size='sm' onClick={exerciseDurationPlusThirty}>
+                <b>+ 30</b>
+              </Button>
+            </Row>
+            <Row>
+              <Button onClick={exerciseDurationMinusFive}>
+                <b>- 5</b>
+              </Button>
+              <Button size='sm' onClick={exerciseDurationMinusTen}>
+                <b>- 10</b>
+              </Button>
+              <Button size='sm' onClick={exerciseDurationMinusThirty}>
+                <b>- 30</b>
+              </Button>
+              <Button size='sm' onClick={exerciseDurationReset}>
+                <b>set to 0</b>
+              </Button>
+            </Row>
+          </Col>
+          <Col>
             <Form.Group controlId='rest duration'>
               <Form.Label>Rest duration</Form.Label>
               <Form.Control
@@ -180,11 +291,77 @@ const CreateNewExerciseScreen = ({ history }) => {
               ></Form.Control>
             </Form.Group>
           </Col>
+          <Col>
+            <Row>
+              <Button size='sm' onClick={restDurationPlusFive}>
+                <b>+ 5</b>
+              </Button>
+              <Button size='sm' onClick={restDurationPlusTen}>
+                <b>+ 10</b>
+              </Button>
+              <Button size='sm' onClick={restDurationPlusThirty}>
+                <b>+ 30</b>
+              </Button>
+            </Row>
+            <Row>
+              <Button size='sm' onClick={restDurationMinusFive}>
+                <b>- 5</b>
+              </Button>
+              <Button size='sm' onClick={restDurationMinusTen}>
+                <b>- 10</b>
+              </Button>
+              <Button size='sm' onClick={restDurationMinusThirty}>
+                <b>- 30</b>
+              </Button>
+              <Button size='sm' onClick={restDurationReset}>
+                <b>set to 0</b>
+              </Button>
+            </Row>
+          </Col>
         </Row>
-        <Button variant='success' onClick={createPomodoroHandler} size='sm'>
-          Add a new excercise <i className='fas fa-plus-square'></i>
-        </Button>
+        <Col>
+          <Button variant='success' onClick={createPomodoroHandler} size='sm'>
+            Add a new excercise <i className='fas fa-plus-square'></i>
+          </Button>
+        </Col>
       </Form>
+      <FormContainer>
+        {savedPomodoros.pomodoros && savedPomodoros.pomodoros.length !== 0 ? (
+          <Card className='p-3'>
+            <Row className='justify-content-lg-center'>
+              <Button
+                variant='info'
+                // onClick={
+                // trainingUpdateHandler(
+                // savedPomodoros.pomodoros[excerciseNumber]._id)}
+              >
+                Update {name}
+              </Button>
+            </Row>
+
+            <Row className='justify-content-lg-center'>
+              <Button variant='warning' flush onClick={previousExerciseHandler}>
+                previous exercise
+              </Button>
+              <Button variant='info' flush onClick={nextExerciseHandler}>
+                next exercise
+              </Button>
+            </Row>
+          </Card>
+        ) : (
+          <Card className='p-3'>
+            <Button
+              variant='info'
+              flush
+              onClick={() => {
+                dispatch(getMyPomodoros())
+              }}
+            >
+              Load Data
+            </Button>
+          </Card>
+        )}
+      </FormContainer>
 
       {savedPomodoros &&
         savedPomodoros.pomodoros &&
@@ -254,7 +431,7 @@ const CreateNewExerciseScreen = ({ history }) => {
                       onClick={() => trainingUpdateHandler(savedPomodoro._id)}
                       size='sm'
                     >
-                      update
+                      update {savedPomodoro.name}
                     </Button>
                   </td>
                 </tr>

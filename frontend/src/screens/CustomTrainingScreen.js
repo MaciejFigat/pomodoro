@@ -58,9 +58,11 @@ const CustomTrainingScreen = ({ history }) => {
   const [pomodoroDone, setPomodoroDone] = useState(0)
 
   const [updatedVisible, setUpdatedVisible] = useState(false)
+  const [trainingSessionVisible, setTrainingSessionVisible] = useState(false)
   const [isActive, setIsActive] = useState(false)
   const [deleteDone, setDeleteDone] = useState(false)
   const [createDone, setCreateDone] = useState(false)
+  const [excerciseNumber, setExcerciseNumber] = useState(1)
 
   const toggle = () => {
     setIsActive(!isActive)
@@ -72,8 +74,14 @@ const CustomTrainingScreen = ({ history }) => {
       userInfo &&
       savedPomodoros.pomodoros.length !== 0
     ) {
-      dispatch(restSecondsSet(savedPomodoros.pomodoros[0].restSeconds))
-      dispatch(pomodoroSecondsSet(savedPomodoros.pomodoros[0].pomodoroSeconds))
+      dispatch(
+        restSecondsSet(savedPomodoros.pomodoros[excerciseNumber].restSeconds)
+      )
+      dispatch(
+        pomodoroSecondsSet(
+          savedPomodoros.pomodoros[excerciseNumber].pomodoroSeconds
+        )
+      )
     } else {
       dispatch(resetPomodoro())
       dispatch(resetRest())
@@ -104,7 +112,7 @@ const CustomTrainingScreen = ({ history }) => {
   const savePreferencesHandler = () => {
     dispatch(
       updateMyPomodoro({
-        _id: savedPomodoros.pomodoros[0]._id,
+        _id: savedPomodoros.pomodoros[excerciseNumber]._id,
         pomodoroSeconds: pomodoroSeconds,
         restSeconds: restSeconds,
       })
@@ -128,7 +136,8 @@ const CustomTrainingScreen = ({ history }) => {
       dispatch(
         saveMyDonePomodoro({
           pomodoroNumber: 1,
-          secondsDone: savedPomodoros.pomodoros[0].pomodoroSeconds,
+          secondsDone:
+            savedPomodoros.pomodoros[excerciseNumber].pomodoroSeconds,
         })
       )
     }
@@ -137,6 +146,33 @@ const CustomTrainingScreen = ({ history }) => {
     if (window.confirm('Are you sure?')) {
       dispatch(deletePomodoro(id))
       setDeleteDone(true)
+    }
+  }
+
+  const nextExerciseHandler = () => {
+    if (savedPomodoros.pomodoros.length > excerciseNumber + 1) {
+      setExcerciseNumber(excerciseNumber + 1)
+      dispatch(
+        restSecondsSet(savedPomodoros.pomodoros[excerciseNumber].restSeconds)
+      )
+      dispatch(
+        pomodoroSecondsSet(
+          savedPomodoros.pomodoros[excerciseNumber].pomodoroSeconds
+        )
+      )
+    }
+  }
+  const previousExerciseHandler = () => {
+    if (excerciseNumber >= 1) {
+      setExcerciseNumber(excerciseNumber - 1)
+      dispatch(
+        restSecondsSet(savedPomodoros.pomodoros[excerciseNumber].restSeconds)
+      )
+      dispatch(
+        pomodoroSecondsSet(
+          savedPomodoros.pomodoros[excerciseNumber].pomodoroSeconds
+        )
+      )
     }
   }
 
@@ -178,13 +214,22 @@ const CustomTrainingScreen = ({ history }) => {
       dispatch(
         saveMyDonePomodoro({
           pomodoroNumber: 1,
-          secondsDone: savedPomodoros.pomodoros[0].pomodoroSeconds,
+          secondsDone:
+            savedPomodoros.pomodoros[excerciseNumber].pomodoroSeconds,
         })
       )
       if (savedPomodoros.pomodoros) {
-        dispatch(restSecondsSet(savedPomodoros.pomodoros[0].restSeconds))
+        if (savedPomodoros.pomodoros.length >= excerciseNumber) {
+          setExcerciseNumber(excerciseNumber + 1)
+        }
+
         dispatch(
-          pomodoroSecondsSet(savedPomodoros.pomodoros[0].pomodoroSeconds)
+          restSecondsSet(savedPomodoros.pomodoros[excerciseNumber].restSeconds)
+        )
+        dispatch(
+          pomodoroSecondsSet(
+            savedPomodoros.pomodoros[excerciseNumber].pomodoroSeconds
+          )
         )
       } else {
         dispatch(resetPomodoro())
@@ -228,6 +273,18 @@ const CustomTrainingScreen = ({ history }) => {
                   <h1>Rest</h1>
                 )}
               </Row>
+              <Row className='justify-content-md-center'>
+                {' '}
+                {savedPomodoros.pomodoros &&
+                  savedPomodoros.pomodoros.length !== 0 && (
+                    <p>
+                      <h2>{savedPomodoros.pomodoros[excerciseNumber].name}</h2>
+
+                      {savedPomodoros.pomodoros[excerciseNumber].description}
+                    </p>
+                  )}
+              </Row>
+
               <Row className='justify-content-lg-center'>
                 {pomodoroSeconds === 0 ? (
                   <Badge variant='success'>
@@ -258,6 +315,20 @@ const CustomTrainingScreen = ({ history }) => {
                 {isActive && pomodoroSeconds === 0 && (
                   <Button onClick={restZero}>Skip rest</Button>
                 )}
+              </Row>
+            </Card>
+            <Card className='p-3'>
+              <Row className='justify-content-lg-center'>
+                <Button
+                  variant='warning'
+                  flush
+                  onClick={previousExerciseHandler}
+                >
+                  previous exercise
+                </Button>
+                <Button variant='info' flush onClick={nextExerciseHandler}>
+                  next exercise
+                </Button>
               </Row>
             </Card>
             <Col>
@@ -353,9 +424,28 @@ const CustomTrainingScreen = ({ history }) => {
           </Col>
         </Row>
       </FormContainer>
+      {trainingSessionVisible === false ? (
+        <Button
+          variant='info'
+          flush
+          onClick={() => setTrainingSessionVisible(true)}
+        >
+          Show training session
+        </Button>
+      ) : (
+        <Button
+          variant='warning'
+          flush
+          onClick={() => setTrainingSessionVisible(false)}
+        >
+          Hide training session
+        </Button>
+      )}
+
       {savedPomodoros &&
         savedPomodoros.pomodoros &&
-        savedPomodoros.length !== 0 && (
+        savedPomodoros.length !== 0 &&
+        trainingSessionVisible === true && (
           <Table stripped bordered hover responsive className='table-sm'>
             <thead>
               <tr>

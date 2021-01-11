@@ -43,7 +43,7 @@ const userInfoFromStorage = localStorage.getItem('userInfo')
 
 export const pomodoroInfoFromStorage = localStorage.getItem('pomodoros')
   ? JSON.parse(localStorage.getItem('pomodoros'))
-  : { savedPomodoroSeconds: 15, savedRestSeconds: 3 }
+  : { savedPomodoroSeconds: 5, savedRestSeconds: 1 }
 
 export const pomodoroSecondsFromStorage = localStorage.getItem(
   'pomodoroSeconds'
