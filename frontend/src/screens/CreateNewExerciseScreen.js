@@ -35,7 +35,9 @@ const CreateNewExerciseScreen = ({ history }) => {
 
   const updatedPomodoro = useSelector((state) => state.pomodoroUpdate)
 
-  const createdPomodoro = useSelector((state) => state.pomodoroCreate)
+  const pomodoroDelete = useSelector((state) => state.pomodoroDelete)
+
+  const pomodoroCreate = useSelector((state) => state.pomodoroCreate)
 
   const [updatedVisible, setUpdatedVisible] = useState(false)
 
@@ -46,29 +48,29 @@ const CreateNewExerciseScreen = ({ history }) => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [exerciseDuration, setExerciseDuration] = useState(0)
-  const [excerciseNumber, setExcerciseNumber] = useState(1)
+  const [exerciseNumber, setExerciseNumber] = useState(1)
   const [restDuration, setRestDuration] = useState(0)
 
   const nextExerciseHandler = () => {
-    if (savedPomodoros.pomodoros.length > excerciseNumber + 1) {
-      setExcerciseNumber(excerciseNumber + 1)
-      setName(savedPomodoros.pomodoros[excerciseNumber].name)
-      setDescription(savedPomodoros.pomodoros[excerciseNumber].description)
+    if (savedPomodoros.pomodoros.length > exerciseNumber + 1) {
+      setExerciseNumber(exerciseNumber + 1)
+      setName(savedPomodoros.pomodoros[exerciseNumber].name)
+      setDescription(savedPomodoros.pomodoros[exerciseNumber].description)
       setExerciseDuration(
-        savedPomodoros.pomodoros[excerciseNumber].pomodoroSeconds
+        savedPomodoros.pomodoros[exerciseNumber].pomodoroSeconds
       )
-      setRestDuration(savedPomodoros.pomodoros[excerciseNumber].restSeconds)
+      setRestDuration(savedPomodoros.pomodoros[exerciseNumber].restSeconds)
     }
   }
   const previousExerciseHandler = () => {
-    if (excerciseNumber >= 1) {
-      setExcerciseNumber(excerciseNumber - 1)
-      setName(savedPomodoros.pomodoros[excerciseNumber].name)
-      setDescription(savedPomodoros.pomodoros[excerciseNumber].description)
+    if (exerciseNumber >= 1) {
+      setExerciseNumber(exerciseNumber - 1)
+      setName(savedPomodoros.pomodoros[exerciseNumber].name)
+      setDescription(savedPomodoros.pomodoros[exerciseNumber].description)
       setExerciseDuration(
-        savedPomodoros.pomodoros[excerciseNumber].pomodoroSeconds
+        savedPomodoros.pomodoros[exerciseNumber].pomodoroSeconds
       )
-      setRestDuration(savedPomodoros.pomodoros[excerciseNumber].restSeconds)
+      setRestDuration(savedPomodoros.pomodoros[exerciseNumber].restSeconds)
     }
   }
 
@@ -191,15 +193,15 @@ const CreateNewExerciseScreen = ({ history }) => {
     ) {
       dispatch(getMyPomodoros())
     }
-    if (deleteDone === true) {
+    if (deleteDone === true && pomodoroDelete.success === true) {
       dispatch(getMyPomodoros())
       setDeleteDone(false)
     }
-    if (createDone === true) {
+    if (createDone === true && pomodoroCreate.success === true) {
       dispatch(getMyPomodoros())
       setCreateDone(false)
     }
-    if (updateDone === true) {
+    if (updateDone === true && updatedPomodoro.success === true) {
       dispatch(getMyPomodoros())
       setUpdateDone(false)
     }
@@ -212,6 +214,8 @@ const CreateNewExerciseScreen = ({ history }) => {
     savedPomodoros,
     updatedPomodoro,
     updateDone,
+    pomodoroCreate,
+    pomodoroDelete,
   ])
 
   return (
@@ -366,7 +370,7 @@ const CreateNewExerciseScreen = ({ history }) => {
       {savedPomodoros &&
         savedPomodoros.pomodoros &&
         savedPomodoros.length !== 0 && (
-          <Table stripped bordered hover responsive className='table-sm'>
+          <Table bordered hover responsive className='table-sm'>
             <thead>
               <tr>
                 <th>Name </th>
@@ -378,7 +382,19 @@ const CreateNewExerciseScreen = ({ history }) => {
             </thead>
             <tbody>
               {pomodoros.map((savedPomodoro) => (
-                <tr key={savedPomodoro._id}>
+                <tr
+                  key={savedPomodoro._id}
+                  onClick={() => {
+                    // console.log(exerciseNumber)
+                    console.log(pomodoros.indexOf(savedPomodoro))
+                    setExerciseNumber(pomodoros.indexOf(savedPomodoro))
+                    setName(savedPomodoro.name)
+                    setDescription(savedPomodoro.description)
+                    setExerciseDuration(savedPomodoro.pomodoroSeconds)
+
+                    setRestDuration(savedPomodoro.restSeconds)
+                  }}
+                >
                   <td>{savedPomodoro.name}</td>
                   <td>{savedPomodoro.description}</td>
                   {savedPomodoro.pomodoroSeconds % 60 === 0 &&

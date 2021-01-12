@@ -113,6 +113,8 @@ const CustomPomodoroScreen = ({ history }) => {
   const savePreferencesHandler = () => {
     dispatch(
       updateMyPomodoro({
+        name: `${userInfo.name}'s Pomodoro`,
+        description: 'be well my friend',
         _id: savedPomodoros.pomodoros[0]._id,
         pomodoroSeconds: pomodoroSeconds,
         restSeconds: restSeconds,
