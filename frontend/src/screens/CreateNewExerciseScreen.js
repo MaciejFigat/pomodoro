@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import {
   Form,
   Container,
@@ -333,22 +334,17 @@ const CreateNewExerciseScreen = ({ history }) => {
         {savedPomodoros.pomodoros && savedPomodoros.pomodoros.length !== 0 ? (
           <Card className='p-3'>
             <Row className='justify-content-lg-center'>
-              <Button
-                variant='info'
-                // onClick={
-                // trainingUpdateHandler(
-                // savedPomodoros.pomodoros[excerciseNumber]._id)}
-              >
-                Update {name}
-              </Button>
+              <Link to='/training' className='btn btn-dark my-3'>
+                <i className='fas fa-undo-alt'></i> Back to training
+              </Link>
             </Row>
 
             <Row className='justify-content-lg-center'>
               <Button variant='warning' flush onClick={previousExerciseHandler}>
-                previous exercise
+                <i className='fas fa-arrow-left'></i> Previous exercise
               </Button>
               <Button variant='info' flush onClick={nextExerciseHandler}>
-                next exercise
+                Next exercise <i className='fas fa-arrow-right'></i>
               </Button>
             </Row>
           </Card>

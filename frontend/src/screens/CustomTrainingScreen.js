@@ -11,6 +11,7 @@ import {
 } from 'react-bootstrap'
 import FormContainer from '../components/FormContainer'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import {
   decreasePomodoro,
   resetPomodoro,
@@ -63,6 +64,8 @@ const CustomTrainingScreen = ({ history }) => {
   const [deleteDone, setDeleteDone] = useState(false)
   const [createDone, setCreateDone] = useState(false)
   const [excerciseNumber, setExcerciseNumber] = useState(1)
+  const [trainingSessionDone, setTrainingSessionDone] = useState(false)
+  const [optionsToggle, setOptionsToggle] = useState(false)
 
   const toggle = () => {
     setIsActive(!isActive)
@@ -86,7 +89,7 @@ const CustomTrainingScreen = ({ history }) => {
       dispatch(resetPomodoro())
       dispatch(resetRest())
     }
-    console.log(updatedVisible)
+    setTrainingSessionDone(false)
   }
 
   const pomodoroDurationPlus = () => {
@@ -150,7 +153,10 @@ const CustomTrainingScreen = ({ history }) => {
   }
 
   const nextExerciseHandler = () => {
-    if (savedPomodoros.pomodoros.length > excerciseNumber + 1) {
+    if (
+      savedPomodoros.pomodoros &&
+      savedPomodoros.pomodoros.length > excerciseNumber + 1
+    ) {
       setExcerciseNumber(excerciseNumber + 1)
       dispatch(
         restSecondsSet(savedPomodoros.pomodoros[excerciseNumber].restSeconds)
@@ -163,7 +169,7 @@ const CustomTrainingScreen = ({ history }) => {
     }
   }
   const previousExerciseHandler = () => {
-    if (excerciseNumber >= 1) {
+    if (savedPomodoros.pomodoros && excerciseNumber >= 1) {
       setExcerciseNumber(excerciseNumber - 1)
       dispatch(
         restSecondsSet(savedPomodoros.pomodoros[excerciseNumber].restSeconds)
@@ -175,7 +181,13 @@ const CustomTrainingScreen = ({ history }) => {
       )
     }
   }
-
+  const doItAgainHandler = () => {
+    setTrainingSessionDone(false)
+    setExcerciseNumber(1)
+    dispatch(restSecondsSet(savedPomodoros.pomodoros[1].restSeconds))
+    dispatch(pomodoroSecondsSet(savedPomodoros.pomodoros[1].pomodoroSeconds))
+    setIsActive(false)
+  }
   useEffect(() => {
     if (!userInfo) {
       history.push('/login')
@@ -209,7 +221,12 @@ const CustomTrainingScreen = ({ history }) => {
       dispatch(getMyPomodoros())
     }
 
-    if (isActive && restSeconds === 0 && pomodoroSeconds === 0) {
+    if (
+      savedPomodoros.pomodoros &&
+      isActive &&
+      restSeconds === 0 &&
+      pomodoroSeconds === 0
+    ) {
       setPomodoroDone((pomodoroDone) => pomodoroDone + 1)
       dispatch(
         saveMyDonePomodoro({
@@ -218,22 +235,22 @@ const CustomTrainingScreen = ({ history }) => {
             savedPomodoros.pomodoros[excerciseNumber].pomodoroSeconds,
         })
       )
-      if (savedPomodoros.pomodoros) {
-        if (savedPomodoros.pomodoros.length >= excerciseNumber) {
-          setExcerciseNumber(excerciseNumber + 1)
-        }
-
-        dispatch(
-          restSecondsSet(savedPomodoros.pomodoros[excerciseNumber].restSeconds)
-        )
-        dispatch(
-          pomodoroSecondsSet(
-            savedPomodoros.pomodoros[excerciseNumber].pomodoroSeconds
+      if (savedPomodoros.pomodoros.length > excerciseNumber + 1) {
+        setExcerciseNumber(excerciseNumber + 1)
+        if (savedPomodoros.pomodoros.length !== excerciseNumber + 1) {
+          dispatch(
+            restSecondsSet(
+              savedPomodoros.pomodoros[excerciseNumber].restSeconds
+            )
           )
-        )
+          dispatch(
+            pomodoroSecondsSet(
+              savedPomodoros.pomodoros[excerciseNumber].pomodoroSeconds
+            )
+          )
+        }
       } else {
-        dispatch(resetPomodoro())
-        dispatch(resetRest())
+        setTrainingSessionDone(true)
       }
     }
 
@@ -262,9 +279,9 @@ const CustomTrainingScreen = ({ history }) => {
   return (
     <>
       <FormContainer>
-        <Row className='justify-content-lg-center'>
-          <Col xs={12} md={8}>
-            <Card className='p-3'>
+        <Col xs={12} md={8}>
+          <Card className='p-3'>
+            {trainingSessionDone === false && (
               <Row className='justify-content-lg-center'>
                 {' '}
                 {isActive && pomodoroSeconds > 0 ? (
@@ -273,37 +290,53 @@ const CustomTrainingScreen = ({ history }) => {
                   <h1>Rest</h1>
                 )}
               </Row>
-              <Row className='justify-content-md-center'>
+            )}
+            {trainingSessionDone === true && (
+              <>
                 {' '}
-                {savedPomodoros.pomodoros &&
-                  savedPomodoros.pomodoros.length !== 0 && (
-                    <p>
-                      <h2>{savedPomodoros.pomodoros[excerciseNumber].name}</h2>
-
-                      {savedPomodoros.pomodoros[excerciseNumber].description}
-                    </p>
-                  )}
-              </Row>
-
-              <Row className='justify-content-lg-center'>
-                {pomodoroSeconds === 0 ? (
-                  <Badge variant='success'>
-                    <h2 font-weight-bolder>
-                      {' '}
-                      {Math.trunc(restSeconds / 60)} : {restSeconds % 60}
-                    </h2>
+                <Row className='justify-content-md-center'>
+                  {' '}
+                  <Badge className='p-3' variant='success'>
+                    <h3> Well done {userInfo.name}! </h3>
                   </Badge>
-                ) : (
-                  <Badge variant='danger' className='justify-content-md-center'>
-                    <h2 font-weight-bolder>
-                      {Math.trunc(pomodoroSeconds / 60)} :{' '}
-                      {pomodoroSeconds % 60}
-                    </h2>
-                  </Badge>
+                </Row>
+                <Row className='justify-content-md-center'>
+                  <Button onClick={doItAgainHandler}>Do it Again</Button>
+                </Row>
+              </>
+            )}
+            <Row className='justify-content-md-center'>
+              {' '}
+              {trainingSessionDone === false &&
+                savedPomodoros.pomodoros &&
+                savedPomodoros.pomodoros.length !== 0 && (
+                  <p>
+                    <h2>{savedPomodoros.pomodoros[excerciseNumber].name}</h2>
+
+                    {savedPomodoros.pomodoros[excerciseNumber].description}
+                  </p>
                 )}
-              </Row>
+            </Row>
+
+            <Row className='justify-content-lg-center'>
+              {pomodoroSeconds === 0 ? (
+                <Badge variant='success'>
+                  <h2 font-weight-bolder>
+                    {' '}
+                    {Math.trunc(restSeconds / 60)} : {restSeconds % 60}
+                  </h2>
+                </Badge>
+              ) : (
+                <Badge variant='danger' className='justify-content-md-center'>
+                  <h2 font-weight-bolder>
+                    {Math.trunc(pomodoroSeconds / 60)} : {pomodoroSeconds % 60}
+                  </h2>
+                </Badge>
+              )}
+            </Row>
+            {trainingSessionDone === false && (
               <Row className='justify-content-lg-center'>
-                {isActive ? (
+                {trainingSessionDone === false && isActive ? (
                   <Button variant='info' onClick={toggle} size='lg'>
                     Pause
                   </Button>
@@ -312,117 +345,73 @@ const CustomTrainingScreen = ({ history }) => {
                     Start
                   </Button>
                 )}
-                {isActive && pomodoroSeconds === 0 && (
-                  <Button onClick={restZero}>Skip rest</Button>
-                )}
+                {trainingSessionDone === false &&
+                  isActive &&
+                  pomodoroSeconds === 0 && (
+                    <Button onClick={restZero}>Skip rest</Button>
+                  )}
               </Row>
-            </Card>
-            <Card className='p-3'>
+            )}
+          </Card>
+
+          <Card className='p-3'>
+            {trainingSessionDone === false && optionsToggle === false && (
               <Row className='justify-content-lg-center'>
                 <Button
                   variant='warning'
                   flush
                   onClick={previousExerciseHandler}
                 >
-                  previous exercise
+                  <i className='fas fa-arrow-left'></i> Previous
                 </Button>
                 <Button variant='info' flush onClick={nextExerciseHandler}>
-                  next exercise
+                  Next <i className='fas fa-arrow-right'></i>
                 </Button>
               </Row>
-            </Card>
-            <Col>
-              <Card className='p-3'>
-                <Row>
-                  <Col>
-                    <h3>
-                      Number of Pomodoros done: <b>{pomodoroDone}</b>{' '}
-                    </h3>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col sm={8}>
-                    <h3>
-                      Rest period: <b>{Math.trunc(restSeconds / 60)}</b> minutes
-                    </h3>
-                  </Col>
-                  <Col sm={4}>
-                    {' '}
-                    <Button onClick={restDurationPlus}>
-                      <b>+</b>
-                    </Button>
-                    <Button onClick={restDurationMinus}>
-                      <b>-</b>
-                    </Button>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col sm={8}>
-                    <h3>
-                      Duration of a pomodoro:{' '}
-                      <b>{Math.trunc(pomodoroSeconds / 60)}</b> minutes
-                    </h3>
-                  </Col>
-                  <Col sm={4}>
-                    {' '}
-                    <Button onClick={pomodoroDurationPlus}>
-                      <b>+</b>
-                    </Button>
-                    <Button onClick={pomodoroDurationMinus}>
-                      <b>-</b>
-                    </Button>
-                  </Col>
-                </Row>
+            )}
 
-                {userInfo &&
-                  savedPomodoros.pomodoros &&
-                  savedPomodoros.pomodoros.length !== 0 && (
-                    <Button
-                      variant='info'
-                      flush
-                      onClick={savePreferencesHandler}
-                    >
-                      Save preferences
-                    </Button>
-                  )}
-                {updatedPomodoro.pomodoros && updatedVisible === false ? (
-                  <Button
-                    variant='success'
-                    flush
-                    onClick={() =>
-                      dispatch(
-                        getMyPomodoros(),
-                        setUpdatedVisible(!updatedVisible)
-                      )
-                    }
-                  >
-                    Set updated as current
+            {optionsToggle === false && (
+              <Row className='justify-content-lg-center my-3'>
+                <Button
+                  variant='dark'
+                  flush
+                  onClick={() => {
+                    setOptionsToggle(true)
+                  }}
+                >
+                  <i className='fas fa-cogs'></i> Options
+                </Button>
+              </Row>
+            )}
+            {optionsToggle === true && (
+              <>
+                <Row className='justify-content-lg-center'>
+                  <Button variant='warning' flush onClick={reset}>
+                    Reset this exercise
                   </Button>
-                ) : (
-                  <></>
-                )}
-                <Button variant='warning' flush onClick={reset}>
-                  Reset timer
-                </Button>
-
-                <Button
-                  variant='danger'
-                  flush
-                  onClick={saveDonePomodoroHandler}
-                >
-                  saveMyDonePomodoro test
-                </Button>
-                <Button
-                  variant='warning'
-                  flush
-                  onClick={() => dispatch(getMyDonePomodoros())}
-                >
-                  getMyDonePomodoros
-                </Button>
-              </Card>
-            </Col>
-          </Col>
-        </Row>
+                </Row>
+                <Row className='justify-content-lg-center'>
+                  {' '}
+                  <Link to='/create' className='btn btn-info my-3'>
+                    Create or Update
+                  </Link>
+                </Row>
+                <Row className='justify-content-lg-center'>
+                  {' '}
+                  <Button
+                    variant='dark'
+                    flush
+                    onClick={() => {
+                      setOptionsToggle(false)
+                    }}
+                  >
+                    <i className='fas fa-times'></i> Close options
+                  </Button>
+                </Row>
+              </>
+            )}
+          </Card>
+        </Col>
       </FormContainer>
       {trainingSessionVisible === false ? (
         <Button
