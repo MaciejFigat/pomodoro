@@ -66,14 +66,14 @@ const PomodoroDisplayScreen = () => {
 
   return (
     <FormContainer>
-      <Row className='justify-content-lg-center'>
+      <Row className='justify-content-center'>
         <Col xs={12} md={8}>
           <Card className='p-3'>
-            <Row className='justify-content-lg-center'>
+            <Row className='justify-content-center'>
               {' '}
               {isActive && seconds > 0 ? <h1>Work</h1> : <h1>Rest</h1>}
             </Row>
-            <Row className='justify-content-lg-center'>
+            <Row className='justify-content-center'>
               {seconds === 0 ? (
                 <Badge variant='success'>
                   <h2 font-weight-bolder>
@@ -89,7 +89,7 @@ const PomodoroDisplayScreen = () => {
                 </Badge>
               )}
             </Row>
-            <Row className='justify-content-lg-center'>
+            <Row className='justify-content-center'>
               {isActive ? (
                 <Button variant='info' onClick={toggle} size='lg'>
                   Pause
@@ -153,10 +153,6 @@ const PomodoroDisplayScreen = () => {
           </Col>
         </Col>
       </Row>
-      <button onClick={() => setSeconds(seconds - 10)}>---testing work</button>
-      <button onClick={() => setRestSeconds(restSeconds - 10)}>
-        --- testing rest
-      </button>
     </FormContainer>
   )
 }

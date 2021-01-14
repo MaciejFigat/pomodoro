@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {
-  Form,
-  Container,
-  Button,
-  Row,
-  Col,
-  Badge,
-  Card,
-  Table,
-} from 'react-bootstrap'
+import { Button, Row, Badge, Card, Table } from 'react-bootstrap'
 import FormContainer from '../components/FormContainer'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -29,10 +20,7 @@ import {
   restSecondsSet,
   deletePomodoro,
 } from '../actions/pomodoroActions'
-import {
-  saveMyDonePomodoro,
-  getMyDonePomodoros,
-} from '../actions/pomodoroDoneActions'
+import { saveMyDonePomodoro } from '../actions/pomodoroDoneActions'
 
 const CustomTrainingScreen = ({ history }) => {
   const dispatch = useDispatch()
@@ -93,38 +81,38 @@ const CustomTrainingScreen = ({ history }) => {
     setTrainingSessionDone(false)
   }
 
-  const pomodoroDurationPlus = () => {
-    dispatch(increasePomodoroMinutes())
-  }
+  // const pomodoroDurationPlus = () => {
+  //   dispatch(increasePomodoroMinutes())
+  // }
 
-  const pomodoroDurationMinus = () => {
-    dispatch(decreasePomodoroMinutes())
-  }
+  // const pomodoroDurationMinus = () => {
+  //   dispatch(decreasePomodoroMinutes())
+  // }
 
-  const restDurationPlus = () => {
-    dispatch(increaseRestMinutes())
-  }
+  // const restDurationPlus = () => {
+  //   dispatch(increaseRestMinutes())
+  // }
 
-  const restDurationMinus = () => {
-    dispatch(decreaseRestMinutes())
-  }
+  // const restDurationMinus = () => {
+  //   dispatch(decreaseRestMinutes())
+  // }
 
   const restZero = () => {
     dispatch(setZeroRest())
   }
 
-  const savePreferencesHandler = () => {
-    dispatch(
-      updateMyPomodoro({
-        _id: savedPomodoros.pomodoros[excerciseNumber]._id,
-        pomodoroSeconds: pomodoroSeconds,
-        restSeconds: restSeconds,
-      })
-    )
-    if (updatedVisible === true) {
-      setUpdatedVisible(false)
-    }
-  }
+  // const savePreferencesHandler = () => {
+  //   dispatch(
+  //     updateMyPomodoro({
+  //       _id: savedPomodoros.pomodoros[excerciseNumber]._id,
+  //       pomodoroSeconds: pomodoroSeconds,
+  //       restSeconds: restSeconds,
+  //     })
+  //   )
+  //   if (updatedVisible === true) {
+  //     setUpdatedVisible(false)
+  //   }
+  // }
 
   const trainingUpdateHandler = (id) => {
     dispatch(
@@ -135,17 +123,17 @@ const CustomTrainingScreen = ({ history }) => {
       })
     )
   }
-  const saveDonePomodoroHandler = () => {
-    if (savedPomodoros.pomodoros && savedPomodoros.pomodoros.length !== 0) {
-      dispatch(
-        saveMyDonePomodoro({
-          name: savedPomodoros.pomodoros[excerciseNumber].name,
-          secondsDone:
-            savedPomodoros.pomodoros[excerciseNumber].pomodoroSeconds,
-        })
-      )
-    }
-  }
+  // const saveDonePomodoroHandler = () => {
+  //   if (savedPomodoros.pomodoros && savedPomodoros.pomodoros.length !== 0) {
+  //     dispatch(
+  //       saveMyDonePomodoro({
+  //         name: savedPomodoros.pomodoros[excerciseNumber].name,
+  //         secondsDone:
+  //           savedPomodoros.pomodoros[excerciseNumber].pomodoroSeconds,
+  //       })
+  //     )
+  //   }
+  // }
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure?')) {
       dispatch(deletePomodoro(id))
@@ -170,7 +158,7 @@ const CustomTrainingScreen = ({ history }) => {
     }
   }
   const previousExerciseHandler = () => {
-    if (savedPomodoros.pomodoros && excerciseNumber >= 1) {
+    if (savedPomodoros.pomodoros && excerciseNumber > 1) {
       setExcerciseNumber(excerciseNumber - 1)
       dispatch(
         restSecondsSet(savedPomodoros.pomodoros[excerciseNumber].restSeconds)
@@ -228,7 +216,6 @@ const CustomTrainingScreen = ({ history }) => {
       restSeconds === 0 &&
       pomodoroSeconds === 0
     ) {
-      setPomodoroDone((pomodoroDone) => pomodoroDone + 1)
       dispatch(
         saveMyDonePomodoro({
           name: savedPomodoros.pomodoros[excerciseNumber].name,
@@ -385,8 +372,13 @@ const CustomTrainingScreen = ({ history }) => {
         </Card>
 
         <Card className='p-3'>
+          <Row className='justify-content-center'>
+            <Button variant='danger' flush onClick={reset}>
+              Reset this exercise
+            </Button>
+          </Row>
           {trainingSessionDone === false && optionsToggle === false && (
-            <Row className='justify-content-center'>
+            <Row className='justify-content-center my-3'>
               <Button variant='warning' flush onClick={previousExerciseHandler}>
                 <i className='fas fa-arrow-left'></i> Previous
               </Button>
@@ -397,7 +389,7 @@ const CustomTrainingScreen = ({ history }) => {
           )}
 
           {optionsToggle === false && (
-            <Row className='justify-content-center my-3'>
+            <Row className='justify-content-center '>
               <Button
                 variant='dark'
                 flush
@@ -411,11 +403,6 @@ const CustomTrainingScreen = ({ history }) => {
           )}
           {optionsToggle === true && (
             <>
-              <Row className='justify-content-center'>
-                <Button variant='warning' flush onClick={reset}>
-                  Reset this exercise
-                </Button>
-              </Row>
               <Row className='justify-content-center'>
                 {' '}
                 <Link to='/create' className='btn btn-info my-3'>
@@ -439,21 +426,25 @@ const CustomTrainingScreen = ({ history }) => {
         </Card>
       </FormContainer>
       {trainingSessionVisible === false ? (
-        <Button
-          variant='info'
-          flush
-          onClick={() => setTrainingSessionVisible(true)}
-        >
-          Show training session
-        </Button>
+        <Row className='justify-content-center'>
+          <Button
+            variant='info'
+            flush
+            onClick={() => setTrainingSessionVisible(true)}
+          >
+            Show training session
+          </Button>
+        </Row>
       ) : (
-        <Button
-          variant='warning'
-          flush
-          onClick={() => setTrainingSessionVisible(false)}
-        >
-          Hide training session
-        </Button>
+        <Row className='justify-content-center'>
+          <Button
+            variant='warning'
+            flush
+            onClick={() => setTrainingSessionVisible(false)}
+          >
+            Hide training session
+          </Button>
+        </Row>
       )}
 
       {savedPomodoros &&
@@ -471,65 +462,70 @@ const CustomTrainingScreen = ({ history }) => {
               </tr>
             </thead>
             <tbody>
-              {pomodoros.map((savedPomodoro) => (
-                <tr key={savedPomodoro._id}>
-                  <td>{savedPomodoro.name}</td>
-                  {savedPomodoro.pomodoroSeconds % 60 === 0 &&
-                    savedPomodoro.pomodoroSeconds > 60 && (
-                      <td>
-                        {Math.trunc(savedPomodoro.pomodoroSeconds / 60)} min{' '}
-                      </td>
-                    )}
-                  {savedPomodoro.pomodoroSeconds % 60 !== 0 &&
-                    savedPomodoro.pomodoroSeconds > 60 && (
-                      <td>
-                        {Math.trunc(savedPomodoro.pomodoroSeconds / 60)} min{' '}
-                        {savedPomodoro.pomodoroSeconds % 60} sec
-                      </td>
-                    )}
-                  {savedPomodoro.pomodoroSeconds % 60 !== 0 &&
-                    savedPomodoro.pomodoroSeconds < 60 && (
-                      <td>{savedPomodoro.pomodoroSeconds % 60} sec</td>
-                    )}
+              {pomodoros
 
-                  {savedPomodoro.restSeconds % 60 === 0 &&
-                    savedPomodoro.restSeconds > 60 && (
-                      <td>
-                        {Math.trunc(savedPomodoro.restSeconds / 60)} minutes{' '}
-                      </td>
-                    )}
-                  {savedPomodoro.restSeconds % 60 !== 0 &&
-                    savedPomodoro.restSeconds > 60 && (
-                      <td>
-                        {Math.trunc(savedPomodoro.restSeconds / 60)} min{' '}
-                        {savedPomodoro.restSeconds % 60} sec
-                      </td>
-                    )}
-                  {savedPomodoro.restSeconds % 60 !== 0 &&
-                    savedPomodoro.restSeconds < 60 && (
-                      <td>{savedPomodoro.restSeconds % 60} sec</td>
-                    )}
+                .filter(
+                  (savedPomodoro) => pomodoros.indexOf(savedPomodoro) !== 0
+                )
+                .map((savedPomodoro) => (
+                  <tr key={savedPomodoro._id}>
+                    <td>{savedPomodoro.name}</td>
+                    {savedPomodoro.pomodoroSeconds % 60 === 0 &&
+                      savedPomodoro.pomodoroSeconds > 60 && (
+                        <td>
+                          {Math.trunc(savedPomodoro.pomodoroSeconds / 60)} min{' '}
+                        </td>
+                      )}
+                    {savedPomodoro.pomodoroSeconds % 60 !== 0 &&
+                      savedPomodoro.pomodoroSeconds > 60 && (
+                        <td>
+                          {Math.trunc(savedPomodoro.pomodoroSeconds / 60)} min{' '}
+                          {savedPomodoro.pomodoroSeconds % 60} sec
+                        </td>
+                      )}
+                    {savedPomodoro.pomodoroSeconds % 60 !== 0 &&
+                      savedPomodoro.pomodoroSeconds < 60 && (
+                        <td>{savedPomodoro.pomodoroSeconds % 60} sec</td>
+                      )}
 
-                  <td>{savedPomodoro.description}</td>
-                  <td>
-                    {' '}
-                    <Button
-                      variant='danger'
-                      onClick={() => deleteHandler(savedPomodoro._id)}
-                      size='sm'
-                    >
-                      delete
-                    </Button>
-                    <Button
-                      variant='info'
-                      onClick={() => trainingUpdateHandler(savedPomodoro._id)}
-                      size='sm'
-                    >
-                      update
-                    </Button>
-                  </td>
-                </tr>
-              ))}
+                    {savedPomodoro.restSeconds % 60 === 0 &&
+                      savedPomodoro.restSeconds > 60 && (
+                        <td>
+                          {Math.trunc(savedPomodoro.restSeconds / 60)} minutes{' '}
+                        </td>
+                      )}
+                    {savedPomodoro.restSeconds % 60 !== 0 &&
+                      savedPomodoro.restSeconds > 60 && (
+                        <td>
+                          {Math.trunc(savedPomodoro.restSeconds / 60)} min{' '}
+                          {savedPomodoro.restSeconds % 60} sec
+                        </td>
+                      )}
+                    {savedPomodoro.restSeconds % 60 !== 0 &&
+                      savedPomodoro.restSeconds < 60 && (
+                        <td>{savedPomodoro.restSeconds % 60} sec</td>
+                      )}
+
+                    <td>{savedPomodoro.description}</td>
+                    <td>
+                      {' '}
+                      <Button
+                        variant='danger'
+                        onClick={() => deleteHandler(savedPomodoro._id)}
+                        size='sm'
+                      >
+                        delete
+                      </Button>
+                      <Button
+                        variant='info'
+                        onClick={() => trainingUpdateHandler(savedPomodoro._id)}
+                        size='sm'
+                      >
+                        update
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </Table>
         )}

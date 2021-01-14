@@ -78,7 +78,7 @@ const UserStatsScreen = ({ history }) => {
               setTrainingStatsToggle(true)
             }}
           >
-            Show training data <i className='fas fa-dumbbell'></i>
+            <i className='fas fa-dumbbell'></i> Your training data
           </Button>
           <Button
             variant='info'
@@ -88,7 +88,7 @@ const UserStatsScreen = ({ history }) => {
               setTrainingStatsToggle(false)
             }}
           >
-            Show pomodoro data <i className='fas fa-pizza-slice'></i>
+            <i className='fas fa-pizza-slice'></i> Your pomodoro data
           </Button>
         </Row>
       </Card>

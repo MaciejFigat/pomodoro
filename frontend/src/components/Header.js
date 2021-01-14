@@ -21,8 +21,7 @@ const Header = () => {
           {userInfo ? (
             <LinkContainer to='/training'>
               <Nav.Link>
-                <i className='fas fa-dumbbell'></i> {userInfo.name}'s training
-                plan
+                <i className='fas fa-dumbbell'></i> Training
               </Nav.Link>
             </LinkContainer>
           ) : (
@@ -33,7 +32,7 @@ const Header = () => {
           {userInfo ? (
             <LinkContainer to='/custom'>
               <Nav.Link>
-                <i className='fas fa-user-clock'></i> {userInfo.name}'s pomodoro
+                <i className='fas fa-clock'></i> Pomodoro
               </Nav.Link>
             </LinkContainer>
           ) : (
@@ -42,21 +41,18 @@ const Header = () => {
 
           {userInfo ? (
             <NavDropdown title={userInfo.name} id='username'>
-              <LinkContainer to={'/profile'}>
-                <NavDropdown.Item>Profile</NavDropdown.Item>
-              </LinkContainer>
               <LinkContainer to={'/stats'}>
                 <NavDropdown.Item>
-                  <i className='fas fa-pizza-slice'></i> pomodoro stats
+                  <i className='fas fa-database'></i> Stats
                 </NavDropdown.Item>
               </LinkContainer>
               <LinkContainer to='/create'>
                 <NavDropdown.Item>
-                  <i className='fas fa-plus-square'></i> Training settings
+                  <i className='fas fa-cogs'></i> Settings
                 </NavDropdown.Item>
               </LinkContainer>
               <NavDropdown.Item onClick={logoutHandler}>
-                Logout
+                <i className='fas fa-sign-out-alt'></i> Logout
               </NavDropdown.Item>
             </NavDropdown>
           ) : (

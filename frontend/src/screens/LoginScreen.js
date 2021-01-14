@@ -29,6 +29,9 @@ const LoginScreen = ({ location, history }) => {
     dispatch(login(email, password))
   }
   useEffect(() => {
+    if (userInfo) {
+      history.push('/training')
+    }
     if (
       userInfo &&
       savedPomodoros.pomodoros &&

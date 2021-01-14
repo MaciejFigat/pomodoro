@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import {
-  Form,
-  Container,
-  Button,
-  Row,
-  Col,
-  Badge,
-  Card,
-  Table,
-} from 'react-bootstrap'
+import { Form, Button, Row, Col, Card, Table } from 'react-bootstrap'
 import FormContainer from '../components/FormContainer'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -25,11 +16,9 @@ const CreateNewExerciseScreen = ({ history }) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
-  const counterPomodoro = useSelector((state) => state.counterPomodoro)
-  const { pomodoroSeconds } = counterPomodoro
+  // const counterPomodoro = useSelector((state) => state.counterPomodoro)
 
-  const counterRest = useSelector((state) => state.counterRest)
-  const { restSeconds } = counterRest
+  // const counterRest = useSelector((state) => state.counterRest)
 
   const savedPomodoros = useSelector((state) => state.getPomodoroInfo)
   const { pomodoros } = savedPomodoros
@@ -40,7 +29,7 @@ const CreateNewExerciseScreen = ({ history }) => {
 
   const pomodoroCreate = useSelector((state) => state.pomodoroCreate)
 
-  const [updatedVisible, setUpdatedVisible] = useState(false)
+  // const [updatedVisible, setUpdatedVisible] = useState(false)
 
   const [deleteDone, setDeleteDone] = useState(false)
   const [createDone, setCreateDone] = useState(false)
