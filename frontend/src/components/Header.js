@@ -46,11 +46,13 @@ const Header = () => {
                 <NavDropdown.Item>Profile</NavDropdown.Item>
               </LinkContainer>
               <LinkContainer to={'/stats'}>
-                <NavDropdown.Item>pomodoro stats</NavDropdown.Item>
+                <NavDropdown.Item>
+                  <i className='fas fa-pizza-slice'></i> pomodoro stats
+                </NavDropdown.Item>
               </LinkContainer>
               <LinkContainer to='/create'>
                 <NavDropdown.Item>
-                  <i className='fas fa-plus-square'></i> New Exercise
+                  <i className='fas fa-plus-square'></i> Training settings
                 </NavDropdown.Item>
               </LinkContainer>
               <NavDropdown.Item onClick={logoutHandler}>

@@ -7,6 +7,7 @@ import {
   Badge,
   Card,
   Table,
+  Accordion,
 } from 'react-bootstrap'
 import FormContainer from '../components/FormContainer'
 import { useDispatch, useSelector } from 'react-redux'
@@ -28,9 +29,10 @@ const UserStatsScreen = ({ history }) => {
   const { success } = pomodoroDoneDelete
 
   const [deleteDone, setDeleteDone] = useState(false)
+  const [trainingStatsToggle, setTrainingStatsToggle] = useState(false)
+  const [pomodoroStatsToggle, setPomodoroStatsToggle] = useState(false)
 
   const deleteHandler = (id) => {
-    console.log('deletehandler')
     if (window.confirm('Are you sure?')) {
       dispatch(deletePomodoroDone(id))
       setDeleteDone(true)
@@ -52,40 +54,128 @@ const UserStatsScreen = ({ history }) => {
 
   return (
     <FormContainer>
-      {pomodorosDone && pomodorosDone.length !== 0 && (
-        <Table stripped bordered hover responsive className='table-sm'>
-          <thead>
-            <tr>
-              <th>Duration of pomodoro </th>
-              <th>Date of creation</th>
-            </tr>
-          </thead>
-          <tbody>
-            {pomodorosDone.map((pomodoroDone) => (
-              <tr key={pomodoroDone._id}>
-                <td>
-                  {Math.trunc(pomodoroDone.secondsDone / 60)} minutes{' '}
-                  {pomodoroDone.secondsDone % 60} seconds
-                </td>
-                <td>
-                  {pomodoroDone.createdAt.substring(0, 10)} at{' '}
-                  {pomodoroDone.createdAt.substring(11, 16)}{' '}
-                </td>
-                <td>
-                  {' '}
-                  <Button
-                    variant='danger'
-                    onClick={() => deleteHandler(pomodoroDone._id)}
-                    size='sm'
-                  >
-                    delete
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+      {pomodorosDone && pomodorosDone.length === 0 && (
+        <Card className='p-3'>
+          <Button
+            variant='info'
+            flush
+            onClick={() => {
+              dispatch(getMyDonePomodoros())
+            }}
+          >
+            Load Data
+          </Button>
+        </Card>
       )}
+
+      <Card className='p-3'>
+        <Row className='justify-content-center'>
+          <Button
+            variant='success'
+            flush
+            onClick={() => {
+              setPomodoroStatsToggle(false)
+              setTrainingStatsToggle(true)
+            }}
+          >
+            Show training data <i className='fas fa-dumbbell'></i>
+          </Button>
+          <Button
+            variant='info'
+            flush
+            onClick={() => {
+              setPomodoroStatsToggle(true)
+              setTrainingStatsToggle(false)
+            }}
+          >
+            Show pomodoro data <i className='fas fa-pizza-slice'></i>
+          </Button>
+        </Row>
+      </Card>
+
+      {pomodorosDone &&
+        pomodorosDone.length !== 0 &&
+        pomodoroStatsToggle === true && (
+          <Table stripped bordered hover responsive className='table-sm'>
+            <thead>
+              <tr>
+                <th>Duration of pomodoro </th>
+                <th>Date of creation</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pomodorosDone
+                .filter((pomodoroDone) => pomodoroDone.pomodoroType === true)
+                .map((pomodoroDone) => (
+                  <tr key={pomodoroDone._id}>
+                    <td>
+                      {Math.trunc(pomodoroDone.secondsDone / 60)} minutes{' '}
+                      {pomodoroDone.secondsDone % 60} seconds
+                    </td>
+                    <td>
+                      {pomodoroDone.createdAt.substring(0, 10)} at{' '}
+                      {pomodoroDone.createdAt.substring(11, 16)}{' '}
+                    </td>
+                    <td>
+                      {' '}
+                      <Button
+                        variant='danger'
+                        onClick={() => deleteHandler(pomodoroDone._id)}
+                        size='sm'
+                      >
+                        delete
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </Table>
+        )}
+
+      {pomodorosDone &&
+        pomodorosDone.length !== 0 &&
+        trainingStatsToggle === true && (
+          <Table stripped bordered hover responsive className='table-sm'>
+            <thead>
+              <tr>
+                <th>Name </th>
+                <th>Exercise Duration </th>
+                <th>Date of creation</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pomodorosDone
+                .filter(
+                  (pomodoroDone) =>
+                    pomodoroDone.pomodoroType === false ||
+                    !pomodoroDone.pomodoroType
+                )
+                .map((pomodoroDone) => (
+                  <tr key={pomodoroDone._id}>
+                    <td>{pomodoroDone.name}</td>
+                    <td>
+                      {Math.trunc(pomodoroDone.secondsDone / 60)} minutes{' '}
+                      {pomodoroDone.secondsDone % 60} seconds
+                    </td>
+                    <td>
+                      {pomodoroDone.createdAt.substring(0, 10)} at{' '}
+                      {pomodoroDone.createdAt.substring(11, 16)}{' '}
+                    </td>
+                    <td>
+                      {' '}
+                      <Button
+                        variant='danger'
+                        onClick={() => deleteHandler(pomodoroDone._id)}
+                        size='sm'
+                      >
+                        delete
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </Table>
+        )}
     </FormContainer>
   )
 }

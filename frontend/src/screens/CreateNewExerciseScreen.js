@@ -163,16 +163,18 @@ const CreateNewExerciseScreen = ({ history }) => {
 
   //
   const trainingUpdateHandler = (id) => {
-    dispatch(
-      updateMyPomodoro({
-        _id: id,
-        pomodoroSeconds: exerciseDuration,
-        restSeconds: restDuration,
-        name: name,
-        description: description,
-      })
-    )
-    setUpdateDone(true)
+    if (window.confirm('Are you sure?')) {
+      dispatch(
+        updateMyPomodoro({
+          _id: id,
+          pomodoroSeconds: exerciseDuration,
+          restSeconds: restDuration,
+          name: name,
+          description: description,
+        })
+      )
+      setUpdateDone(true)
+    }
   }
 
   const deleteHandler = (id) => {
@@ -225,7 +227,7 @@ const CreateNewExerciseScreen = ({ history }) => {
         <Row>
           <Col>
             <Form.Group controlId='name'>
-              <Form.Label>Name of a new exercise</Form.Label>
+              <Form.Label>Name</Form.Label>
               <Form.Control
                 type='name'
                 placeholder='Name of an exercise'
@@ -236,7 +238,7 @@ const CreateNewExerciseScreen = ({ history }) => {
           </Col>
           <Col>
             <Form.Group controlId='description'>
-              <Form.Label>Description of a new exercise </Form.Label>
+              <Form.Label>Description</Form.Label>
               <Form.Control
                 type='text'
                 placeholder='Description of an exercise'
@@ -324,22 +326,26 @@ const CreateNewExerciseScreen = ({ history }) => {
             </Row>
           </Col>
         </Row>
-        <Col>
-          <Button variant='success' onClick={createPomodoroHandler} size='sm'>
-            Add a new excercise <i className='fas fa-plus-square'></i>
-          </Button>
-        </Col>
       </Form>
       <FormContainer>
         {savedPomodoros.pomodoros && savedPomodoros.pomodoros.length !== 0 ? (
           <Card className='p-3'>
-            <Row className='justify-content-lg-center'>
+            <Row className='justify-content-center'>
+              <Button
+                variant='success'
+                onClick={createPomodoroHandler}
+                size='sm'
+              >
+                <i className='fas fa-plus-square'></i> Add new excercise
+              </Button>
+            </Row>
+            <Row className='justify-content-center'>
               <Link to='/training' className='btn btn-dark my-3'>
                 <i className='fas fa-undo-alt'></i> Back to training
               </Link>
             </Row>
 
-            <Row className='justify-content-lg-center'>
+            <Row className='justify-content-center'>
               <Button variant='warning' flush onClick={previousExerciseHandler}>
                 <i className='fas fa-arrow-left'></i> Previous exercise
               </Button>
@@ -371,8 +377,12 @@ const CreateNewExerciseScreen = ({ history }) => {
               <tr>
                 <th>Name </th>
                 <th>Description </th>
-                <th>Duration of an excercise </th>
-                <th>Rest duration </th>
+                <th>
+                  Excercise <i className='far fa-clock'></i>
+                </th>
+                <th>
+                  Rest <i className='far fa-clock'></i>{' '}
+                </th>
                 <th>Delete or Update</th>
               </tr>
             </thead>
@@ -396,37 +406,35 @@ const CreateNewExerciseScreen = ({ history }) => {
                   {savedPomodoro.pomodoroSeconds % 60 === 0 &&
                     savedPomodoro.pomodoroSeconds > 60 && (
                       <td>
-                        {Math.trunc(savedPomodoro.pomodoroSeconds / 60)} minutes{' '}
+                        {Math.trunc(savedPomodoro.pomodoroSeconds / 60)} min{' '}
                       </td>
                     )}
                   {savedPomodoro.pomodoroSeconds % 60 !== 0 &&
                     savedPomodoro.pomodoroSeconds > 60 && (
                       <td>
-                        {Math.trunc(savedPomodoro.pomodoroSeconds / 60)} minutes{' '}
-                        {savedPomodoro.pomodoroSeconds % 60} seconds
+                        {Math.trunc(savedPomodoro.pomodoroSeconds / 60)} min{' '}
+                        {savedPomodoro.pomodoroSeconds % 60} sec
                       </td>
                     )}
                   {savedPomodoro.pomodoroSeconds % 60 !== 0 &&
                     savedPomodoro.pomodoroSeconds < 60 && (
-                      <td>{savedPomodoro.pomodoroSeconds % 60} seconds</td>
+                      <td>{savedPomodoro.pomodoroSeconds % 60} sec</td>
                     )}
 
                   {savedPomodoro.restSeconds % 60 === 0 &&
                     savedPomodoro.restSeconds > 60 && (
-                      <td>
-                        {Math.trunc(savedPomodoro.restSeconds / 60)} minutes{' '}
-                      </td>
+                      <td>{Math.trunc(savedPomodoro.restSeconds / 60)} min </td>
                     )}
                   {savedPomodoro.restSeconds % 60 !== 0 &&
                     savedPomodoro.restSeconds > 60 && (
                       <td>
-                        {Math.trunc(savedPomodoro.restSeconds / 60)} minutes{' '}
-                        {savedPomodoro.restSeconds % 60} seconds
+                        {Math.trunc(savedPomodoro.restSeconds / 60)} min{' '}
+                        {savedPomodoro.restSeconds % 60} sec
                       </td>
                     )}
                   {savedPomodoro.restSeconds % 60 !== 0 &&
                     savedPomodoro.restSeconds < 60 && (
-                      <td>{savedPomodoro.restSeconds % 60} seconds</td>
+                      <td>{savedPomodoro.restSeconds % 60} sec</td>
                     )}
 
                   <td>

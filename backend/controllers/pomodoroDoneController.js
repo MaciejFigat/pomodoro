@@ -6,12 +6,13 @@ import PomodoroDone from '../models/pomodoroDoneModel.js'
 // @access private
 
 const createPomodoroDone = asyncHandler(async (req, res) => {
-  const { pomodoroNumber, secondsDone } = req.body
+  const { pomodoroNumber, secondsDone, pomodoroType, name } = req.body
 
   const pomodoroDone = new PomodoroDone({
     user: req.user._id,
-    pomodoroNumber,
+    pomodoroType,
     secondsDone,
+    name,
   })
   const createdPomodoroDone = await pomodoroDone.save()
   res.status(201).json(createdPomodoroDone)

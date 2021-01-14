@@ -7,13 +7,17 @@ const pomodoroDoneSchema = mongoose.Schema(
       required: false,
       ref: 'User',
     },
-    pomodoroNumber: {
-      type: Number,
-      required: true,
+    pomodoroType: {
+      type: Boolean,
+      required: false,
     },
     secondsDone: {
       type: Number,
       required: true,
+    },
+    name: {
+      type: String,
+      required: false,
     },
   },
 

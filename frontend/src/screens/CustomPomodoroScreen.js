@@ -128,7 +128,7 @@ const CustomPomodoroScreen = ({ history }) => {
     if (savedPomodoros.pomodoros && savedPomodoros.pomodoros.length !== 0) {
       dispatch(
         saveMyDonePomodoro({
-          pomodoroNumber: 1,
+          pomodoroType: true,
           secondsDone: savedPomodoros.pomodoros[0].pomodoroSeconds,
         })
       )
@@ -164,7 +164,7 @@ const CustomPomodoroScreen = ({ history }) => {
       setPomodoroDone((pomodoroDone) => pomodoroDone + 1)
       dispatch(
         saveMyDonePomodoro({
-          pomodoroNumber: 1,
+          pomodoroType: true,
           secondsDone: savedPomodoros.pomodoros[0].pomodoroSeconds,
         })
       )
@@ -202,14 +202,14 @@ const CustomPomodoroScreen = ({ history }) => {
 
   return (
     <FormContainer>
-      <Row className='justify-content-lg-center'>
+      <Row className='justify-content-center'>
         <Col xs={12} md={8}>
           <Card className='p-3'>
-            <Row className='justify-content-lg-center'>
+            <Row className='justify-content-center'>
               {' '}
               {isActive && pomodoroSeconds > 0 ? <h1>Work</h1> : <h1>Rest</h1>}
             </Row>
-            <Row className='justify-content-lg-center'>
+            <Row className='justify-content-center'>
               {pomodoroSeconds === 0 ? (
                 <Badge variant='success'>
                   <h2 font-weight-bolder>
@@ -218,14 +218,14 @@ const CustomPomodoroScreen = ({ history }) => {
                   </h2>
                 </Badge>
               ) : (
-                <Badge variant='danger' className='justify-content-md-center'>
+                <Badge variant='danger' className='justify-content-center'>
                   <h2 font-weight-bolder>
                     {Math.trunc(pomodoroSeconds / 60)} : {pomodoroSeconds % 60}
                   </h2>
                 </Badge>
               )}
             </Row>
-            <Row className='justify-content-lg-center'>
+            <Row className='justify-content-center'>
               {isActive ? (
                 <Button variant='info' onClick={toggle} size='lg'>
                   Pause
