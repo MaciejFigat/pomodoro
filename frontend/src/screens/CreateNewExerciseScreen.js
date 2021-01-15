@@ -16,10 +16,6 @@ const CreateNewExerciseScreen = ({ history }) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
-  // const counterPomodoro = useSelector((state) => state.counterPomodoro)
-
-  // const counterRest = useSelector((state) => state.counterRest)
-
   const savedPomodoros = useSelector((state) => state.getPomodoroInfo)
   const { pomodoros } = savedPomodoros
 
@@ -28,8 +24,6 @@ const CreateNewExerciseScreen = ({ history }) => {
   const pomodoroDelete = useSelector((state) => state.pomodoroDelete)
 
   const pomodoroCreate = useSelector((state) => state.pomodoroCreate)
-
-  // const [updatedVisible, setUpdatedVisible] = useState(false)
 
   const [deleteDone, setDeleteDone] = useState(false)
   const [createDone, setCreateDone] = useState(false)
@@ -380,7 +374,6 @@ const CreateNewExerciseScreen = ({ history }) => {
                 <tr
                   key={savedPomodoro._id}
                   onClick={() => {
-                    // console.log(exerciseNumber)
                     console.log(pomodoros.indexOf(savedPomodoro))
                     setExerciseNumber(pomodoros.indexOf(savedPomodoro))
                     setName(savedPomodoro.name)

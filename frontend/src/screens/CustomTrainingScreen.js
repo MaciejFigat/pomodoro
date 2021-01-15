@@ -44,9 +44,6 @@ const CustomTrainingScreen = ({ history }) => {
 
   const createdPomodoro = useSelector((state) => state.pomodoroCreate)
 
-  const [pomodoroDone, setPomodoroDone] = useState(0)
-
-  const [updatedVisible, setUpdatedVisible] = useState(false)
   const [trainingSessionVisible, setTrainingSessionVisible] = useState(false)
   const [isActive, setIsActive] = useState(false)
   const [deleteDone, setDeleteDone] = useState(false)
@@ -81,38 +78,9 @@ const CustomTrainingScreen = ({ history }) => {
     setTrainingSessionDone(false)
   }
 
-  // const pomodoroDurationPlus = () => {
-  //   dispatch(increasePomodoroMinutes())
-  // }
-
-  // const pomodoroDurationMinus = () => {
-  //   dispatch(decreasePomodoroMinutes())
-  // }
-
-  // const restDurationPlus = () => {
-  //   dispatch(increaseRestMinutes())
-  // }
-
-  // const restDurationMinus = () => {
-  //   dispatch(decreaseRestMinutes())
-  // }
-
   const restZero = () => {
     dispatch(setZeroRest())
   }
-
-  // const savePreferencesHandler = () => {
-  //   dispatch(
-  //     updateMyPomodoro({
-  //       _id: savedPomodoros.pomodoros[excerciseNumber]._id,
-  //       pomodoroSeconds: pomodoroSeconds,
-  //       restSeconds: restSeconds,
-  //     })
-  //   )
-  //   if (updatedVisible === true) {
-  //     setUpdatedVisible(false)
-  //   }
-  // }
 
   const trainingUpdateHandler = (id) => {
     dispatch(
@@ -123,17 +91,7 @@ const CustomTrainingScreen = ({ history }) => {
       })
     )
   }
-  // const saveDonePomodoroHandler = () => {
-  //   if (savedPomodoros.pomodoros && savedPomodoros.pomodoros.length !== 0) {
-  //     dispatch(
-  //       saveMyDonePomodoro({
-  //         name: savedPomodoros.pomodoros[excerciseNumber].name,
-  //         secondsDone:
-  //           savedPomodoros.pomodoros[excerciseNumber].pomodoroSeconds,
-  //       })
-  //     )
-  //   }
-  // }
+
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure?')) {
       dispatch(deletePomodoro(id))

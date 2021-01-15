@@ -8,6 +8,7 @@ const PomodoroDisplayScreen = () => {
   const [seconds, setSeconds] = useState(25 * 60)
   const [restSeconds, setRestSeconds] = useState(5 * 60)
   const [isActive, setIsActive] = useState(false)
+  const [optionsToggle, setOptionsToggle] = useState(false)
 
   const toggle = () => {
     setIsActive(!isActive)
@@ -67,7 +68,7 @@ const PomodoroDisplayScreen = () => {
   return (
     <FormContainer>
       <Row className='justify-content-center'>
-        <Col xs={12} md={8}>
+        <Col>
           <Card className='p-3'>
             <Row className='justify-content-center'>
               {' '}
@@ -104,53 +105,70 @@ const PomodoroDisplayScreen = () => {
               )}
             </Row>
           </Card>
-          <Col>
+
+          {optionsToggle === false && (
+            <Row className='justify-content-center my-3'>
+              <Button
+                variant='dark'
+                flush
+                onClick={() => {
+                  setOptionsToggle(true)
+                }}
+              >
+                <i className='fas fa-cogs'></i> Options
+              </Button>
+            </Row>
+          )}
+          {optionsToggle === true && (
             <Card className='p-3'>
-              <Row>
-                <Col>
-                  <h3>
-                    Number of Pomodoros done: <b>{pomodoroDone}</b>{' '}
-                  </h3>
-                </Col>
-              </Row>
-              <Row>
-                <Col sm={8}>
-                  <h3>
-                    Rest period: <b>{restDuration}</b> minutes
-                  </h3>
-                </Col>
-                <Col sm={4}>
-                  {' '}
-                  <Button onClick={restDurationPlus}>
-                    <b>+</b>
-                  </Button>
-                  <Button onClick={restDurationMinus}>
-                    <b>-</b>
-                  </Button>
-                </Col>
-              </Row>
-              <Row>
-                <Col sm={8}>
-                  <h3>
-                    Duration of a pomodoro: <b>{pomodoroDuration}</b> minutes
-                  </h3>
-                </Col>
-                <Col sm={4}>
-                  {' '}
-                  <Button onClick={pomodoroDurationPlus}>
-                    <b>+</b>
-                  </Button>
-                  <Button onClick={pomodoroDurationMinus}>
-                    <b>-</b>
-                  </Button>
-                </Col>
+              <Row className='justify-content-center'>
+                <Button
+                  variant='dark'
+                  flush
+                  onClick={() => {
+                    setOptionsToggle(false)
+                  }}
+                >
+                  <i className='fas fa-cogs'></i> Hide
+                </Button>
               </Row>
 
-              <Button variant='warning' flush onClick={reset}>
-                Reset timer
-              </Button>
+              <Row className='justify-content-center my-3'>
+                <h5>
+                  Pomodoro:{' '}
+                  <Button size='sm' onClick={pomodoroDurationMinus}>
+                    <b>-</b>
+                  </Button>{' '}
+                  <b>{pomodoroDuration}</b> min{' '}
+                  <Button size='sm' onClick={pomodoroDurationPlus}>
+                    <b>+</b>
+                  </Button>
+                </h5>
+              </Row>
+              <Row className='justify-content-center '>
+                <h5>
+                  Rest:{' '}
+                  <Button size='sm' onClick={restDurationMinus}>
+                    <b>-</b>
+                  </Button>{' '}
+                  <b>{restDuration}</b> min{' '}
+                  <Button size='sm' onClick={restDurationPlus}>
+                    <b>+</b>
+                  </Button>
+                </h5>
+              </Row>
+              <Row className='justify-content-center my-3'>
+                <h5>
+                  Pomodoros done: <b>{pomodoroDone}</b>{' '}
+                </h5>
+              </Row>
+              <Row className='justify-content-center '>
+                <Button variant='warning' flush onClick={reset}>
+                  Reset timer
+                </Button>
+              </Row>
             </Card>
-          </Col>
+          )}
         </Col>
       </Row>
     </FormContainer>

@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {
-  Container,
-  Button,
-  Row,
-  Col,
-  Badge,
-  Card,
-  Table,
-} from 'react-bootstrap'
+import { Button, Row, Col, Badge, Card } from 'react-bootstrap'
 import FormContainer from '../components/FormContainer'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -20,21 +12,13 @@ import {
   increaseRestMinutes,
   decreaseRestMinutes,
   setZeroRest,
-  increaseSavedRestMinutes,
-  decreaseSavedRestMinutes,
-  increaseSavedPomodoroMinutes,
-  decreaseSavedPomodoroMinutes,
   getMyPomodoros,
   updateMyPomodoro,
   createMyPomodoro,
   pomodoroSecondsSet,
   restSecondsSet,
 } from '../actions/pomodoroActions'
-import {
-  saveMyDonePomodoro,
-  getMyDonePomodoros,
-} from '../actions/pomodoroDoneActions'
-// import useMountEffect from '@restart/hooks/useMountEffect'
+import { saveMyDonePomodoro } from '../actions/pomodoroDoneActions'
 
 const CustomPomodoroScreen = ({ history }) => {
   const dispatch = useDispatch()
@@ -52,15 +36,14 @@ const CustomPomodoroScreen = ({ history }) => {
   const { restSeconds } = counterRest
 
   const savedPomodoros = useSelector((state) => state.getPomodoroInfo)
-  const { pomodoros } = savedPomodoros
 
   const updatedPomodoro = useSelector((state) => state.pomodoroUpdate)
   const createdPomodoro = useSelector((state) => state.pomodoroCreate)
 
   const [pomodoroDone, setPomodoroDone] = useState(0)
-
   const [updatedVisible, setUpdatedVisible] = useState(false)
   const [isActive, setIsActive] = useState(false)
+  const [optionsToggle, setOptionsToggle] = useState(false)
 
   const toggle = () => {
     setIsActive(!isActive)
@@ -124,16 +107,16 @@ const CustomPomodoroScreen = ({ history }) => {
       setUpdatedVisible(false)
     }
   }
-  const saveDonePomodoroHandler = () => {
-    if (savedPomodoros.pomodoros && savedPomodoros.pomodoros.length !== 0) {
-      dispatch(
-        saveMyDonePomodoro({
-          pomodoroType: true,
-          secondsDone: savedPomodoros.pomodoros[0].pomodoroSeconds,
-        })
-      )
-    }
-  }
+  // const saveDonePomodoroHandler = () => {
+  //   if (savedPomodoros.pomodoros && savedPomodoros.pomodoros.length !== 0) {
+  //     dispatch(
+  //       saveMyDonePomodoro({
+  //         pomodoroType: true,
+  //         secondsDone: savedPomodoros.pomodoros[0].pomodoroSeconds,
+  //       })
+  //     )
+  //   }
+  // }
 
   useEffect(() => {
     if (!userInfo) {
@@ -203,7 +186,7 @@ const CustomPomodoroScreen = ({ history }) => {
   return (
     <FormContainer>
       <Row className='justify-content-center'>
-        <Col xs={12} md={8}>
+        <Col>
           <Card className='p-3'>
             <Row className='justify-content-center'>
               {' '}
@@ -240,95 +223,109 @@ const CustomPomodoroScreen = ({ history }) => {
               )}
             </Row>
           </Card>
-          <Col>
+
+          {optionsToggle === false && (
+            <Row className='justify-content-center my-3'>
+              <Button
+                variant='dark'
+                flush
+                onClick={() => {
+                  setOptionsToggle(true)
+                }}
+              >
+                <i className='fas fa-cogs'></i> Options
+              </Button>
+            </Row>
+          )}
+          {optionsToggle === true && (
             <Card className='p-3'>
-              <Row>
-                <Col>
-                  <h3>
-                    Number of Pomodoros done: <b>{pomodoroDone}</b>{' '}
-                  </h3>
-                </Col>
+              <Row className='justify-content-center'>
+                <Button
+                  variant='dark'
+                  flush
+                  onClick={() => {
+                    setOptionsToggle(false)
+                  }}
+                >
+                  <i className='fas fa-cogs'></i> Hide
+                </Button>
               </Row>
-              <Row>
-                <Col sm={8}>
-                  <h3>
-                    Rest period: <b>{Math.trunc(restSeconds / 60)}</b> minutes
-                  </h3>
-                </Col>
-                <Col sm={4}>
-                  {' '}
-                  <Button onClick={restDurationPlus}>
-                    <b>+</b>
-                  </Button>
-                  <Button onClick={restDurationMinus}>
+              <Row className='justify-content-center my-3'>
+                <h5>
+                  Pomodoro:{' '}
+                  <Button size='sm' onClick={pomodoroDurationMinus}>
                     <b>-</b>
                   </Button>
-                </Col>
-              </Row>
-              <Row>
-                <Col sm={8}>
-                  <h3>
-                    Duration of a pomodoro:{' '}
-                    <b>{Math.trunc(pomodoroSeconds / 60)}</b> minutes
-                  </h3>
-                </Col>
-                <Col sm={4}>
-                  {' '}
-                  <Button onClick={pomodoroDurationPlus}>
+                  <b>{Math.trunc(pomodoroSeconds / 60)}</b>{' '}
+                  <Button size='sm' onClick={pomodoroDurationPlus}>
                     <b>+</b>
-                  </Button>
-                  <Button onClick={pomodoroDurationMinus}>
+                  </Button>{' '}
+                  min
+                </h5>
+              </Row>
+              <Row className='justify-content-center'>
+                <h5>
+                  Rest :{' '}
+                  <Button size='sm' onClick={restDurationMinus}>
                     <b>-</b>
-                  </Button>
-                </Col>
+                  </Button>{' '}
+                  <b>{Math.trunc(restSeconds / 60)}</b>{' '}
+                  <Button size='sm' onClick={restDurationPlus}>
+                    <b>+</b>
+                  </Button>{' '}
+                  min
+                </h5>
+              </Row>
+
+              <Row className='justify-content-center my-3'>
+                <h5>
+                  Pomodoros done: <b>{pomodoroDone}</b>{' '}
+                </h5>
               </Row>
               {userInfo &&
                 savedPomodoros.pomodoros &&
                 savedPomodoros.pomodoros.length === 0 &&
                 !createdPomodoro.pomodoro && (
                   <Button variant='info' flush onClick={createPomodoroHandler}>
-                    Create your own pomodoro
+                    Create New
                   </Button>
                 )}
               {userInfo &&
                 savedPomodoros.pomodoros &&
                 savedPomodoros.pomodoros.length !== 0 && (
-                  <Button variant='info' flush onClick={savePreferencesHandler}>
-                    Save preferences
-                  </Button>
+                  <Row className='justify-content-center '>
+                    <Button
+                      variant='info'
+                      flush
+                      onClick={savePreferencesHandler}
+                    >
+                      Save Changes
+                    </Button>
+                  </Row>
                 )}
-              {updatedPomodoro.pomodoros && updatedVisible === false ? (
-                <Button
-                  variant='success'
-                  flush
-                  onClick={() =>
-                    dispatch(
-                      getMyPomodoros(),
-                      setUpdatedVisible(!updatedVisible)
-                    )
-                  }
-                >
-                  Set updated as current
-                </Button>
-              ) : (
-                <></>
+              {updatedPomodoro.pomodoros && updatedVisible === false && (
+                <Row className='justify-content-center'>
+                  <Button
+                    variant='success'
+                    flush
+                    onClick={() =>
+                      dispatch(
+                        getMyPomodoros(),
+                        setUpdatedVisible(!updatedVisible)
+                      )
+                    }
+                  >
+                    Set updated as current
+                  </Button>
+                </Row>
               )}
-              <Button variant='warning' flush onClick={reset}>
-                Reset timer
-              </Button>
-
-              <Button variant='danger' flush onClick={saveDonePomodoroHandler}>
-                saveMyDonePomodoro test
-              </Button>
-              <Button
-                variant='warning'
-                flush
-                onClick={() => dispatch(getMyDonePomodoros())}
-              >
-                getMyDonePomodoros
-              </Button>
+              <Row className='justify-content-center'>
+                <Button variant='warning' flush onClick={reset}>
+                  Reset timer
+                </Button>
+              </Row>
             </Card>
-          </Col>
+          )}
         </Col>
       </Row>
     </FormContainer>
