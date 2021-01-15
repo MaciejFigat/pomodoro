@@ -2,6 +2,7 @@ import {
   POMODORO_DONE_CREATE_REQUEST,
   POMODORO_DONE_CREATE_SUCCESS,
   POMODORO_DONE_CREATE_FAIL,
+  POMODORO_DONE_CREATE_RESET,
   POMODORO_DONE_GET_REQUEST,
   POMODORO_DONE_GET_SUCCESS,
   POMODORO_DONE_GET_FAIL,
@@ -21,6 +22,8 @@ export const pomodoroDoneCreateReducer = (state = {}, action) => {
       return { loading: false, success: true, pomodoroDone: action.payload }
     case POMODORO_DONE_CREATE_FAIL:
       return { loading: false, error: action.payload }
+    case POMODORO_DONE_CREATE_RESET:
+      return {}
 
     default:
       return state
@@ -42,8 +45,6 @@ export const getPomodoroDoneReducer = (
       }
     case POMODORO_DONE_GET_FAIL:
       return { loading: false, error: action.payload }
-    case POMODORO_DONE_GET_RESET:
-      return { pomodorosDone: [] }
     case POMODORO_DONE_GET_RESET:
       return {}
     default:

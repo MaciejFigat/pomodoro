@@ -9,9 +9,6 @@ import {
   POMODORO_UPDATE_REQUEST,
   POMODORO_UPDATE_SUCCESS,
   POMODORO_UPDATE_FAIL,
-  POMODORO_CREATE_RESET,
-  POMODORO_SECONDS_UPDATE,
-  REST_SECONDS_UPDATE,
   POMODORO_SECONDS_DECREMENT,
   POMODORO_SECONDS_RESET,
   REST_SECONDS_DECREMENT,
@@ -162,27 +159,6 @@ export const restSecondsSet = (data) => {
     payload: data,
   }
 }
-
-// export const restSecondsSet = (data) => async (dispatch, getState) => {
-//   const {
-//     getPomodoroInfo: { pomodoros },
-//   } = getState()
-//   const { data } = pomodoros[0].restSeconds
-//   dispatch({
-//     type: REST_SECONDS_SET,
-//     payload: data,
-//   })
-// }
-// export const pomodoroSecondsSet = () => {
-//   return {
-//     type: POMODORO_SECONDS_SET,
-//   }
-// }
-// export const restSecondsSet = () => {
-//   return {
-//     type: REST_SECONDS_SET,
-//   }
-// }
 
 export const decreaseRest = () => {
   return {

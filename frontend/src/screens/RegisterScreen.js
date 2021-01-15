@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { Form, Button, Row, Col } from 'react-bootstrap'
+import { useDispatch } from 'react-redux'
+import { Form, Button } from 'react-bootstrap'
 import Message from '../components/Message'
 import { register } from '../actions/userActions'
 import FormContainer from '../components/FormContainer'
@@ -14,10 +13,6 @@ const RegisterScreen = () => {
   const [message, setMessage] = useState(null)
 
   const dispatch = useDispatch()
-
-  const userRegister = useSelector((state) => state.userRegister)
-
-  const { loading, error, userInfo } = userRegister
 
   const submitHandler = (e) => {
     e.preventDefault()

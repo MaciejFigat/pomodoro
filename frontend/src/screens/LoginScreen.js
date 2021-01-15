@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Form, Button, Row, Col } from 'react-bootstrap'
-import Message from '../components/Message'
+import { Form, Row, Col } from 'react-bootstrap'
 import FormContainer from '../components/FormContainer'
 import { login } from '../actions/userActions'
 import {
@@ -20,7 +19,6 @@ const LoginScreen = ({ location, history }) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
   const savedPomodoros = useSelector((state) => state.getPomodoroInfo)
-  const { pomodoros } = savedPomodoros
 
   const redirect = location.search ? location.search.split('=')[1] : '/'
 
@@ -48,7 +46,7 @@ const LoginScreen = ({ location, history }) => {
       dispatch(restSecondsSet(savedPomodoros.pomodoros[0].restSeconds))
       dispatch(pomodoroSecondsSet(savedPomodoros.pomodoros[0].pomodoroSeconds))
     }
-  }, [userInfo, dispatch, savedPomodoros.pomodoros])
+  }, [userInfo, dispatch, savedPomodoros.pomodoros, history])
   return (
     <FormContainer>
       <Form onSubmit={submitHandler}>

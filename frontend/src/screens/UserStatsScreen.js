@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {
-  Container,
-  Button,
-  Row,
-  Col,
-  Badge,
-  Card,
-  Table,
-  Accordion,
-} from 'react-bootstrap'
+import { Button, Row, Card, Table } from 'react-bootstrap'
 import FormContainer from '../components/FormContainer'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -50,7 +41,7 @@ const UserStatsScreen = ({ history }) => {
     if (userInfo && pomodorosDone && pomodorosDone.length === 0) {
       dispatch(getMyDonePomodoros())
     }
-  }, [dispatch, pomodorosDone, userInfo, success, history])
+  }, [dispatch, pomodorosDone, userInfo, success, history, deleteDone])
 
   return (
     <FormContainer>

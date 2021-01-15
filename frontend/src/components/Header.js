@@ -1,5 +1,4 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
@@ -58,7 +57,7 @@ const Header = () => {
           ) : (
             <LinkContainer to='/login'>
               <Nav.Link>
-                <i className='fas fa-user-tie'></i> Log in
+                <i className='fas fa-user-ninja'></i> Log in
               </Nav.Link>
             </LinkContainer>
           )}

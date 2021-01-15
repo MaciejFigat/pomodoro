@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Button, Row, Col, Badge, Card } from 'react-bootstrap'
+import { Button, Row, Col, Badge, Card } from 'react-bootstrap'
 import FormContainer from '../components/FormContainer'
 const PomodoroDisplayScreen = () => {
   const [pomodoroDuration, setPomodoroDuration] = useState(25)
@@ -59,11 +59,6 @@ const PomodoroDisplayScreen = () => {
 
     return () => clearInterval(timer)
   }, [isActive, seconds, restSeconds, pomodoroDuration, restDuration])
-
-  const style = {
-    display: 'grid',
-    placeItems: 'center',
-  }
 
   return (
     <FormContainer>
@@ -135,26 +130,30 @@ const PomodoroDisplayScreen = () => {
 
               <Row className='justify-content-center my-3'>
                 <h5>
-                  Pomodoro:{' '}
+                  <i className='fas fa-user-tie'></i>{' '}
+                  <i className='fas fa-hourglass-start'></i>:{' '}
                   <Button size='sm' onClick={pomodoroDurationMinus}>
                     <b>-</b>
                   </Button>{' '}
-                  <b>{pomodoroDuration}</b> min{' '}
+                  <b>{pomodoroDuration}</b>{' '}
                   <Button size='sm' onClick={pomodoroDurationPlus}>
                     <b>+</b>
-                  </Button>
+                  </Button>{' '}
+                  min{' '}
                 </h5>
               </Row>
               <Row className='justify-content-center '>
                 <h5>
-                  Rest:{' '}
+                  <i className='fas fa-bed'></i>{' '}
+                  <i className='fas fa-hourglass-end'></i>:{' '}
                   <Button size='sm' onClick={restDurationMinus}>
                     <b>-</b>
                   </Button>{' '}
-                  <b>{restDuration}</b> min{' '}
+                  <b>{restDuration}</b>{' '}
                   <Button size='sm' onClick={restDurationPlus}>
                     <b>+</b>
-                  </Button>
+                  </Button>{' '}
+                  min{' '}
                 </h5>
               </Row>
               <Row className='justify-content-center my-3'>

@@ -26,8 +26,8 @@ const CustomPomodoroScreen = ({ history }) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
-  const getPomodoroDone = useSelector((state) => state.getPomodoroDone)
-  const { pomodorosDone } = getPomodoroDone
+  // const getPomodoroDone = useSelector((state) => state.getPomodoroDone)
+  // const { pomodorosDone } = getPomodoroDone
 
   const counterPomodoro = useSelector((state) => state.counterPomodoro)
   const { pomodoroSeconds } = counterPomodoro
@@ -107,16 +107,6 @@ const CustomPomodoroScreen = ({ history }) => {
       setUpdatedVisible(false)
     }
   }
-  // const saveDonePomodoroHandler = () => {
-  //   if (savedPomodoros.pomodoros && savedPomodoros.pomodoros.length !== 0) {
-  //     dispatch(
-  //       saveMyDonePomodoro({
-  //         pomodoroType: true,
-  //         secondsDone: savedPomodoros.pomodoros[0].pomodoroSeconds,
-  //       })
-  //     )
-  //   }
-  // }
 
   useEffect(() => {
     if (!userInfo) {
@@ -143,7 +133,12 @@ const CustomPomodoroScreen = ({ history }) => {
       dispatch(getMyPomodoros())
     }
 
-    if (isActive && restSeconds === 0 && pomodoroSeconds === 0) {
+    if (
+      savedPomodoros.pomodoros &&
+      isActive &&
+      restSeconds === 0 &&
+      pomodoroSeconds === 0
+    ) {
       setPomodoroDone((pomodoroDone) => pomodoroDone + 1)
       dispatch(
         saveMyDonePomodoro({
@@ -252,10 +247,11 @@ const CustomPomodoroScreen = ({ history }) => {
               </Row>
               <Row className='justify-content-center my-3'>
                 <h5>
-                  Pomodoro:{' '}
+                  <i className='fas fa-user-tie'></i>{' '}
+                  <i className='fas fa-hourglass-start'></i>:{' '}
                   <Button size='sm' onClick={pomodoroDurationMinus}>
                     <b>-</b>
-                  </Button>
+                  </Button>{' '}
                   <b>{Math.trunc(pomodoroSeconds / 60)}</b>{' '}
                   <Button size='sm' onClick={pomodoroDurationPlus}>
                     <b>+</b>
@@ -265,7 +261,8 @@ const CustomPomodoroScreen = ({ history }) => {
               </Row>
               <Row className='justify-content-center'>
                 <h5>
-                  Rest :{' '}
+                  <i className='fas fa-bed'></i>{' '}
+                  <i className='fas fa-hourglass-end'></i>:{' '}
                   <Button size='sm' onClick={restDurationMinus}>
                     <b>-</b>
                   </Button>{' '}

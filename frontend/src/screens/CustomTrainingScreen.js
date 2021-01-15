@@ -8,14 +8,9 @@ import {
   resetPomodoro,
   decreaseRest,
   resetRest,
-  increasePomodoroMinutes,
-  decreasePomodoroMinutes,
-  increaseRestMinutes,
-  decreaseRestMinutes,
   setZeroRest,
   getMyPomodoros,
   updateMyPomodoro,
-  createMyPomodoro,
   pomodoroSecondsSet,
   restSecondsSet,
   deletePomodoro,
@@ -28,8 +23,7 @@ const CustomTrainingScreen = ({ history }) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
-  const getPomodoroDone = useSelector((state) => state.getPomodoroDone)
-  const { pomodorosDone } = getPomodoroDone
+  // const getPomodoroDone = useSelector((state) => state.getPomodoroDone)
 
   const counterPomodoro = useSelector((state) => state.counterPomodoro)
   const { pomodoroSeconds } = counterPomodoro
@@ -220,6 +214,8 @@ const CustomTrainingScreen = ({ history }) => {
     userInfo,
     history,
     deleteDone,
+    createDone,
+    excerciseNumber,
   ])
 
   return (

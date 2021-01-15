@@ -30,11 +30,7 @@ import {
   POMODORO_DELETE_SUCCESS,
   POMODORO_DELETE_FAIL,
 } from '../constants/pomodoroConstants'
-import {
-  pomodoroSecondsFromStorage,
-  restSecondsFromStorage,
-  pomodoroInfoFromStorage,
-} from '../store'
+import { pomodoroSecondsFromStorage, restSecondsFromStorage } from '../store'
 
 export const getPomodoroInfoReducer = (state = { pomodoros: [] }, action) => {
   switch (action.type) {
@@ -132,7 +128,6 @@ export const counterPomodoroReducer = (
     return {
       ...state,
       pomodoroSeconds: state.pomodoroSeconds - 1,
-      // pomodoroSeconds: state.pomodoroSeconds - action.payload,
     }
   } else if (action.type === POMODORO_SECONDS_RESET) {
     return (state = { pomodoroSeconds: pomodoroSecondsFromStorage })
