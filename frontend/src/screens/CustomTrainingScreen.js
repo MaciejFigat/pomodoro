@@ -246,15 +246,14 @@ const CustomTrainingScreen = ({ history }) => {
             {' '}
             {trainingSessionDone === false &&
               savedPomodoros.pomodoros &&
-              savedPomodoros.pomodoros.length !== 0 &&
-              savedPomodoros.pomodoros[excerciseNumber].name && (
+              savedPomodoros.pomodoros.length !== 0 && (
                 <p>
                   <h3
                     onClick={() => {
                       setDescriptionToggle(!descriptionToggle)
                     }}
                   >
-                    {savedPomodoros.pomodoros[excerciseNumber].name}{' '}
+                    {savedPomodoros.pomodoros.length > 1 ? {savedPomodoros.pomodoros[excerciseNumber].name} : 'Exercise'}{' '}
                     {descriptionToggle === false && (
                       <Button
                         variant='light'
