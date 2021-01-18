@@ -246,7 +246,8 @@ const CustomTrainingScreen = ({ history }) => {
             {' '}
             {trainingSessionDone === false &&
               savedPomodoros.pomodoros &&
-              savedPomodoros.pomodoros.length !== 0 && (
+              savedPomodoros.pomodoros.length !== 0 &&
+              savedPomodoros.pomodoros[excerciseNumber].name && (
                 <p>
                   <h3
                     onClick={() => {
@@ -280,7 +281,7 @@ const CustomTrainingScreen = ({ history }) => {
                     )}
                   </h3>
 
-                  {descriptionToggle === true && (
+                  {descriptionToggle === true && savedPomodoros.pomodoros && (
                     <h4>
                       {savedPomodoros.pomodoros[excerciseNumber].description}
                     </h4>
