@@ -45,5 +45,9 @@ saveMyDonePomodoro - POST new pomodoro
 getMyDonePomodoros - GET all with my user._id
 
 
-
+## 
+"start": "node backend/server.js" added this to root package.json 
+rm the heroku post build
+npm run build on my own
+removed the frontend/build from .gitignore
 
