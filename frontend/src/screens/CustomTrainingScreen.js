@@ -284,11 +284,13 @@ const CustomTrainingScreen = ({ history }) => {
                     )}
                   </h3>
 
-                  {descriptionToggle === true && savedPomodoros.pomodoros && (
-                    <h4>
-                      {savedPomodoros.pomodoros[excerciseNumber].description}
-                    </h4>
-                  )}
+                  {descriptionToggle === true &&
+                    savedPomodoros.pomodoros &&
+                    savedPomodoros.pomodoros.length > 1 && (
+                      <h4>
+                        {savedPomodoros.pomodoros[excerciseNumber].description}
+                      </h4>
+                    )}
                 </p>
               )}
           </Row>
