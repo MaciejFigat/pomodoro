@@ -253,7 +253,11 @@ const CustomTrainingScreen = ({ history }) => {
                       setDescriptionToggle(!descriptionToggle)
                     }}
                   >
-                    {savedPomodoros.pomodoros.length > 1 ? {savedPomodoros.pomodoros[excerciseNumber].name} : 'Exercise'}{' '}
+                    {savedPomodoros.pomodoros.length > 1 ? (
+                      <>{savedPomodoros.pomodoros[excerciseNumber].name}</>
+                    ) : (
+                      'Exercise'
+                    )}{' '}
                     {descriptionToggle === false && (
                       <Button
                         variant='light'
