@@ -52,6 +52,8 @@ npm run server
 cd frontend
 npm run build
 ```
+## Special thanks to Brad Traversy
+This project is heavily influenced by his way of writing and designing MERN projects and especially BE side. 
 
 ## License
 
