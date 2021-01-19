@@ -1,7 +1,13 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
+import {
+  Navbar,
+  Nav,
+  Container,
+  NavDropdown,
+  ButtonGroup,
+} from 'react-bootstrap'
 import { logout } from '../actions/userActions'
 const Header = () => {
   const dispatch = useDispatch()
@@ -39,7 +45,7 @@ const Header = () => {
           )}
 
           {userInfo ? (
-            <NavDropdown title={userInfo.name} id='username'>
+            <NavDropdown title={userInfo.name} id='username' alignRight='false'>
               <LinkContainer to={'/stats'}>
                 <NavDropdown.Item>
                   <i className='fas fa-database'></i> Stats
