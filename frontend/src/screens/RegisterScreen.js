@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Form, Button } from 'react-bootstrap'
 import Message from '../components/Message'
 import { register } from '../actions/userActions'
 import FormContainer from '../components/FormContainer'
 
-const RegisterScreen = () => {
+const RegisterScreen = ({ history }) => {
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -22,6 +25,12 @@ const RegisterScreen = () => {
       dispatch(register(name, email, password))
     }
   }
+
+  useEffect(() => {
+    if (userInfo) {
+      history.push('/create')
+    }
+  }, [userInfo, history])
 
   return (
     <FormContainer>

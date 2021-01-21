@@ -29,11 +29,11 @@ const CreateNewExerciseScreen = ({ history }) => {
   const [createDone, setCreateDone] = useState(false)
   const [updateDone, setUpdateDone] = useState(false)
 
-  const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
-  const [exerciseDuration, setExerciseDuration] = useState(0)
+  const [name, setName] = useState('New exercise')
+  const [description, setDescription] = useState('Best one yet')
+  const [exerciseDuration, setExerciseDuration] = useState(30)
   const [exerciseNumber, setExerciseNumber] = useState(1)
-  const [restDuration, setRestDuration] = useState(0)
+  const [restDuration, setRestDuration] = useState(10)
 
   const nextExerciseHandler = () => {
     if (savedPomodoros.pomodoros.length > exerciseNumber + 1) {
@@ -171,14 +171,14 @@ const CreateNewExerciseScreen = ({ history }) => {
     if (!userInfo) {
       history.push('/login')
     }
-    if (
-      savedPomodoros.pomodoros &&
-      savedPomodoros.pomodoros.length === 0 &&
-      updatedPomodoro.pomodoros &&
-      userInfo
-    ) {
-      dispatch(getMyPomodoros())
-    }
+    // if (
+    //   savedPomodoros.pomodoros &&
+    //   savedPomodoros.pomodoros.length === 0 &&
+    //   updatedPomodoro.pomodoros &&
+    //   userInfo
+    // ) {
+    //   dispatch(getMyPomodoros())
+    // }
     if (deleteDone === true && pomodoroDelete.success === true) {
       dispatch(getMyPomodoros())
       setDeleteDone(false)
@@ -348,6 +348,14 @@ const CreateNewExerciseScreen = ({ history }) => {
             >
               Load Data
             </Button>
+            <Button
+              variant='success'
+              onClick={createPomodoroHandler}
+              size='sm'
+              className='my-3'
+            >
+              <i className='fas fa-plus-square'></i> Add new excercise
+            </Button>
           </Card>
         )}
       </FormContainer>
@@ -361,10 +369,12 @@ const CreateNewExerciseScreen = ({ history }) => {
                 <th>Name </th>
                 <th>Description </th>
                 <th>
-                  Excercise <i className='far fa-clock'></i>
+                  <i className='fas fa-dumbbell'></i>{' '}
+                  <i className='far fa-clock'></i>
                 </th>
                 <th>
-                  Rest <i className='far fa-clock'></i>{' '}
+                  <i className='fas fa-bed'></i>{' '}
+                  <i className='far fa-clock'></i>{' '}
                 </th>
                 <th>Delete or Update</th>
               </tr>
@@ -386,7 +396,7 @@ const CreateNewExerciseScreen = ({ history }) => {
                   <td>{savedPomodoro.name}</td>
                   <td>{savedPomodoro.description}</td>
                   {savedPomodoro.pomodoroSeconds % 60 === 0 &&
-                    savedPomodoro.pomodoroSeconds > 60 && (
+                    savedPomodoro.pomodoroSeconds >= 60 && (
                       <td>
                         {Math.trunc(savedPomodoro.pomodoroSeconds / 60)} min{' '}
                       </td>
@@ -404,7 +414,7 @@ const CreateNewExerciseScreen = ({ history }) => {
                     )}
 
                   {savedPomodoro.restSeconds % 60 === 0 &&
-                    savedPomodoro.restSeconds > 60 && (
+                    savedPomodoro.restSeconds >= 60 && (
                       <td>{Math.trunc(savedPomodoro.restSeconds / 60)} min </td>
                     )}
                   {savedPomodoro.restSeconds % 60 !== 0 &&
@@ -426,7 +436,7 @@ const CreateNewExerciseScreen = ({ history }) => {
                       onClick={() => deleteHandler(savedPomodoro._id)}
                       size='sm'
                     >
-                      delete
+                      <i className='fas fa-times'></i>
                     </Button>
                     <Button
                       variant='info'

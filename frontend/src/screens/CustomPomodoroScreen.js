@@ -18,7 +18,10 @@ import {
   pomodoroSecondsSet,
   restSecondsSet,
 } from '../actions/pomodoroActions'
-import { saveMyDonePomodoro } from '../actions/pomodoroDoneActions'
+import {
+  saveMyDonePomodoro,
+  getMyDonePomodoros,
+} from '../actions/pomodoroDoneActions'
 
 const CustomPomodoroScreen = ({ history }) => {
   const dispatch = useDispatch()
@@ -26,8 +29,8 @@ const CustomPomodoroScreen = ({ history }) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
-  // const getPomodoroDone = useSelector((state) => state.getPomodoroDone)
-  // const { pomodorosDone } = getPomodoroDone
+  const getPomodoroDone = useSelector((state) => state.getPomodoroDone)
+  const { pomodorosDone } = getPomodoroDone
 
   const counterPomodoro = useSelector((state) => state.counterPomodoro)
   const { pomodoroSeconds } = counterPomodoro
@@ -44,6 +47,7 @@ const CustomPomodoroScreen = ({ history }) => {
   const [updatedVisible, setUpdatedVisible] = useState(false)
   const [isActive, setIsActive] = useState(false)
   const [optionsToggle, setOptionsToggle] = useState(false)
+  const [filteredPomodoro, setFilteredPomodoro] = useState(0)
 
   const toggle = () => {
     setIsActive(!isActive)
@@ -108,7 +112,27 @@ const CustomPomodoroScreen = ({ history }) => {
     }
   }
 
+  const timeElapsed = Date.now()
+  const today = new Date(timeElapsed)
+
+  const pomodoroDoneToday = () => {
+    const filtered = pomodorosDone.filter(
+      (pomodoroDone) =>
+        pomodoroDone.pomodoroType === true &&
+        pomodoroDone.createdAt.substring(0, 10) ===
+          today.toISOString().substring(0, 10)
+    ).length
+    setFilteredPomodoro(filtered)
+    console.log(filteredPomodoro)
+  }
+
   useEffect(() => {
+    if (userInfo && pomodorosDone && pomodorosDone.length === 0) {
+      dispatch(getMyDonePomodoros())
+    }
+    if (userInfo && createdPomodoro.success === true) {
+      dispatch(getMyDonePomodoros())
+    }
     if (!userInfo) {
       history.push('/login')
     }
@@ -226,6 +250,11 @@ const CustomPomodoroScreen = ({ history }) => {
                 flush
                 onClick={() => {
                   setOptionsToggle(true)
+                  // dispatch(getMyDonePomodoros())
+                  // pomodoroDoneToday()
+                  async function pomodoroDoneToday() {
+                    dispatch(getMyDonePomodoros())
+                  }
                 }}
               >
                 <i className='fas fa-cogs'></i> Options
@@ -275,9 +304,9 @@ const CustomPomodoroScreen = ({ history }) => {
               </Row>
 
               <Row className='justify-content-center my-3'>
-                <h5>
-                  Pomodoros done: <b>{pomodoroDone}</b>{' '}
-                </h5>
+                <Button variant='success' flush onClick={pomodoroDoneToday}>
+                  Done today: <b>{filteredPomodoro} </b>
+                </Button>{' '}
               </Row>
               {userInfo &&
                 savedPomodoros.pomodoros &&

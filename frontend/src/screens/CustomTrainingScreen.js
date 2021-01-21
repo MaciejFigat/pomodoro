@@ -23,8 +23,6 @@ const CustomTrainingScreen = ({ history }) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
-  // const getPomodoroDone = useSelector((state) => state.getPomodoroDone)
-
   const counterPomodoro = useSelector((state) => state.counterPomodoro)
   const { pomodoroSeconds } = counterPomodoro
 
@@ -74,16 +72,6 @@ const CustomTrainingScreen = ({ history }) => {
 
   const restZero = () => {
     dispatch(setZeroRest())
-  }
-
-  const trainingUpdateHandler = (id) => {
-    dispatch(
-      updateMyPomodoro({
-        _id: id,
-        pomodoroSeconds: pomodoroSeconds,
-        restSeconds: restSeconds,
-      })
-    )
   }
 
   const deleteHandler = (id) => {
@@ -415,10 +403,16 @@ const CustomTrainingScreen = ({ history }) => {
             <thead>
               <tr>
                 <th>Name </th>
-                <th>Excercise duration</th>
-                <th>Rest duration </th>
+                <th>
+                  <i className='fas fa-dumbbell'></i>{' '}
+                  <i className='far fa-clock'></i>
+                </th>
+                <th>
+                  <i className='fas fa-bed'></i>{' '}
+                  <i className='far fa-clock'></i>{' '}
+                </th>
                 <th>Description </th>
-                <th></th>
+                <th>Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -431,7 +425,7 @@ const CustomTrainingScreen = ({ history }) => {
                   <tr key={savedPomodoro._id}>
                     <td>{savedPomodoro.name}</td>
                     {savedPomodoro.pomodoroSeconds % 60 === 0 &&
-                      savedPomodoro.pomodoroSeconds > 60 && (
+                      savedPomodoro.pomodoroSeconds >= 60 && (
                         <td>
                           {Math.trunc(savedPomodoro.pomodoroSeconds / 60)} min{' '}
                         </td>
@@ -449,7 +443,7 @@ const CustomTrainingScreen = ({ history }) => {
                       )}
 
                     {savedPomodoro.restSeconds % 60 === 0 &&
-                      savedPomodoro.restSeconds > 60 && (
+                      savedPomodoro.restSeconds >= 60 && (
                         <td>
                           {Math.trunc(savedPomodoro.restSeconds / 60)} minutes{' '}
                         </td>
@@ -474,14 +468,7 @@ const CustomTrainingScreen = ({ history }) => {
                         onClick={() => deleteHandler(savedPomodoro._id)}
                         size='sm'
                       >
-                        delete
-                      </Button>
-                      <Button
-                        variant='info'
-                        onClick={() => trainingUpdateHandler(savedPomodoro._id)}
-                        size='sm'
-                      >
-                        update
+                        <i className='fas fa-times'></i>
                       </Button>
                     </td>
                   </tr>

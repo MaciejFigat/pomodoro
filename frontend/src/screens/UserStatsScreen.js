@@ -38,9 +38,9 @@ const UserStatsScreen = ({ history }) => {
       dispatch(getMyDonePomodoros())
       setDeleteDone(false)
     }
-    if (userInfo && pomodorosDone && pomodorosDone.length === 0) {
-      dispatch(getMyDonePomodoros())
-    }
+    // if (userInfo && pomodorosDone && pomodorosDone.length !== 0) {
+    //   dispatch(getMyDonePomodoros())
+    // }
   }, [dispatch, pomodorosDone, userInfo, success, history, deleteDone])
 
   return (
