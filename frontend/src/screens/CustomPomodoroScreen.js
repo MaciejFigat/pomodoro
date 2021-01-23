@@ -115,7 +115,8 @@ const CustomPomodoroScreen = ({ history }) => {
   const timeElapsed = Date.now()
   const today = new Date(timeElapsed)
 
-  const pomodoroDoneToday = () => {
+  const pomodoroDoneToday = async () => {
+    await (pomodorosDone.loading === false)
     const filtered = pomodorosDone.filter(
       (pomodoroDone) =>
         pomodoroDone.pomodoroType === true &&
@@ -123,7 +124,18 @@ const CustomPomodoroScreen = ({ history }) => {
           today.toISOString().substring(0, 10)
     ).length
     setFilteredPomodoro(filtered)
-    console.log(filteredPomodoro)
+    // console.log(filteredPomodoro)
+  }
+
+  const filterHandler = async () => {
+    dispatch(getMyDonePomodoros())
+    // console.log('1st one')
+    await (pomodorosDone.loading === false)
+    pomodoroDoneToday()
+
+    // console.log('2nd one')
+
+    setOptionsToggle(true)
   }
 
   useEffect(() => {
@@ -245,18 +257,7 @@ const CustomPomodoroScreen = ({ history }) => {
 
           {optionsToggle === false && (
             <Row className='justify-content-center my-3'>
-              <Button
-                variant='dark'
-                flush
-                onClick={() => {
-                  setOptionsToggle(true)
-                  // dispatch(getMyDonePomodoros())
-                  // pomodoroDoneToday()
-                  async function pomodoroDoneToday() {
-                    dispatch(getMyDonePomodoros())
-                  }
-                }}
-              >
+              <Button variant='dark' flush onClick={filterHandler}>
                 <i className='fas fa-cogs'></i> Options
               </Button>
             </Row>
