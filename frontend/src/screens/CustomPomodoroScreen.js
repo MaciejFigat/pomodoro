@@ -116,21 +116,26 @@ const CustomPomodoroScreen = ({ history }) => {
   const today = new Date(timeElapsed)
 
   const pomodoroDoneToday = async () => {
-    await (pomodorosDone.loading === false)
-    const filtered = pomodorosDone.filter(
-      (pomodoroDone) =>
-        pomodoroDone.pomodoroType === true &&
-        pomodoroDone.createdAt.substring(0, 10) ===
-          today.toISOString().substring(0, 10)
-    ).length
-    setFilteredPomodoro(filtered)
-    // console.log(filteredPomodoro)
+    dispatch(getMyDonePomodoros())
+    await (pomodorosDone && pomodorosDone.loading === false)
+    // await pomodorosDone
+    // await (pomodorosDone.loading === true)
+    // await (pomodorosDone.loading === false)
+    if (pomodorosDone) {
+      const filtered = pomodorosDone.filter(
+        (pomodoroDone) =>
+          pomodoroDone.pomodoroType === true &&
+          pomodoroDone.createdAt.substring(0, 10) ===
+            today.toISOString().substring(0, 10)
+      ).length
+      setFilteredPomodoro(filtered)
+    }
   }
 
   const filterHandler = async () => {
     dispatch(getMyDonePomodoros())
     // console.log('1st one')
-    await (pomodorosDone.loading === false)
+    await (pomodorosDone && pomodorosDone.loading === false)
     pomodoroDoneToday()
 
     // console.log('2nd one')
