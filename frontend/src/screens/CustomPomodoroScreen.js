@@ -43,7 +43,6 @@ const CustomPomodoroScreen = ({ history }) => {
   const updatedPomodoro = useSelector((state) => state.pomodoroUpdate)
   const createdPomodoro = useSelector((state) => state.pomodoroCreate)
 
-  const [pomodoroDone, setPomodoroDone] = useState(0)
   const [updatedVisible, setUpdatedVisible] = useState(false)
   const [isActive, setIsActive] = useState(false)
   const [optionsToggle, setOptionsToggle] = useState(false)
@@ -118,9 +117,6 @@ const CustomPomodoroScreen = ({ history }) => {
   const pomodoroDoneToday = async () => {
     dispatch(getMyDonePomodoros())
     await (pomodorosDone && pomodorosDone.loading === false)
-    // await pomodorosDone
-    // await (pomodorosDone.loading === true)
-    // await (pomodorosDone.loading === false)
     if (pomodorosDone) {
       const filtered = pomodorosDone.filter(
         (pomodoroDone) =>
@@ -180,7 +176,6 @@ const CustomPomodoroScreen = ({ history }) => {
       restSeconds === 0 &&
       pomodoroSeconds === 0
     ) {
-      setPomodoroDone((pomodoroDone) => pomodoroDone + 1)
       dispatch(
         saveMyDonePomodoro({
           pomodoroType: true,
@@ -217,6 +212,7 @@ const CustomPomodoroScreen = ({ history }) => {
     createdPomodoro,
     userInfo,
     history,
+    pomodorosDone,
   ])
 
   return (

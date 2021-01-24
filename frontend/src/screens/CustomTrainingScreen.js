@@ -10,7 +10,6 @@ import {
   resetRest,
   setZeroRest,
   getMyPomodoros,
-  updateMyPomodoro,
   pomodoroSecondsSet,
   restSecondsSet,
   deletePomodoro,
