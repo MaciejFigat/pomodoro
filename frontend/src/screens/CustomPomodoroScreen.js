@@ -140,9 +140,9 @@ const CustomPomodoroScreen = ({ history }) => {
   }
 
   useEffect(() => {
-    if (userInfo && pomodorosDone && pomodorosDone.length === 0) {
-      dispatch(getMyDonePomodoros())
-    }
+    // if (userInfo && pomodorosDone && pomodorosDone.length === 0) {
+    //   dispatch(getMyDonePomodoros())
+    // }
     if (userInfo && createdPomodoro.success === true) {
       dispatch(getMyDonePomodoros())
     }

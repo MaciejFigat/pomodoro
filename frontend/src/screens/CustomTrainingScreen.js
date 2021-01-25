@@ -240,35 +240,40 @@ const CustomTrainingScreen = ({ history }) => {
                       setDescriptionToggle(!descriptionToggle)
                     }}
                   >
-                    {savedPomodoros.pomodoros.length > 1 ? (
+                    {savedPomodoros.pomodoros[excerciseNumber] &&
+                    savedPomodoros.pomodoros.length > 1 ? (
                       <>{savedPomodoros.pomodoros[excerciseNumber].name}</>
                     ) : (
                       'Exercise'
                     )}{' '}
-                    {descriptionToggle === false && (
-                      <Button
-                        variant='light'
-                        flush
-                        onClick={() => {
-                          setDescriptionToggle(true)
-                        }}
-                      >
-                        <i className='far fa-plus-square'></i>
-                      </Button>
-                    )}
-                    {descriptionToggle === true && (
-                      <>
+                    {savedPomodoros.pomodoros[excerciseNumber] &&
+                      savedPomodoros.pomodoros[excerciseNumber].description &&
+                      descriptionToggle === false && (
                         <Button
                           variant='light'
                           flush
                           onClick={() => {
-                            setDescriptionToggle(false)
+                            setDescriptionToggle(true)
                           }}
                         >
-                          <i className='far fa-minus-square'></i>
+                          <i className='far fa-plus-square'></i>
                         </Button>
-                      </>
-                    )}
+                      )}
+                    {savedPomodoros.pomodoros[excerciseNumber] &&
+                      savedPomodoros.pomodoros[excerciseNumber].description &&
+                      descriptionToggle === true && (
+                        <>
+                          <Button
+                            variant='light'
+                            flush
+                            onClick={() => {
+                              setDescriptionToggle(false)
+                            }}
+                          >
+                            <i className='far fa-minus-square'></i>
+                          </Button>
+                        </>
+                      )}
                   </h3>
 
                   {descriptionToggle === true &&
