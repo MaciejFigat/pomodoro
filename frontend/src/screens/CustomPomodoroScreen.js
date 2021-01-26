@@ -47,6 +47,7 @@ const CustomPomodoroScreen = ({ history }) => {
   const [isActive, setIsActive] = useState(false)
   const [optionsToggle, setOptionsToggle] = useState(false)
   const [filteredPomodoro, setFilteredPomodoro] = useState(0)
+  const [customTimerOn, setCustomTimerOn] = useState(false)
 
   const toggle = () => {
     setIsActive(!isActive)
@@ -140,6 +141,16 @@ const CustomPomodoroScreen = ({ history }) => {
   }
 
   useEffect(() => {
+    if (
+      savedPomodoros.pomodoros &&
+      savedPomodoros.pomodoros.length !== 0 &&
+      customTimerOn === false
+    ) {
+      dispatch(restSecondsSet(savedPomodoros.pomodoros[0].restSeconds))
+      dispatch(pomodoroSecondsSet(savedPomodoros.pomodoros[0].pomodoroSeconds))
+      setCustomTimerOn(true)
+    }
+
     // if (userInfo && pomodorosDone && pomodorosDone.length === 0) {
     //   dispatch(getMyDonePomodoros())
     // }

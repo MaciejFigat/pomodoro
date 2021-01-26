@@ -43,6 +43,7 @@ const CustomTrainingScreen = ({ history }) => {
   const [trainingSessionDone, setTrainingSessionDone] = useState(false)
   const [optionsToggle, setOptionsToggle] = useState(false)
   const [descriptionToggle, setDescriptionToggle] = useState(false)
+  const [customTimerOn, setCustomTimerOn] = useState(false)
 
   const toggle = () => {
     setIsActive(!isActive)
@@ -52,7 +53,7 @@ const CustomTrainingScreen = ({ history }) => {
     if (
       savedPomodoros.pomodoros &&
       userInfo &&
-      savedPomodoros.pomodoros.length !== 0
+      savedPomodoros.pomodoros.length > 1
     ) {
       dispatch(
         restSecondsSet(savedPomodoros.pomodoros[excerciseNumber].restSeconds)
@@ -119,6 +120,16 @@ const CustomTrainingScreen = ({ history }) => {
   useEffect(() => {
     if (!userInfo) {
       history.push('/login')
+    }
+    if (
+      savedPomodoros.pomodoros &&
+      savedPomodoros.pomodoros[1] &&
+      savedPomodoros.pomodoros.length > 0 &&
+      customTimerOn === false
+    ) {
+      dispatch(restSecondsSet(savedPomodoros.pomodoros[1].restSeconds))
+      dispatch(pomodoroSecondsSet(savedPomodoros.pomodoros[1].pomodoroSeconds))
+      setCustomTimerOn(true)
     }
     if (deleteDone === true) {
       dispatch(getMyPomodoros())
