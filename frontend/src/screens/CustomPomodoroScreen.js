@@ -276,8 +276,8 @@ const CustomPomodoroScreen = ({ history }) => {
             </Row>
           )}
           {optionsToggle === true && (
-            <Card className='p-3'>
-              <Row className='justify-content-center'>
+            <Card className='my-3'>
+              <Row className='justify-content-center my-3'>
                 <Button
                   variant='dark'
                   flush
@@ -288,7 +288,7 @@ const CustomPomodoroScreen = ({ history }) => {
                   <i className='fas fa-cogs'></i> Hide
                 </Button>
               </Row>
-              <Row className='justify-content-center my-3'>
+              <Row className='justify-content-center'>
                 <h5>
                   <i className='fas fa-user-tie'></i>{' '}
                   <i className='fas fa-hourglass-start'></i>:{' '}

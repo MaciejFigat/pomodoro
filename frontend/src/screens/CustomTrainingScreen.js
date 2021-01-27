@@ -335,14 +335,14 @@ const CustomTrainingScreen = ({ history }) => {
           )}
         </Card>
 
-        <Card className='p-3'>
-          <Row className='justify-content-center'>
+        <Card className='my-3'>
+          <Row className='justify-content-center my-3'>
             <Button variant='danger' flush onClick={reset}>
               Reset this exercise
             </Button>
           </Row>
           {trainingSessionDone === false && optionsToggle === false && (
-            <Row className='justify-content-center my-3'>
+            <Row className='justify-content-center'>
               <Button variant='warning' flush onClick={previousExerciseHandler}>
                 <i className='fas fa-arrow-left'></i> Previous
               </Button>
@@ -353,7 +353,7 @@ const CustomTrainingScreen = ({ history }) => {
           )}
 
           {optionsToggle === false && (
-            <Row className='justify-content-center '>
+            <Row className='justify-content-center my-3'>
               <Button
                 variant='dark'
                 flush
@@ -369,11 +369,11 @@ const CustomTrainingScreen = ({ history }) => {
             <>
               <Row className='justify-content-center'>
                 {' '}
-                <Link to='/create' className='btn btn-info my-3'>
+                <Link to='/create' className='btn btn-info'>
                   Create new or Update
                 </Link>
               </Row>
-              <Row className='justify-content-center'>
+              <Row className='justify-content-center my-3'>
                 {' '}
                 <Button
                   variant='dark'
