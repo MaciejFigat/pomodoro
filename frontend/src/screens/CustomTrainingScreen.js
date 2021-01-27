@@ -214,6 +214,7 @@ const CustomTrainingScreen = ({ history }) => {
     deleteDone,
     createDone,
     excerciseNumber,
+    customTimerOn,
   ])
 
   return (

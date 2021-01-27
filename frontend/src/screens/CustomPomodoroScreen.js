@@ -224,6 +224,7 @@ const CustomPomodoroScreen = ({ history }) => {
     userInfo,
     history,
     pomodorosDone,
+    customTimerOn,
   ])
 
   return (
