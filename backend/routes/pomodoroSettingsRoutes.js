@@ -6,7 +6,6 @@ import {
   createPomodoroSettings,
 } from '../controllers/pomodoroSettingsController.js'
 
-// router.route('/pomodoroSettings').get(protect, getPomodoroSettings)
 router
   .route('/')
   .get(protect, getPomodoroSettings)

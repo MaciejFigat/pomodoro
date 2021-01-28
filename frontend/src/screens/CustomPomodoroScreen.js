@@ -131,11 +131,9 @@ const CustomPomodoroScreen = ({ history }) => {
 
   const filterHandler = async () => {
     dispatch(getMyDonePomodoros())
-    // console.log('1st one')
+
     await (pomodorosDone && pomodorosDone.loading === false)
     pomodoroDoneToday()
-
-    // console.log('2nd one')
 
     setOptionsToggle(true)
   }

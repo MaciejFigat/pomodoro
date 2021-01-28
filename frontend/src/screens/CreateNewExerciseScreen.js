@@ -171,14 +171,7 @@ const CreateNewExerciseScreen = ({ history }) => {
     if (!userInfo) {
       history.push('/login')
     }
-    // if (
-    //   savedPomodoros.pomodoros &&
-    //   savedPomodoros.pomodoros.length === 0 &&
-    //   updatedPomodoro.pomodoros &&
-    //   userInfo
-    // ) {
-    //   dispatch(getMyPomodoros())
-    // }
+
     if (deleteDone === true && pomodoroDelete.success === true) {
       dispatch(getMyPomodoros())
       setDeleteDone(false)
