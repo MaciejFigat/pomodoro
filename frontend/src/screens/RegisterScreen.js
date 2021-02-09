@@ -6,8 +6,8 @@ import { register } from '../actions/userActions'
 import FormContainer from '../components/FormContainer'
 
 const RegisterScreen = ({ history }) => {
-  const userLogin = useSelector((state) => state.userLogin)
-  const { userInfo } = userLogin
+  const menuState = useSelector((state) => state.menuState)
+  const { menuOpen } = menuState
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
