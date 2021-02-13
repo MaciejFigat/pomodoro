@@ -11,7 +11,7 @@ You can view project deployed at Heroku: [KuTimer](https://kutimer.herokuapp.com
 ![screenshot](https://github.com/MaciejFigat/pomodoro/blob/main/backend/data/uploads/screenshotTraining.png)
 
 
-## Structure
+
 ## Structure
 ```
 ├── backend
