@@ -32,10 +32,9 @@ You can view project deployed at Heroku: [KuTimer](https://kutimer.herokuapp.com
 │   ├── src
 │   │   ├── actions (Redux)
 │   │   ├── components (some reusable components)
-│   │   ├── assets (photos, graphics etc.)
 |   │   ├── constants (for action types in Redux)
 |   │   ├── reducers (Redux)
-|   │   ├── screens
+|   │   ├── screens (screens of the application - pages)
 |   │   ├── layout (Burger, Footer, Nav) 
 |   │   ├── pages (I import the layout and have it as a wrapper for each of the pages)
 |   |   ├── package-lock.json
