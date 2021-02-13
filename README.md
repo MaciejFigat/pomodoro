@@ -11,7 +11,48 @@ You can view project deployed at Heroku: [KuTimer](https://kutimer.herokuapp.com
 ![screenshot](https://github.com/MaciejFigat/pomodoro/blob/main/backend/data/uploads/screenshotTraining.png)
 
 
-## Usage
+## Structure
+## Structure
+```
+├── backend
+|   ├── config (configuration file for mongoose, for connecting to DB )
+|   ├── controllers (to simplify routes)
+|   ├── data (for seeding DB with data and assets folder)
+│   │   ├── uploads (assets)
+|   ├── utilities (generateToken - jsonWebToken utility)
+|   ├── README.md (backlog for my backend activity (partial))
+|   ├── seeder.js (script for seeding the DB)
+|   ├── server.js (server )
+├── frontend
+|   ├── build
+|   ├── node_modules
+|   ├── public
+│   │   ├── favicon.ico
+│   │   ├── index.html
+│   ├── src
+│   │   ├── actions (Redux)
+│   │   ├── components (some reusable components)
+│   │   ├── assets (photos, graphics etc.)
+|   │   ├── constants (for action types in Redux)
+|   │   ├── reducers (Redux)
+|   │   ├── screens
+|   │   ├── layout (Burger, Footer, Nav) 
+|   │   ├── pages (I import the layout and have it as a wrapper for each of the pages)
+|   |   ├── package-lock.json
+|   |   ├── package.json
+|   ├──App.js
+|   ├──bootstrap.min.css (for all styles -imported)
+|   ├──index.css
+|   ├──index.js
+|   ├──store.js (Redux)
+├── node_modules
+├── .env (environmental variables)
+├── .gitignore
+├── package-lock.json
+├── package.json
+├── Procfile (needed for Heroku deployment)
+├── README.md
+```
 
 ### ES Modules in Node - use at least Node v14.6+ or add the "--experimental-modules" flag
 
@@ -23,7 +64,7 @@ Create a .env file in then root and add the following
 NODE_ENV = development
 PORT = 5000
 MONGO_URI = your mongodb uri
-JWT_SECRET = 'abc123'
+JWT_SECRET = '123aaa'
 
 ```
 
