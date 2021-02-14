@@ -2,16 +2,6 @@
 
 > Built with MERN stack and Redux.
 
-You can view project deployed at Heroku: [KuTimer](https://kutimer.herokuapp.com/) 
-
-![screenshot](https://github.com/MaciejFigat/pomodoro/blob/main/backend/data/uploads/screenshot2.png)
-
-![screenshot](https://github.com/MaciejFigat/pomodoro/blob/main/backend/data/uploads/screenshotPomodoro.png)
-
-![screenshot](https://github.com/MaciejFigat/pomodoro/blob/main/backend/data/uploads/screenshotTraining.png)
-
-
-
 ## Structure
 ```
 ├── backend
@@ -53,20 +43,6 @@ You can view project deployed at Heroku: [KuTimer](https://kutimer.herokuapp.com
 ├── README.md
 ```
 
-### ES Modules in Node - use at least Node v14.6+ or add the "--experimental-modules" flag
-
-### Env Variables
-
-Create a .env file in then root and add the following
-
-```
-NODE_ENV = development
-PORT = 5000
-MONGO_URI = your mongodb uri
-JWT_SECRET = '123aaa'
-
-```
-
 ### Install Dependencies (frontend & backend)
 
 ```
@@ -85,17 +61,40 @@ npm run dev
 npm run server
 ```
 
-## Build & Deploy
+You can view project deployed at Heroku: [KuTimer](https://kutimer.herokuapp.com/) 
+
+![screenshot](https://github.com/MaciejFigat/pomodoro/blob/main/backend/data/uploads/screenshot2.png)
+
+![screenshot](https://github.com/MaciejFigat/pomodoro/blob/main/backend/data/uploads/screenshotPomodoro.png)
+
+![screenshot](https://github.com/MaciejFigat/pomodoro/blob/main/backend/data/uploads/screenshotTraining.png)
+
+### Miscellaneous
+``` ES Modules in Node - use at least Node v14.6+ or add the "--experimental-modules" flag ```
+
+### Env Variables
+
+Create a .env file in then root and add the following
+
+```
+NODE_ENV = development
+PORT = 5000
+MONGO_URI = your mongodb uri
+JWT_SECRET = '123aaa'
+
+```
+
+### Build & Deploy
 
 ```
 # Create frontend prod build
 cd frontend
 npm run build
 ```
-## Special thanks to Brad Traversy
+### Special thanks to Brad Traversy
 This project is heavily influenced by his way of writing and designing MERN projects and especially BE side. 
 
-## License
+### License
 
 The MIT License
 
