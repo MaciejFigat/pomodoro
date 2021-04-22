@@ -24,6 +24,11 @@ app.use('/api/settings', pomodoroSettingsRoutes)
 app.use('/api/users', userRoutes)
 
 const __dirname = path.resolve()
+
+response.writeHead(201, {
+  'Content-Type': 'application/javascript',
+})
+
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '/frontend/build')))
 
