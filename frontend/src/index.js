@@ -5,7 +5,7 @@ import store from './store'
 import './index.css'
 import './bootstrap.min.css'
 import App from './App'
-import * as serviceWorker from './serviceWorker'
+import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 // import reportWebVitals from './reportWebVitals'
 
 ReactDOM.render(
@@ -15,6 +15,4 @@ ReactDOM.render(
   document.getElementById('root')
 )
 
-
-
-serviceWorker.register()
+serviceWorkerRegistration.register()
