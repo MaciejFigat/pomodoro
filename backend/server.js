@@ -28,7 +28,9 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '/frontend/build')))
 
   app.get('/service-worker.js', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '/frontend/src', 'service-worker.js'))
+    res.sendFile(
+      path.resolve(__dirname, 'frontend', 'src', 'service-worker.js')
+    )
   })
 
   app.get('*', (req, res) =>
