@@ -25,6 +25,9 @@ app.use('/api/users', userRoutes)
 
 const __dirname = path.resolve()
 if (process.env.NODE_ENV === 'production') {
+  app.get('/service-worker.js', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public', 'service-worker.js'))
+  })
   app.use(express.static(path.join(__dirname, '/frontend/build')))
 
   app.get('*', (req, res) =>
