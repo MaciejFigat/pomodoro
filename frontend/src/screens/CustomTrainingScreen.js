@@ -220,7 +220,7 @@ const CustomTrainingScreen = ({ history }) => {
   return (
     <>
       <FormContainer>
-        <Card className='p-3'>
+        <Card className='p-5'>
           {trainingSessionDone === false && (
             <Row className='justify-content-center'>
               {' '}
@@ -301,17 +301,21 @@ const CustomTrainingScreen = ({ history }) => {
 
           <Row className='justify-content-center'>
             {pomodoroSeconds === 0 ? (
-              <Badge variant='success'>
-                <h2 font-weight-bolder>
+              <Badge variant='success' size='lg'>
+                <h1 font-weight-bolder>
                   {' '}
                   {Math.trunc(restSeconds / 60)} : {restSeconds % 60}
-                </h2>
+                </h1>
               </Badge>
             ) : (
-              <Badge variant='danger' className='justify-content-center'>
-                <h2 font-weight-bolder>
+              <Badge
+                variant='danger'
+                className='justify-content-center'
+                size='lg'
+              >
+                <h1 font-weight-bolder>
                   {Math.trunc(pomodoroSeconds / 60)} : {pomodoroSeconds % 60}
-                </h2>
+                </h1>
               </Badge>
             )}
           </Row>
