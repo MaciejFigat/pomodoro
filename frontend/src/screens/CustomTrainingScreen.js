@@ -224,7 +224,7 @@ const CustomTrainingScreen = ({ history }) => {
           {trainingSessionDone === false && (
             <Row className='justify-content-center'>
               {' '}
-              {isActive && pomodoroSeconds > 0 ? <h1>Work</h1> : <h1>Rest</h1>}
+              {isActive && pomodoroSeconds > 0 ? <h2>Work</h2> : <h2>Rest</h2>}
             </Row>
           )}
           {trainingSessionDone === true && (
@@ -316,14 +316,14 @@ const CustomTrainingScreen = ({ history }) => {
             )}
           </Row>
           {trainingSessionDone === false && (
-            <Row className='justify-content-center'>
+            <Row className='justify-content-center m-3'>
               {trainingSessionDone === false && isActive ? (
                 <Button variant='info' onClick={toggle} size='lg'>
-                  Pause
+                  <h2>Pause</h2>
                 </Button>
               ) : (
                 <Button variant='success' onClick={toggle} size='lg'>
-                  Start
+                  <h2>Start</h2>
                 </Button>
               )}
               {trainingSessionDone === false &&

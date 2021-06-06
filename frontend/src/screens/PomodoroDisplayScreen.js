@@ -67,7 +67,7 @@ const PomodoroDisplayScreen = () => {
           <Card className='p-3'>
             <Row className='justify-content-center'>
               {' '}
-              {isActive && seconds > 0 ? <h1>Work</h1> : <h1>Rest</h1>}
+              {isActive && seconds > 0 ? <h2>Work</h2> : <h2>Rest</h2>}
             </Row>
             <Row className='justify-content-center'>
               {seconds === 0 ? (

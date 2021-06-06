@@ -15,7 +15,7 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar bg='light' variant='light' expand='lg' collapseOnSelect>
+      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
         <Container>
           {userInfo ? (
             <LinkContainer to='/training'>
