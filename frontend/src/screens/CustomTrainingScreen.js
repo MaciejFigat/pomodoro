@@ -224,7 +224,7 @@ const CustomTrainingScreen = ({ history }) => {
           {trainingSessionDone === false && (
             <Row className='justify-content-center'>
               {' '}
-              {isActive && pomodoroSeconds > 0 ? <h2>Work</h2> : <h2>Rest</h2>}
+              {isActive && pomodoroSeconds > 0 ? <h1>Work</h1> : <h1>Rest</h1>}
             </Row>
           )}
           {trainingSessionDone === true && (
@@ -262,8 +262,10 @@ const CustomTrainingScreen = ({ history }) => {
                       savedPomodoros.pomodoros[excerciseNumber].description &&
                       descriptionToggle === false && (
                         <Button
-                          variant='light'
+                          type='button'
+                          className='btn btn-outline-light'
                           flush
+                          size='sm'
                           onClick={() => {
                             setDescriptionToggle(true)
                           }}
@@ -276,7 +278,9 @@ const CustomTrainingScreen = ({ history }) => {
                       descriptionToggle === true && (
                         <>
                           <Button
-                            variant='light'
+                            size='sm'
+                            type='button'
+                            className='btn btn-outline-light btn-sm'
                             flush
                             onClick={() => {
                               setDescriptionToggle(false)
@@ -318,11 +322,22 @@ const CustomTrainingScreen = ({ history }) => {
           {trainingSessionDone === false && (
             <Row className='justify-content-center m-3'>
               {trainingSessionDone === false && isActive ? (
-                <Button variant='info' onClick={toggle} size='lg'>
+                <Button
+                  variant='info'
+                  onClick={toggle}
+                  type='button'
+                  className='btn btn-primary btn-lg'
+                  style={{ maxWidth: '15rem' }}
+                >
                   <h2>Pause</h2>
                 </Button>
               ) : (
-                <Button variant='success' onClick={toggle} size='lg'>
+                <Button
+                  variant='success'
+                  onClick={toggle}
+                  size='lg'
+                  style={{ maxWidth: '15rem' }}
+                >
                   <h2>Start</h2>
                 </Button>
               )}
@@ -337,16 +352,31 @@ const CustomTrainingScreen = ({ history }) => {
 
         <Card className='my-3'>
           <Row className='justify-content-center my-3'>
-            <Button variant='danger' flush onClick={reset}>
+            <Button
+              variant='danger'
+              style={{ maxWidth: '15rem' }}
+              flush
+              onClick={reset}
+            >
               Reset this exercise
             </Button>
           </Row>
           {trainingSessionDone === false && optionsToggle === false && (
             <Row className='justify-content-center'>
-              <Button variant='warning' flush onClick={previousExerciseHandler}>
+              <Button
+                variant='warning'
+                flush
+                style={{ maxWidth: '15rem' }}
+                onClick={previousExerciseHandler}
+              >
                 <i className='fas fa-arrow-left'></i> Previous
               </Button>
-              <Button variant='info' flush onClick={nextExerciseHandler}>
+              <Button
+                variant='info'
+                flush
+                style={{ maxWidth: '15rem' }}
+                onClick={nextExerciseHandler}
+              >
                 Next <i className='fas fa-arrow-right'></i>
               </Button>
             </Row>
@@ -355,6 +385,7 @@ const CustomTrainingScreen = ({ history }) => {
           {optionsToggle === false && (
             <Row className='justify-content-center my-3'>
               <Button
+                style={{ maxWidth: '15rem' }}
                 variant='dark'
                 flush
                 onClick={() => {
@@ -376,6 +407,7 @@ const CustomTrainingScreen = ({ history }) => {
               <Row className='justify-content-center my-3'>
                 {' '}
                 <Button
+                  style={{ maxWidth: '15rem' }}
                   variant='dark'
                   flush
                   onClick={() => {
@@ -395,6 +427,7 @@ const CustomTrainingScreen = ({ history }) => {
             variant='info'
             flush
             onClick={() => setTrainingSessionVisible(true)}
+            style={{ maxWidth: '15rem' }}
           >
             Show training session
           </Button>
@@ -402,6 +435,7 @@ const CustomTrainingScreen = ({ history }) => {
       ) : (
         <Row className='justify-content-center'>
           <Button
+            style={{ maxWidth: '15rem' }}
             variant='warning'
             flush
             onClick={() => setTrainingSessionVisible(false)}

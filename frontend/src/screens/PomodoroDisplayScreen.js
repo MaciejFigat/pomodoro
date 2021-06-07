@@ -87,11 +87,21 @@ const PomodoroDisplayScreen = () => {
             </Row>
             <Row className='justify-content-center'>
               {isActive ? (
-                <Button variant='info' onClick={toggle} size='lg'>
+                <Button
+                  variant='info'
+                  onClick={toggle}
+                  size='lg'
+                  style={{ maxWidth: '15rem' }}
+                >
                   Pause
                 </Button>
               ) : (
-                <Button variant='success' onClick={toggle} size='lg'>
+                <Button
+                  variant='success'
+                  onClick={toggle}
+                  size='lg'
+                  style={{ maxWidth: '15rem' }}
+                >
                   Start
                 </Button>
               )}
@@ -104,6 +114,7 @@ const PomodoroDisplayScreen = () => {
           {optionsToggle === false && (
             <Row className='justify-content-center my-3'>
               <Button
+                style={{ maxWidth: '15rem' }}
                 variant='dark'
                 flush
                 onClick={() => {
@@ -118,6 +129,7 @@ const PomodoroDisplayScreen = () => {
             <Card className='p-3'>
               <Row className='justify-content-center'>
                 <Button
+                  style={{ maxWidth: '15rem' }}
                   variant='dark'
                   flush
                   onClick={() => {
@@ -162,7 +174,12 @@ const PomodoroDisplayScreen = () => {
                 </h5>
               </Row>
               <Row className='justify-content-center '>
-                <Button variant='warning' flush onClick={reset}>
+                <Button
+                  variant='warning'
+                  flush
+                  onClick={reset}
+                  style={{ maxWidth: '15rem' }}
+                >
                   Reset timer
                 </Button>
               </Row>
