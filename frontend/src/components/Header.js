@@ -39,7 +39,7 @@ const Header = () => {
           )}
 
           {userInfo ? (
-            <NavDropdown title={userInfo.name} id='username' alignRight='false'>
+            <NavDropdown title={userInfo.name} id='username'>
               <LinkContainer to={'/stats'}>
                 <NavDropdown.Item>
                   <i className='fas fa-database'></i> Stats

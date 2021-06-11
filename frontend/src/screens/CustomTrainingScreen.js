@@ -233,7 +233,7 @@ const CustomTrainingScreen = ({ history }) => {
               <Row className='justify-content-center'>
                 {' '}
                 <Badge className='p-3' variant='success'>
-                  <h3> Well done {userInfo.name}! </h3>
+                  <> Well done {userInfo.name}! </>
                 </Badge>
               </Row>
               <Row className='justify-content-center'>
@@ -246,7 +246,7 @@ const CustomTrainingScreen = ({ history }) => {
             {trainingSessionDone === false &&
               savedPomodoros.pomodoros &&
               savedPomodoros.pomodoros.length !== 0 && (
-                <p>
+                <>
                   <h3
                     onClick={() => {
                       setDescriptionToggle(!descriptionToggle)
@@ -264,7 +264,6 @@ const CustomTrainingScreen = ({ history }) => {
                         <Button
                           type='button'
                           className='btn btn-outline-light'
-                          flush
                           size='sm'
                           onClick={() => {
                             setDescriptionToggle(true)
@@ -281,7 +280,6 @@ const CustomTrainingScreen = ({ history }) => {
                             size='sm'
                             type='button'
                             className='btn btn-outline-light btn-sm'
-                            flush
                             onClick={() => {
                               setDescriptionToggle(false)
                             }}
@@ -299,21 +297,21 @@ const CustomTrainingScreen = ({ history }) => {
                         {savedPomodoros.pomodoros[excerciseNumber].description}
                       </h4>
                     )}
-                </p>
+                </>
               )}
           </Row>
 
           <Row className='justify-content-center'>
             {pomodoroSeconds === 0 ? (
               <Badge variant='success'>
-                <h1 font-weight-bolder>
+                <h1 font-weight-bolder='true'>
                   {' '}
                   {Math.trunc(restSeconds / 60)} : {restSeconds % 60}
                 </h1>
               </Badge>
             ) : (
               <Badge variant='danger' className='justify-content-center'>
-                <h1 font-weight-bolder>
+                <h1 font-weight-bolder='true'>
                   {Math.trunc(pomodoroSeconds / 60)} : {pomodoroSeconds % 60}
                 </h1>
               </Badge>
@@ -355,7 +353,6 @@ const CustomTrainingScreen = ({ history }) => {
             <Button
               variant='danger'
               style={{ maxWidth: '15rem' }}
-              flush
               onClick={reset}
             >
               Reset this exercise
@@ -365,7 +362,6 @@ const CustomTrainingScreen = ({ history }) => {
             <Row className='justify-content-center'>
               <Button
                 variant='warning'
-                flush
                 style={{ maxWidth: '15rem' }}
                 onClick={previousExerciseHandler}
               >
@@ -373,7 +369,6 @@ const CustomTrainingScreen = ({ history }) => {
               </Button>
               <Button
                 variant='info'
-                flush
                 style={{ maxWidth: '15rem' }}
                 onClick={nextExerciseHandler}
               >
@@ -387,7 +382,6 @@ const CustomTrainingScreen = ({ history }) => {
               <Button
                 style={{ maxWidth: '15rem' }}
                 variant='dark'
-                flush
                 onClick={() => {
                   setOptionsToggle(true)
                 }}
@@ -409,7 +403,6 @@ const CustomTrainingScreen = ({ history }) => {
                 <Button
                   style={{ maxWidth: '15rem' }}
                   variant='dark'
-                  flush
                   onClick={() => {
                     setOptionsToggle(false)
                   }}
@@ -425,7 +418,6 @@ const CustomTrainingScreen = ({ history }) => {
         <Row className='justify-content-center'>
           <Button
             variant='info'
-            flush
             onClick={() => setTrainingSessionVisible(true)}
             style={{ maxWidth: '15rem' }}
           >
@@ -437,7 +429,6 @@ const CustomTrainingScreen = ({ history }) => {
           <Button
             style={{ maxWidth: '15rem' }}
             variant='warning'
-            flush
             onClick={() => setTrainingSessionVisible(false)}
           >
             Hide training session

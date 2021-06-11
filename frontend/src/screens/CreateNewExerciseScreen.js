@@ -322,10 +322,10 @@ const CreateNewExerciseScreen = ({ history }) => {
             </Row>
 
             <Row className='justify-content-center'>
-              <Button variant='warning' flush onClick={previousExerciseHandler}>
+              <Button variant='warning' onClick={previousExerciseHandler}>
                 <i className='fas fa-arrow-left'></i> Previous exercise
               </Button>
-              <Button variant='info' flush onClick={nextExerciseHandler}>
+              <Button variant='info' onClick={nextExerciseHandler}>
                 Next exercise <i className='fas fa-arrow-right'></i>
               </Button>
             </Row>
@@ -334,7 +334,6 @@ const CreateNewExerciseScreen = ({ history }) => {
           <Card className='p-3'>
             <Button
               variant='info'
-              flush
               onClick={() => {
                 dispatch(getMyPomodoros())
               }}

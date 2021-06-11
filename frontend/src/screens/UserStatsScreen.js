@@ -46,7 +46,6 @@ const UserStatsScreen = ({ history }) => {
         <Card className='p-3'>
           <Button
             variant='info'
-            flush
             onClick={() => {
               dispatch(getMyDonePomodoros())
             }}
@@ -60,7 +59,6 @@ const UserStatsScreen = ({ history }) => {
         <Row className='justify-content-center'>
           <Button
             variant='success'
-            flush
             onClick={() => {
               setPomodoroStatsToggle(false)
               setTrainingStatsToggle(true)
@@ -70,7 +68,6 @@ const UserStatsScreen = ({ history }) => {
           </Button>
           <Button
             variant='info'
-            flush
             onClick={() => {
               setPomodoroStatsToggle(true)
               setTrainingStatsToggle(false)

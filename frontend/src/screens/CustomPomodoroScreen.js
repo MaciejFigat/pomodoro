@@ -237,14 +237,14 @@ const CustomPomodoroScreen = ({ history }) => {
             <Row className='justify-content-center'>
               {pomodoroSeconds === 0 ? (
                 <Badge variant='success'>
-                  <h2 font-weight-bolder>
+                  <h2 font-weight-bolder='true'>
                     {' '}
                     {Math.trunc(restSeconds / 60)} : {restSeconds % 60}
                   </h2>
                 </Badge>
               ) : (
                 <Badge variant='danger' className='justify-content-center'>
-                  <h2 font-weight-bolder>
+                  <h2 font-weight-bolder='true'>
                     {Math.trunc(pomodoroSeconds / 60)} : {pomodoroSeconds % 60}
                   </h2>
                 </Badge>
@@ -252,11 +252,21 @@ const CustomPomodoroScreen = ({ history }) => {
             </Row>
             <Row className='justify-content-center'>
               {isActive ? (
-                <Button variant='info' onClick={toggle} size='lg'>
+                <Button
+                  variant='info'
+                  onClick={toggle}
+                  style={{ maxWidth: '15rem' }}
+                  size='lg'
+                >
                   Pause
                 </Button>
               ) : (
-                <Button variant='success' onClick={toggle} size='lg'>
+                <Button
+                  variant='success'
+                  style={{ maxWidth: '15rem' }}
+                  onClick={toggle}
+                  size='lg'
+                >
                   Start
                 </Button>
               )}
@@ -268,7 +278,11 @@ const CustomPomodoroScreen = ({ history }) => {
 
           {optionsToggle === false && (
             <Row className='justify-content-center my-3'>
-              <Button variant='dark' flush onClick={filterHandler}>
+              <Button
+                variant='dark'
+                style={{ maxWidth: '15rem' }}
+                onClick={filterHandler}
+              >
                 <i className='fas fa-cogs'></i> Options
               </Button>
             </Row>
@@ -278,7 +292,7 @@ const CustomPomodoroScreen = ({ history }) => {
               <Row className='justify-content-center my-3'>
                 <Button
                   variant='dark'
-                  flush
+                  style={{ maxWidth: '15rem' }}
                   onClick={() => {
                     setOptionsToggle(false)
                   }}
@@ -316,7 +330,11 @@ const CustomPomodoroScreen = ({ history }) => {
               </Row>
 
               <Row className='justify-content-center my-3'>
-                <Button variant='success' flush onClick={pomodoroDoneToday}>
+                <Button
+                  variant='success'
+                  style={{ maxWidth: '15rem' }}
+                  onClick={pomodoroDoneToday}
+                >
                   Done today: <b>{filteredPomodoro} </b>
                 </Button>{' '}
               </Row>
@@ -324,7 +342,11 @@ const CustomPomodoroScreen = ({ history }) => {
                 savedPomodoros.pomodoros &&
                 savedPomodoros.pomodoros.length === 0 &&
                 !createdPomodoro.pomodoro && (
-                  <Button variant='info' flush onClick={createPomodoroHandler}>
+                  <Button
+                    variant='info'
+                    style={{ maxWidth: '15rem' }}
+                    onClick={createPomodoroHandler}
+                  >
                     Create New
                   </Button>
                 )}
@@ -334,7 +356,7 @@ const CustomPomodoroScreen = ({ history }) => {
                   <Row className='justify-content-center '>
                     <Button
                       variant='info'
-                      flush
+                      style={{ maxWidth: '15rem' }}
                       onClick={savePreferencesHandler}
                     >
                       Save Changes
@@ -345,7 +367,7 @@ const CustomPomodoroScreen = ({ history }) => {
                 <Row className='justify-content-center'>
                   <Button
                     variant='success'
-                    flush
+                    style={{ maxWidth: '15rem' }}
                     onClick={() =>
                       dispatch(
                         getMyPomodoros(),
@@ -358,7 +380,11 @@ const CustomPomodoroScreen = ({ history }) => {
                 </Row>
               )}
               <Row className='justify-content-center'>
-                <Button variant='warning' flush onClick={reset}>
+                <Button
+                  variant='warning'
+                  style={{ maxWidth: '15rem' }}
+                  onClick={reset}
+                >
                   Reset timer
                 </Button>
               </Row>

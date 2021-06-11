@@ -72,14 +72,14 @@ const PomodoroDisplayScreen = () => {
             <Row className='justify-content-center'>
               {seconds === 0 ? (
                 <Badge variant='success'>
-                  <h2 font-weight-bolder>
+                  <h2 font-weight-bolder='true'>
                     {' '}
                     {Math.trunc(restSeconds / 60)} : {restSeconds % 60}
                   </h2>
                 </Badge>
               ) : (
                 <Badge variant='danger' className='justify-content-md-center'>
-                  <h2 font-weight-bolder>
+                  <h2 font-weight-bolder='true'>
                     {Math.trunc(seconds / 60)} : {seconds % 60}
                   </h2>
                 </Badge>
@@ -116,7 +116,6 @@ const PomodoroDisplayScreen = () => {
               <Button
                 style={{ maxWidth: '15rem' }}
                 variant='dark'
-                flush
                 onClick={() => {
                   setOptionsToggle(true)
                 }}
@@ -131,7 +130,6 @@ const PomodoroDisplayScreen = () => {
                 <Button
                   style={{ maxWidth: '15rem' }}
                   variant='dark'
-                  flush
                   onClick={() => {
                     setOptionsToggle(false)
                   }}
@@ -176,7 +174,6 @@ const PomodoroDisplayScreen = () => {
               <Row className='justify-content-center '>
                 <Button
                   variant='warning'
-                  flush
                   onClick={reset}
                   style={{ maxWidth: '15rem' }}
                 >
