@@ -222,7 +222,7 @@ const CustomTrainingScreen = ({ history }) => {
       <FormContainer>
         <Card className='p-3'>
           {trainingSessionDone === false && (
-            <Row className='justify-content-center'>
+            <Row className='text-center mt-4 mb-4'>
               {' '}
               {isActive && pomodoroSeconds > 0 ? <h1>Work</h1> : <h1>Rest</h1>}
             </Row>
@@ -241,7 +241,7 @@ const CustomTrainingScreen = ({ history }) => {
               </Row>
             </>
           )}
-          <Row className='justify-content-center'>
+          <Row className='text-center'>
             {' '}
             {trainingSessionDone === false &&
               savedPomodoros.pomodoros &&
