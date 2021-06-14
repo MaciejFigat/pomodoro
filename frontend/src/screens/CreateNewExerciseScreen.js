@@ -238,27 +238,62 @@ const CreateNewExerciseScreen = ({ history }) => {
           </Col>
           <Col>
             <Row>
-              <Button size='sm' onClick={exerciseDurationPlusFive}>
+              <Button
+                size='sm'
+                className='m-1'
+                style={{ maxWidth: '5rem' }}
+                onClick={exerciseDurationPlusFive}
+              >
                 <b>+ 5</b>
               </Button>
-              <Button size='sm' onClick={exerciseDurationPlusTen}>
+              <Button
+                size='sm'
+                className='m-1'
+                style={{ maxWidth: '5rem' }}
+                onClick={exerciseDurationPlusTen}
+              >
                 <b>+ 10</b>
               </Button>
-              <Button size='sm' onClick={exerciseDurationPlusThirty}>
+              <Button
+                size='sm'
+                className='m-1'
+                style={{ maxWidth: '5rem' }}
+                onClick={exerciseDurationPlusThirty}
+              >
                 <b>+ 30</b>
               </Button>
             </Row>
             <Row>
-              <Button onClick={exerciseDurationMinusFive}>
+              <Button
+                size='sm'
+                className='m-1'
+                style={{ maxWidth: '5rem' }}
+                onClick={exerciseDurationMinusFive}
+              >
                 <b>- 5</b>
               </Button>
-              <Button size='sm' onClick={exerciseDurationMinusTen}>
+              <Button
+                size='sm'
+                className='m-1'
+                style={{ maxWidth: '5rem' }}
+                onClick={exerciseDurationMinusTen}
+              >
                 <b>- 10</b>
               </Button>
-              <Button size='sm' onClick={exerciseDurationMinusThirty}>
+              <Button
+                size='sm'
+                className='m-1'
+                style={{ maxWidth: '5rem' }}
+                onClick={exerciseDurationMinusThirty}
+              >
                 <b>- 30</b>
               </Button>
-              <Button size='sm' onClick={exerciseDurationReset}>
+              <Button
+                size='sm'
+                className='m-1'
+                style={{ maxWidth: '5rem' }}
+                onClick={exerciseDurationReset}
+              >
                 <b>set to 0</b>
               </Button>
             </Row>
@@ -276,27 +311,62 @@ const CreateNewExerciseScreen = ({ history }) => {
           </Col>
           <Col>
             <Row>
-              <Button size='sm' onClick={restDurationPlusFive}>
+              <Button
+                className='m-1'
+                size='sm'
+                style={{ maxWidth: '5rem' }}
+                onClick={restDurationPlusFive}
+              >
                 <b>+ 5</b>
               </Button>
-              <Button size='sm' onClick={restDurationPlusTen}>
+              <Button
+                size='sm'
+                className='m-1'
+                style={{ maxWidth: '5rem' }}
+                onClick={restDurationPlusTen}
+              >
                 <b>+ 10</b>
               </Button>
-              <Button size='sm' onClick={restDurationPlusThirty}>
+              <Button
+                size='sm'
+                className='m-1'
+                style={{ maxWidth: '5rem' }}
+                onClick={restDurationPlusThirty}
+              >
                 <b>+ 30</b>
               </Button>
             </Row>
             <Row>
-              <Button size='sm' onClick={restDurationMinusFive}>
+              <Button
+                size='sm'
+                className='m-1'
+                style={{ maxWidth: '5rem' }}
+                onClick={restDurationMinusFive}
+              >
                 <b>- 5</b>
               </Button>
-              <Button size='sm' onClick={restDurationMinusTen}>
+              <Button
+                size='sm'
+                className='m-1'
+                style={{ maxWidth: '5rem' }}
+                onClick={restDurationMinusTen}
+              >
                 <b>- 10</b>
               </Button>
-              <Button size='sm' onClick={restDurationMinusThirty}>
+              <Button
+                size='sm'
+                className='m-1'
+                style={{ maxWidth: '5rem' }}
+                onClick={restDurationMinusThirty}
+              >
                 <b>- 30</b>
               </Button>
-              <Button size='sm' onClick={restDurationReset}>
+              <Button
+                size='sm'
+                className='m-1'
+                style={{ maxWidth: '5rem' }}
+                onClick={restDurationReset}
+              >
                 <b>set to 0</b>
               </Button>
             </Row>
@@ -309,6 +379,7 @@ const CreateNewExerciseScreen = ({ history }) => {
             <Row className='justify-content-center'>
               <Button
                 variant='success'
+                style={{ maxWidth: '15rem' }}
                 onClick={createPomodoroHandler}
                 size='sm'
               >
@@ -322,10 +393,18 @@ const CreateNewExerciseScreen = ({ history }) => {
             </Row>
 
             <Row className='justify-content-center'>
-              <Button variant='warning' onClick={previousExerciseHandler}>
+              <Button
+                variant='warning'
+                style={{ maxWidth: '15rem' }}
+                onClick={previousExerciseHandler}
+              >
                 <i className='fas fa-arrow-left'></i> Previous exercise
               </Button>
-              <Button variant='info' onClick={nextExerciseHandler}>
+              <Button
+                variant='info'
+                style={{ maxWidth: '15rem' }}
+                onClick={nextExerciseHandler}
+              >
                 Next exercise <i className='fas fa-arrow-right'></i>
               </Button>
             </Row>
@@ -334,6 +413,7 @@ const CreateNewExerciseScreen = ({ history }) => {
           <Card className='p-3'>
             <Button
               variant='info'
+              style={{ maxWidth: '15rem' }}
               onClick={() => {
                 dispatch(getMyPomodoros())
               }}
@@ -345,6 +425,7 @@ const CreateNewExerciseScreen = ({ history }) => {
               onClick={createPomodoroHandler}
               size='sm'
               className='my-3'
+              style={{ maxWidth: '15rem' }}
             >
               <i className='fas fa-plus-square'></i> Add new excercise
             </Button>
