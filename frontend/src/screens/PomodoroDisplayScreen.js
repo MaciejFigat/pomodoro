@@ -65,9 +65,9 @@ const PomodoroDisplayScreen = () => {
       <Row className='justify-content-center'>
         <Col>
           <Card className='p-3'>
-            <Row className='justify-content-center'>
+            <Row className='text-center mt-4 mb-4'>
               {' '}
-              {isActive && seconds > 0 ? <h2>Work</h2> : <h2>Rest</h2>}
+              {isActive && seconds > 0 ? <h1>Work</h1> : <h1>Rest</h1>}
             </Row>
             <Row className='justify-content-center'>
               {seconds === 0 ? (
@@ -138,7 +138,7 @@ const PomodoroDisplayScreen = () => {
                 </Button>
               </Row>
 
-              <Row className='justify-content-center my-3'>
+              <Row className='text-center mt-4 mb-4'>
                 <h5>
                   <i className='fas fa-user-tie'></i>{' '}
                   <i className='fas fa-hourglass-start'></i>:{' '}
@@ -152,7 +152,7 @@ const PomodoroDisplayScreen = () => {
                   min{' '}
                 </h5>
               </Row>
-              <Row className='justify-content-center '>
+              <Row className='text-center mb-3'>
                 <h5>
                   <i className='fas fa-bed'></i>{' '}
                   <i className='fas fa-hourglass-end'></i>:{' '}
@@ -166,7 +166,7 @@ const PomodoroDisplayScreen = () => {
                   min{' '}
                 </h5>
               </Row>
-              <Row className='justify-content-center my-3'>
+              <Row className='text-center mb-3'>
                 <h5>
                   Pomodoros done: <b>{pomodoroDone}</b>{' '}
                 </h5>
