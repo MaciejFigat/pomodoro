@@ -327,7 +327,7 @@ const CustomTrainingScreen = ({ history }) => {
                   className='btn btn-primary btn-lg'
                   style={{ maxWidth: '15rem' }}
                 >
-                  <h2>Pause</h2>
+                  Pause
                 </Button>
               ) : (
                 <Button
@@ -336,7 +336,7 @@ const CustomTrainingScreen = ({ history }) => {
                   size='lg'
                   style={{ maxWidth: '15rem' }}
                 >
-                  <h2>Start</h2>
+                  Start
                 </Button>
               )}
               {trainingSessionDone === false &&

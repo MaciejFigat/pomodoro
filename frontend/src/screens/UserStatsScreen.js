@@ -43,21 +43,25 @@ const UserStatsScreen = ({ history }) => {
   return (
     <FormContainer>
       {pomodorosDone && pomodorosDone.length === 0 && (
-        <Card className='p-3'>
-          <Button
-            variant='info'
-            onClick={() => {
-              dispatch(getMyDonePomodoros())
-            }}
-          >
-            Load Data
-          </Button>
+        <Card>
+          <Row className='justify-content-center p-3'>
+            <Button
+              style={{ maxWidth: '15rem' }}
+              variant='info'
+              onClick={() => {
+                dispatch(getMyDonePomodoros())
+              }}
+            >
+              Load Data
+            </Button>
+          </Row>
         </Card>
       )}
 
       <Card className='p-3'>
         <Row className='justify-content-center'>
           <Button
+            style={{ maxWidth: '15rem' }}
             variant='success'
             onClick={() => {
               setPomodoroStatsToggle(false)
@@ -68,6 +72,7 @@ const UserStatsScreen = ({ history }) => {
           </Button>
           <Button
             variant='info'
+            style={{ maxWidth: '15rem' }}
             onClick={() => {
               setPomodoroStatsToggle(true)
               setTrainingStatsToggle(false)

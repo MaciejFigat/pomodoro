@@ -263,7 +263,7 @@ const CustomPomodoroScreen = ({ history }) => {
               ) : (
                 <Button
                   variant='success'
-                  style={{ maxWidth: '15rem' }}
+                  style={{ maxWidth: '10rem' }}
                   onClick={toggle}
                   size='lg'
                 >

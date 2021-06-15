@@ -241,6 +241,7 @@ const CreateNewExerciseScreen = ({ history }) => {
               <Button
                 size='sm'
                 className='m-1'
+                variant='danger'
                 style={{ maxWidth: '5rem' }}
                 onClick={exerciseDurationPlusFive}
               >
@@ -248,6 +249,7 @@ const CreateNewExerciseScreen = ({ history }) => {
               </Button>
               <Button
                 size='sm'
+                variant='danger'
                 className='m-1'
                 style={{ maxWidth: '5rem' }}
                 onClick={exerciseDurationPlusTen}
@@ -256,6 +258,7 @@ const CreateNewExerciseScreen = ({ history }) => {
               </Button>
               <Button
                 size='sm'
+                variant='danger'
                 className='m-1'
                 style={{ maxWidth: '5rem' }}
                 onClick={exerciseDurationPlusThirty}
@@ -266,6 +269,7 @@ const CreateNewExerciseScreen = ({ history }) => {
             <Row>
               <Button
                 size='sm'
+                variant='dark'
                 className='m-1'
                 style={{ maxWidth: '5rem' }}
                 onClick={exerciseDurationMinusFive}
@@ -274,6 +278,7 @@ const CreateNewExerciseScreen = ({ history }) => {
               </Button>
               <Button
                 size='sm'
+                variant='dark'
                 className='m-1'
                 style={{ maxWidth: '5rem' }}
                 onClick={exerciseDurationMinusTen}
@@ -282,6 +287,7 @@ const CreateNewExerciseScreen = ({ history }) => {
               </Button>
               <Button
                 size='sm'
+                variant='dark'
                 className='m-1'
                 style={{ maxWidth: '5rem' }}
                 onClick={exerciseDurationMinusThirty}
@@ -313,6 +319,7 @@ const CreateNewExerciseScreen = ({ history }) => {
             <Row>
               <Button
                 className='m-1'
+                variant='danger'
                 size='sm'
                 style={{ maxWidth: '5rem' }}
                 onClick={restDurationPlusFive}
@@ -321,6 +328,7 @@ const CreateNewExerciseScreen = ({ history }) => {
               </Button>
               <Button
                 size='sm'
+                variant='danger'
                 className='m-1'
                 style={{ maxWidth: '5rem' }}
                 onClick={restDurationPlusTen}
@@ -329,6 +337,7 @@ const CreateNewExerciseScreen = ({ history }) => {
               </Button>
               <Button
                 size='sm'
+                variant='danger'
                 className='m-1'
                 style={{ maxWidth: '5rem' }}
                 onClick={restDurationPlusThirty}
@@ -339,6 +348,7 @@ const CreateNewExerciseScreen = ({ history }) => {
             <Row>
               <Button
                 size='sm'
+                variant='dark'
                 className='m-1'
                 style={{ maxWidth: '5rem' }}
                 onClick={restDurationMinusFive}
@@ -347,6 +357,7 @@ const CreateNewExerciseScreen = ({ history }) => {
               </Button>
               <Button
                 size='sm'
+                variant='dark'
                 className='m-1'
                 style={{ maxWidth: '5rem' }}
                 onClick={restDurationMinusTen}
@@ -355,6 +366,7 @@ const CreateNewExerciseScreen = ({ history }) => {
               </Button>
               <Button
                 size='sm'
+                variant='dark'
                 className='m-1'
                 style={{ maxWidth: '5rem' }}
                 onClick={restDurationMinusThirty}
@@ -387,7 +399,11 @@ const CreateNewExerciseScreen = ({ history }) => {
               </Button>
             </Row>
             <Row className='justify-content-center'>
-              <Link to='/training' className='btn btn-dark my-3'>
+              <Link
+                to='/training'
+                className='btn btn-dark my-3'
+                style={{ maxWidth: '15rem' }}
+              >
                 <i className='fas fa-undo-alt'></i> Back to training
               </Link>
             </Row>
