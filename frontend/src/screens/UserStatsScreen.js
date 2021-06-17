@@ -41,96 +41,99 @@ const UserStatsScreen = ({ history }) => {
   }, [dispatch, pomodorosDone, userInfo, success, history, deleteDone])
 
   return (
-    <FormContainer>
-      {pomodorosDone && pomodorosDone.length === 0 && (
-        <Card>
-          <Row className='justify-content-center p-3'>
+    <>
+      <FormContainer>
+        {pomodorosDone && pomodorosDone.length === 0 && (
+          <Card>
+            <Row className='justify-content-center p-3'>
+              <Button
+                style={{ maxWidth: '15rem' }}
+                variant='info'
+                onClick={() => {
+                  dispatch(getMyDonePomodoros())
+                }}
+              >
+                Load Data
+              </Button>
+            </Row>
+          </Card>
+        )}
+
+        <Card className='p-3'>
+          <Row className='justify-content-center'>
             <Button
               style={{ maxWidth: '15rem' }}
-              variant='info'
+              variant='success'
               onClick={() => {
-                dispatch(getMyDonePomodoros())
+                setPomodoroStatsToggle(false)
+                setTrainingStatsToggle(true)
               }}
             >
-              Load Data
+              <i className='fas fa-dumbbell'></i> Your training data
+            </Button>
+            <Button
+              variant='info'
+              style={{ maxWidth: '15rem' }}
+              onClick={() => {
+                setPomodoroStatsToggle(true)
+                setTrainingStatsToggle(false)
+              }}
+            >
+              <i className='fas fa-pizza-slice'></i> Your pomodoro data
             </Button>
           </Row>
         </Card>
-      )}
 
-      <Card className='p-3'>
-        <Row className='justify-content-center'>
-          <Button
-            style={{ maxWidth: '15rem' }}
-            variant='success'
-            onClick={() => {
-              setPomodoroStatsToggle(false)
-              setTrainingStatsToggle(true)
-            }}
-          >
-            <i className='fas fa-dumbbell'></i> Your training data
-          </Button>
-          <Button
-            variant='info'
-            style={{ maxWidth: '15rem' }}
-            onClick={() => {
-              setPomodoroStatsToggle(true)
-              setTrainingStatsToggle(false)
-            }}
-          >
-            <i className='fas fa-pizza-slice'></i> Your pomodoro data
-          </Button>
-        </Row>
-      </Card>
-
-      {pomodorosDone &&
-        pomodorosDone.length !== 0 &&
-        pomodoroStatsToggle === true && (
-          <Table stripped bordered hover responsive className='table-sm'>
-            <thead>
-              <tr>
-                <th>Duration of pomodoro </th>
-                <th>Date of creation</th>
-              </tr>
-            </thead>
-            <tbody>
-              {pomodorosDone
-                .filter((pomodoroDone) => pomodoroDone.pomodoroType === true)
-                .map((pomodoroDone) => (
-                  <tr key={pomodoroDone._id}>
-                    <td>
-                      {Math.trunc(pomodoroDone.secondsDone / 60)} minutes{' '}
-                      {pomodoroDone.secondsDone % 60} seconds
-                    </td>
-                    <td>
-                      {pomodoroDone.createdAt.substring(0, 10)} at{' '}
-                      {pomodoroDone.createdAt.substring(11, 16)}{' '}
-                    </td>
-                    <td>
-                      {' '}
-                      <Button
-                        variant='danger'
-                        onClick={() => deleteHandler(pomodoroDone._id)}
-                        size='sm'
-                      >
-                        delete
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </Table>
-        )}
-
+        {pomodorosDone &&
+          pomodorosDone.length !== 0 &&
+          pomodoroStatsToggle === true && (
+            <Table bordered hover responsive className='table-sm table-dark'>
+              <thead>
+                <tr class='table-light'>
+                  <th>Duration of pomodoro </th>
+                  <th>Date of creation</th>
+                  <th>Delete record</th>
+                </tr>
+              </thead>
+              <tbody>
+                {pomodorosDone
+                  .filter((pomodoroDone) => pomodoroDone.pomodoroType === true)
+                  .map((pomodoroDone) => (
+                    <tr key={pomodoroDone._id}>
+                      <td>
+                        {Math.trunc(pomodoroDone.secondsDone / 60)} minutes{' '}
+                        {pomodoroDone.secondsDone % 60} seconds
+                      </td>
+                      <td>
+                        {pomodoroDone.createdAt.substring(0, 10)} at{' '}
+                        {pomodoroDone.createdAt.substring(11, 16)}{' '}
+                      </td>
+                      <td>
+                        {' '}
+                        <Button
+                          variant='primary'
+                          onClick={() => deleteHandler(pomodoroDone._id)}
+                          size='sm'
+                        >
+                          delete
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </Table>
+          )}
+      </FormContainer>
       {pomodorosDone &&
         pomodorosDone.length !== 0 &&
         trainingStatsToggle === true && (
-          <Table stripped bordered hover responsive className='table-sm'>
+          <Table bordered hover responsive className='table-sm table-dark'>
             <thead>
-              <tr>
+              <tr class='table-light'>
                 <th>Name </th>
                 <th>Exercise Duration </th>
                 <th>Date of creation</th>
+                <th>Delete record</th>
               </tr>
             </thead>
             <tbody>
@@ -154,7 +157,7 @@ const UserStatsScreen = ({ history }) => {
                     <td>
                       {' '}
                       <Button
-                        variant='danger'
+                        variant='primary'
                         onClick={() => deleteHandler(pomodoroDone._id)}
                         size='sm'
                       >
@@ -166,7 +169,7 @@ const UserStatsScreen = ({ history }) => {
             </tbody>
           </Table>
         )}
-    </FormContainer>
+    </>
   )
 }
 

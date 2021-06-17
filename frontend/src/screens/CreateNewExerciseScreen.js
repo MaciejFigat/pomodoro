@@ -456,9 +456,9 @@ const CreateNewExerciseScreen = ({ history }) => {
       {savedPomodoros &&
         savedPomodoros.pomodoros &&
         savedPomodoros.length !== 0 && (
-          <Table bordered hover responsive className='table-sm'>
+          <Table bordered hover responsive className='table-sm table-dark'>
             <thead>
-              <tr>
+              <tr class='table-light'>
                 <th>Name </th>
                 <th>Description </th>
                 <th>
