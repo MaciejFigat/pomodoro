@@ -427,24 +427,28 @@ const CreateNewExerciseScreen = ({ history }) => {
           </Card>
         ) : (
           <Card className='p-3'>
-            <Button
-              variant='info'
-              style={{ maxWidth: '15rem' }}
-              onClick={() => {
-                dispatch(getMyPomodoros())
-              }}
-            >
-              Load Data
-            </Button>
-            <Button
-              variant='success'
-              onClick={createPomodoroHandler}
-              size='sm'
-              className='my-3'
-              style={{ maxWidth: '15rem' }}
-            >
-              <i className='fas fa-plus-square'></i> Add new excercise
-            </Button>
+            <Row className='justify-content-center'>
+              <Button
+                variant='info'
+                style={{ maxWidth: '15rem' }}
+                onClick={() => {
+                  dispatch(getMyPomodoros())
+                }}
+              >
+                Load Data
+              </Button>
+            </Row>
+            <Row className='justify-content-center'>
+              <Button
+                variant='success'
+                onClick={createPomodoroHandler}
+                size='sm'
+                className='my-3'
+                style={{ maxWidth: '15rem' }}
+              >
+                <i className='fas fa-plus-square'></i> Add new excercise
+              </Button>
+            </Row>
           </Card>
         )}
       </FormContainer>
