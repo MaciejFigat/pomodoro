@@ -247,49 +247,35 @@ const CustomTrainingScreen = ({ history }) => {
               savedPomodoros.pomodoros &&
               savedPomodoros.pomodoros.length !== 0 && (
                 <>
-                  <h3
-                    onClick={() => {
-                      setDescriptionToggle(!descriptionToggle)
-                    }}
-                  >
-                    {savedPomodoros.pomodoros[excerciseNumber] &&
-                    savedPomodoros.pomodoros.length > 1 ? (
-                      <>{savedPomodoros.pomodoros[excerciseNumber].name}</>
-                    ) : (
-                      'Exercise'
-                    )}{' '}
-                    {savedPomodoros.pomodoros[excerciseNumber] &&
-                      savedPomodoros.pomodoros[excerciseNumber].description &&
-                      descriptionToggle === false && (
-                        <Button
-                          type='button'
-                          className='btn btn-outline-light'
-                          size='sm'
+                  {savedPomodoros.pomodoros[excerciseNumber] &&
+                  savedPomodoros.pomodoros.length > 1 ? (
+                    <Row className='justify-content-center text-center'>
+                      {' '}
+                      <div className='form-switch'>
+                        <h4>
+                          {savedPomodoros.pomodoros[excerciseNumber].name}
+                        </h4>
+                        <input
+                          className='form-check-input'
+                          type='checkbox'
+                          id='flexSwitchCheckDefault'
                           onClick={() => {
-                            setDescriptionToggle(true)
+                            setDescriptionToggle(!descriptionToggle)
                           }}
-                        >
-                          <i className='far fa-plus-square'></i>
-                        </Button>
-                      )}
-                    {savedPomodoros.pomodoros[excerciseNumber] &&
-                      savedPomodoros.pomodoros[excerciseNumber].description &&
-                      descriptionToggle === true && (
-                        <>
-                          <Button
-                            size='sm'
-                            type='button'
-                            className='btn btn-outline-light btn-sm'
-                            onClick={() => {
-                              setDescriptionToggle(false)
-                            }}
-                          >
-                            <i className='far fa-minus-square'></i>
-                          </Button>
-                        </>
-                      )}
-                  </h3>
-
+                        ></input>
+                      </div>
+                      <label
+                        className='form-check-label'
+                        for='flexSwitchCheckDefault'
+                      >
+                        <h4>
+                          {savedPomodoros.pomodoros[excerciseNumber].name}
+                        </h4>
+                      </label>
+                    </Row>
+                  ) : (
+                    'Exercise'
+                  )}{' '}
                   {descriptionToggle === true &&
                     savedPomodoros.pomodoros &&
                     savedPomodoros.pomodoros.length > 1 && (
