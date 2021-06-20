@@ -30,7 +30,7 @@ const Header = () => {
               <NavDropdown
                 title={userInfo.name}
                 // id='username'
-                drop={'left'}
+                drop={'down'}
                 id={'dropdown-button-drop-left'}
               >
                 <LinkContainer to={'/stats'}>

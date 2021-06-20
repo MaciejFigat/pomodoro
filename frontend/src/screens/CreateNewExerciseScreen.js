@@ -427,7 +427,7 @@ const CreateNewExerciseScreen = ({ history }) => {
           </Card>
         ) : (
           <Card className='p-3'>
-            <Row className='justify-content-center'>
+            <Row className='justify-content-center text-center'>
               <Button
                 variant='info'
                 style={{ maxWidth: '15rem' }}
@@ -438,7 +438,7 @@ const CreateNewExerciseScreen = ({ history }) => {
                 Load Data
               </Button>
             </Row>
-            <Row className='justify-content-center'>
+            <Row className='justify-content-center text-center'>
               <Button
                 variant='success'
                 onClick={createPomodoroHandler}
