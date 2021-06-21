@@ -241,7 +241,7 @@ const CustomTrainingScreen = ({ history }) => {
               </Row>
             </>
           )}
-          <Row className='text-center'>
+          <Row className='justify-content-center text-center'>
             {' '}
             {trainingSessionDone === false &&
               savedPomodoros.pomodoros &&
@@ -249,30 +249,18 @@ const CustomTrainingScreen = ({ history }) => {
                 <>
                   {savedPomodoros.pomodoros[excerciseNumber] &&
                   savedPomodoros.pomodoros.length > 1 ? (
-                    <Row className='justify-content-center text-center'>
-                      {' '}
-                      <div className='form-switch'>
-                        <h4>
-                          {savedPomodoros.pomodoros[excerciseNumber].name}
-                        </h4>
-                        <input
-                          className='form-check-input'
-                          type='checkbox'
-                          id='flexSwitchCheckDefault'
-                          onClick={() => {
-                            setDescriptionToggle(!descriptionToggle)
-                          }}
-                        ></input>
-                      </div>
-                      <label
-                        className='form-check-label'
-                        for='flexSwitchCheckDefault'
+                    <>
+                      <button
+                        type='button'
+                        class='btn btn-outline-danger'
+                        onClick={() => {
+                          setDescriptionToggle(!descriptionToggle)
+                        }}
+                        style={{ maxWidth: '15rem', fontSize: '2rem' }}
                       >
-                        <h4>
-                          {savedPomodoros.pomodoros[excerciseNumber].name}
-                        </h4>
-                      </label>
-                    </Row>
+                        <>{savedPomodoros.pomodoros[excerciseNumber].name}</>
+                      </button>
+                    </>
                   ) : (
                     'Exercise'
                   )}{' '}
