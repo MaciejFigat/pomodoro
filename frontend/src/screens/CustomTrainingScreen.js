@@ -267,9 +267,15 @@ const CustomTrainingScreen = ({ history }) => {
                   {descriptionToggle === true &&
                     savedPomodoros.pomodoros &&
                     savedPomodoros.pomodoros.length > 1 && (
-                      <h4>
-                        {savedPomodoros.pomodoros[excerciseNumber].description}
-                      </h4>
+                      <Row className='text-center mt-4 mb-2'>
+                        {' '}
+                        <h4>
+                          {
+                            savedPomodoros.pomodoros[excerciseNumber]
+                              .description
+                          }
+                        </h4>
+                      </Row>
                     )}
                 </>
               )}
