@@ -252,7 +252,7 @@ const CustomTrainingScreen = ({ history }) => {
                     <>
                       <button
                         type='button'
-                        class='btn btn-outline-danger'
+                        class='btn btn-outline-danger btn-lg'
                         onClick={() => {
                           setDescriptionToggle(!descriptionToggle)
                         }}
