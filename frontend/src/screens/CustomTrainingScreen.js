@@ -322,7 +322,9 @@ const CustomTrainingScreen = ({ history }) => {
               {trainingSessionDone === false &&
                 isActive &&
                 pomodoroSeconds === 0 && (
-                  <Button onClick={restZero}>Skip rest</Button>
+                  <Button onClick={restZero} style={{ maxWidth: '15rem' }}>
+                    Skip rest
+                  </Button>
                 )}
             </Row>
           )}
