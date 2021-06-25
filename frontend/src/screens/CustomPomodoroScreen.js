@@ -300,7 +300,7 @@ const CustomPomodoroScreen = ({ history }) => {
                   <i className='fas fa-cogs'></i> Hide
                 </Button>
               </Row>
-              <Row className='justify-content-center'>
+              <Row className='justify-content-center text-center'>
                 <h5>
                   <i className='fas fa-user-tie'></i>{' '}
                   <i className='fas fa-hourglass-start'></i>:{' '}
@@ -314,7 +314,7 @@ const CustomPomodoroScreen = ({ history }) => {
                   min
                 </h5>
               </Row>
-              <Row className='justify-content-center'>
+              <Row className='justify-content-center text-center'>
                 <h5>
                   <i className='fas fa-bed'></i>{' '}
                   <i className='fas fa-hourglass-end'></i>:{' '}

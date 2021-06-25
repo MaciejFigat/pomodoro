@@ -397,7 +397,7 @@ const CustomTrainingScreen = ({ history }) => {
         </Card>
       </FormContainer>
       {trainingSessionVisible === false ? (
-        <Row className='justify-content-center'>
+        <Row className='justify-content-center my-3'>
           <Button
             variant='info'
             onClick={() => setTrainingSessionVisible(true)}
@@ -407,7 +407,7 @@ const CustomTrainingScreen = ({ history }) => {
           </Button>
         </Row>
       ) : (
-        <Row className='justify-content-center'>
+        <Row className='justify-content-center my-3'>
           <Button
             style={{ maxWidth: '15rem' }}
             variant='warning'
