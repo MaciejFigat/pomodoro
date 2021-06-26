@@ -59,11 +59,12 @@ const UserStatsScreen = ({ history }) => {
           </Card>
         )}
 
-        <Card className='p-3'>
+        <Card className='p-3 m-2'>
           <Row className='justify-content-center'>
             <Button
               style={{ maxWidth: '15rem' }}
               variant='success'
+              className='m-2'
               onClick={() => {
                 setPomodoroStatsToggle(false)
                 setTrainingStatsToggle(true)
@@ -73,6 +74,7 @@ const UserStatsScreen = ({ history }) => {
             </Button>
             <Button
               variant='info'
+              className='m-2'
               style={{ maxWidth: '15rem' }}
               onClick={() => {
                 setPomodoroStatsToggle(true)

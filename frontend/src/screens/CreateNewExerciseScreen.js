@@ -411,12 +411,14 @@ const CreateNewExerciseScreen = ({ history }) => {
             <Row className='justify-content-center'>
               <Button
                 variant='warning'
+                className='m-2'
                 style={{ maxWidth: '15rem' }}
                 onClick={previousExerciseHandler}
               >
                 <i className='fas fa-arrow-left'></i> Previous exercise
               </Button>
               <Button
+                className='m-2'
                 variant='info'
                 style={{ maxWidth: '15rem' }}
                 onClick={nextExerciseHandler}

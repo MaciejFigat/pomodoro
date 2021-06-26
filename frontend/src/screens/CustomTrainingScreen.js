@@ -252,7 +252,7 @@ const CustomTrainingScreen = ({ history }) => {
                     <>
                       <button
                         type='button'
-                        class='btn btn-outline-danger btn-lg'
+                        class='btn btn-light btn-lg'
                         onClick={() => {
                           setDescriptionToggle(!descriptionToggle)
                         }}
@@ -346,10 +346,12 @@ const CustomTrainingScreen = ({ history }) => {
                 variant='warning'
                 style={{ maxWidth: '15rem' }}
                 onClick={previousExerciseHandler}
+                className='m-2'
               >
                 <i className='fas fa-arrow-left'></i> Previous
               </Button>
               <Button
+                className='m-2'
                 variant='info'
                 style={{ maxWidth: '15rem' }}
                 onClick={nextExerciseHandler}
